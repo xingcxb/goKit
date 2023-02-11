@@ -1,4 +1,6 @@
+<p align="center">
 # `goKit`
+</p>
 
 <p align="center">
 	<strong>
