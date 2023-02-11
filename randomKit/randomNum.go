@@ -14,8 +14,8 @@ var (
 
 // Intn 返回一个介于0和max之间的int数:[0,max)。
 // 注意:
-// 1. 'max'只能大于0，否则直接返回'max';
-// 2. 结果大于或等于0，但小于'max';
+// 1. max只能大于0，否则直接返回max;
+// 2. 结果大于或等于0，但小于max;
 // 3. 结果数字为32位，小于math. maxin32。
 func Intn(max int) int {
 	if max <= 0 {
