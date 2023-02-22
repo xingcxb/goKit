@@ -1,6 +1,14 @@
 package strKit
 
-import "strings"
+import (
+	"goKit/arrayKit"
+	"strings"
+)
+
+const (
+	EMPTY = ""  // 字符串常量：空字符串 ""
+	SPACE = " " // 字符串常量：空格符 " "
+)
 
 // Splicing 字符串拼接
 // @param str 待拼凑的字符串
@@ -10,6 +18,21 @@ func Splicing(str ...string) string {
 		newStr.WriteString(str[i])
 	}
 	return newStr.String()
+}
+
+// RemoveAll 去除字符串中指定的多个字符，如有多个则全部去除
+// @param str 字符串
+// @param chars 字符列表
+// @return 去除后的字符
+func RemoveAll(str string, chars ...string) string {
+	sb := strings.Builder{}
+	charStr := strings.Split(str, "")
+	for _, s := range charStr {
+		if false == arrayKit.Contains(chars, s) {
+			sb.WriteString(s)
+		}
+	}
+	return sb.String()
 }
 
 // MapParamsToUrlParams 请求链接中的params转字符串
