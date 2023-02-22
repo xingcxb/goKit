@@ -48,3 +48,14 @@ func MapParamsToUrlParams(paramsMap map[string]string) string {
 	urlParams = urlParams[:len(urlParams)-1]
 	return urlParams
 }
+
+// Reverse 反转字符串 例如：abcd =》dcba
+// @param str – 被反转的字符串
+// @return 反转后的字符串
+func Reverse(str string) string {
+	strArray := strings.Split(str, "")
+	for i, j := 0, len(strArray)-1; i < j; i, j = i+1, j-1 {
+		strArray[i], strArray[j] = strArray[j], strArray[i]
+	}
+	return strings.Join(strArray, "")
+}
