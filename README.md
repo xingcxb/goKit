@@ -1,13 +1,13 @@
 # `goKit`
 
 
-<p align="center">
+<p>
 	<strong>
         一个用于偷懒少写代码的工具类
     </strong>
 </p>
 
-<p align="center">
+<p>
 👉 <a href="https://xingcxb.com">https://xingcxb.com</a> 👈
 </p>
 
@@ -38,6 +38,8 @@
 ```shell
   go get https://github.com/xingcxb/goKit
 ```
+
+> 🔔️注意：`goKit`支持`1.20+`
 
 ## 🏗️添砖加瓦
 

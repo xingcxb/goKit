@@ -3,6 +3,7 @@ package osKit
 import (
 	"fmt"
 	"github.com/shirou/gopsutil/v3/host"
+	"goKit/dateKit"
 	"time"
 )
 
@@ -12,10 +13,10 @@ type BootTimeInfo struct {
 }
 
 // BootTime 开机时间
-func BootTime() {
+func BootTime() string {
 	timestamp, _ := host.BootTime()
 	t := time.Unix(int64(timestamp), 0)
-	fmt.Println(t.Local().Format("2006-01-02 15:04:05"))
+	return dateKit.ToDateTimeStr(t)
 }
 
 func OsInfo() {
@@ -23,6 +24,9 @@ func OsInfo() {
 	fmt.Println(version)
 
 	platform, family, version, _ := host.PlatformInformation()
+	if platform == "darwin" {
+		platform = "macOS"
+	}
 	fmt.Println("platform:", platform)
 	fmt.Println("family:", family)
 	fmt.Println("version:", version)
