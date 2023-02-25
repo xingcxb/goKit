@@ -6,7 +6,6 @@ import (
 )
 
 func TestCpu(t *testing.T) {
-	BootTime()
-	fmt.Println("=====")
+	fmt.Println(BootTime())
 	OsInfo()
 }
