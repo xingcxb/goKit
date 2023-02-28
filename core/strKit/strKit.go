@@ -1,7 +1,8 @@
 package strKit
 
 import (
-	"goKit/arrayKit"
+	"fmt"
+	"goKit/core/arrayKit"
 	"strings"
 )
 
@@ -58,4 +59,11 @@ func Reverse(str string) string {
 		strArray[i], strArray[j] = strArray[j], strArray[i]
 	}
 	return strings.Join(strArray, "")
+}
+
+// FirstUpper 首字母大写
+// @param 要处理的字符
+// @return 返回首字母大写的字符串
+func FirstUpper(str string) string {
+	return fmt.Sprintf("%v%v", strings.ToUpper(str[:1]), str[1:])
 }
