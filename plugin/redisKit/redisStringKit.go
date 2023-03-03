@@ -96,3 +96,31 @@ func SetRange(ctx context.Context, key, replaceValue string, start int64) (bool,
 	}
 	return true, nil
 }
+
+// StrLen 返回 key 所储存的字符串值的长度
+// @param key 键
+// @return 返回字符串的长度
+func StrLen(ctx context.Context, key string) (int64, error) {
+	strLen, err := rdb.StrLen(ctx, key).Uint64()
+	if err != nil {
+		return -1, err
+	}
+	return int64(strLen), nil
+}
+
+// Incr 将 key 中储存的数字值增1
+// @param key 键
+// @return 返回增加后的值，错误信息
+func Incr(ctx context.Context, key string) (int64, error) {
+	v, err := rdb.Incr(ctx, key).Result()
+	if err != nil {
+		return v, err
+	}
+	return v, nil
+}
+
+// Incrby 将 key 中储存的数字值增1
+// @param key 键
+// @return 返回增加后的值，错误信息
+//func Incrby(ctx context.Context, key string) (bool, error) {
+//}
