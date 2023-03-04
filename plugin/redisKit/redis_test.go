@@ -16,4 +16,6 @@ func TestRT(t *testing.T) {
 	fmt.Println(Ping(context.Background()))
 	fmt.Println(GetStr(context.Background(), "gost:authers:auth-disest-v"))
 	fmt.Println(Incr(context.Background(), "aa"))
+	aa := uintptr(6)
+	fmt.Println(Incrby(context.Background(), "aa", aa))
 }
