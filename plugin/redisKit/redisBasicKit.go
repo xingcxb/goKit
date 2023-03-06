@@ -132,9 +132,12 @@ type VObj struct {
 }
 
 // GetKeyInfo 通过key获取该键下值的所有信息
-func GetKeyInfo(ctx context.Context, key string) string {
+func GetKeyInfo(ctx context.Context, key string) (string, error) {
 	// 获取值
-	v := GetStr(ctx, key)
+	v, err := GetStr(ctx, key)
+	if err != nil {
+		return "", err
+	}
 	size := len(v)
 	ttl := GetTTL(ctx, key)
 	keyType := GetType(ctx, key)
@@ -145,7 +148,7 @@ func GetKeyInfo(ctx context.Context, key string) string {
 		Type:  keyType,
 	}
 	strByte, _ := json.Marshal(info)
-	return string(strByte)
+	return string(strByte), nil
 }
 
 // GetType 获取值类型，返回类型
