@@ -3,6 +3,7 @@ package strKit
 import (
 	"fmt"
 	"goKit/core/arrayKit"
+	"math"
 	"strings"
 )
 
@@ -22,8 +23,8 @@ func Splicing(str ...string) string {
 }
 
 // RemoveAll 去除字符串中指定的多个字符，如有多个则全部去除
-// @param str 字符串
-// @param chars 字符列表
+// @param str 原始字符串
+// @param chars 要剔除的字符列表
 // @return 去除后的字符
 func RemoveAll(str string, chars ...string) string {
 	sb := strings.Builder{}
@@ -48,6 +49,48 @@ func MapParamsToUrlParams(paramsMap map[string]string) string {
 	}
 	urlParams = urlParams[:len(urlParams)-1]
 	return urlParams
+}
+
+// ReplaceIndex 通过下标替换值
+// @param start 开始下标
+// @param end 结束下标
+// @param str 要替换字符串
+// @param replaceStr 替换的字符串
+// @return
+func ReplaceIndex(start, end int, str, replaceStr string) string {
+	return strings.Replace(str, str[start:end], replaceStr, 1)
+}
+
+// AutoReplaceMiddle 替换中间字符为*
+//
+//	如果为单字符的则无法隐藏eg:a  ,  a@qq.com
+//
+// @param str 待替换的字符
+// @return 返回替换后的字符串
+func AutoReplaceMiddle(str string) string {
+	// 要改变的字符串
+	changeStr := ""
+	// 邮箱尾缀
+	mailSuffix := ""
+	if strings.Contains(str, "@") {
+		// 邮箱部分处理
+		mailAddLength := strings.Index(str, "@")
+		// 邮箱后缀
+		mailSuffix = str[mailAddLength:]
+		// 邮箱地址
+		changeStr = str[:mailAddLength]
+	} else {
+		changeStr = str
+	}
+	length := len(changeStr)
+	num := length/2 - 1
+	length = length - num
+	beginIndex := int(math.Floor(float64(length / 2)))
+	oldReStr := ""
+	for i := 0; i < num; i++ {
+		oldReStr = Splicing(oldReStr, "*")
+	}
+	return fmt.Sprintf("%v%v", ReplaceIndex(beginIndex, beginIndex+num, changeStr, oldReStr), mailSuffix)
 }
 
 // Reverse 反转字符串 例如：abcd =》dcba

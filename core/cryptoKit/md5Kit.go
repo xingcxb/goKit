@@ -19,7 +19,6 @@ func Md5(str string) string {
 // @param 加密字符串
 // @return 加密结果 32个字符大写
 func Md5ToUpper(str string) string {
-	sum := md5.Sum([]byte(str))
-	sumStr := hex.EncodeToString(sum[:])
+	sumStr := Md5(str)
 	return strings.ToUpper(sumStr)
 }
