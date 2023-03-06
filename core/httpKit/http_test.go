@@ -2,7 +2,7 @@ package httpKit
 
 import (
 	"fmt"
-	"goKit/ipKit"
+	"goKit/core/ipKit"
 	"testing"
 )
 

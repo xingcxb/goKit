@@ -2,7 +2,7 @@ package ipKit
 
 import (
 	"encoding/json"
-	"goKit/ipKit/ipService"
+	"goKit/core/ipKit/ipService"
 )
 
 // GetIpAddressInfo 获取ip物理地址信息

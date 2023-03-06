@@ -3,7 +3,7 @@ package osKit
 import (
 	"fmt"
 	"github.com/shirou/gopsutil/v3/host"
-	"goKit/dateKit"
+	"goKit/core/dateKit"
 	"time"
 )
 
