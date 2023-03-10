@@ -5,9 +5,9 @@ import (
 	"errors"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/tidwall/gjson"
-	"goKit/core/httpKit"
-	"goKit/core/randomKit"
-	"goKit/core/strKit"
+	"github.com/xingcxb/goKit/core/httpKit"
+	"github.com/xingcxb/goKit/core/randomKit"
+	"github.com/xingcxb/goKit/core/strKit"
 	"strings"
 )
 
