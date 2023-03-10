@@ -1,24 +1,23 @@
-// Package cryptoKit 加密工具包
 package cryptoKit
 
 import (
-	"crypto/md5"
+	"crypto/sha256"
 	"encoding/hex"
 	"strings"
 )
 
-// Md5 Md5加密
+// Sha256 Sha256加密
 // @param 加密字符串
 // @return 加密结果 32个字符小写
-func Md5(str string) string {
-	sum := md5.Sum([]byte(str))
+func Sha256(str string) string {
+	sum := sha256.Sum256([]byte(str))
 	return hex.EncodeToString(sum[:])
 }
 
-// Md5ToUpper Md5加密大写
+// Sha256ToUpper Sha256加密大写
 // @param 加密字符串
 // @return 加密结果 32个字符大写
-func Md5ToUpper(str string) string {
-	sumStr := Md5(str)
+func Sha256ToUpper(str string) string {
+	sumStr := Sha256(str)
 	return strings.ToUpper(sumStr)
 }
