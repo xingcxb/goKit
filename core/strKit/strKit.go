@@ -2,7 +2,7 @@ package strKit
 
 import (
 	"fmt"
-	"goKit/core/arrayKit"
+	"github.com/xingcxb/goKit/core/arrayKit"
 	"math"
 	"strings"
 )

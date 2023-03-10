@@ -1,7 +1,7 @@
 package httpKit
 
 import (
-	"goKit/core/strKit"
+	"github.com/xingcxb/goKit/core/strKit"
 	"io"
 	"net/http"
 	"strings"

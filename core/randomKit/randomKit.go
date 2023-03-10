@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"goKit/core/strKit"
+	"github.com/xingcxb/goKit/core/strKit"
 	"strings"
 )
 

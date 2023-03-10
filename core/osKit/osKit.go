@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/shirou/gopsutil/v3/host"
-	"goKit/core/dateKit"
+	"github.com/xingcxb/goKit/core/dateKit"
 )
 
 type BootTimeInfo struct {
