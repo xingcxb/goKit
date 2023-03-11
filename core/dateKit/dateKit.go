@@ -3,26 +3,43 @@ package dateKit
 import (
 	"errors"
 	"fmt"
+	"github.com/xingcxb/goKit/core/strKit"
 	"time"
 )
 
 var (
-	// DefaultLayout 格式化时间的默认模板
-	DefaultLayout = "2006-01-02 15:04:05"
-	// DateLayout 格式化时间的日期模版
-	DateLayout = "2006-01-02"
+// DefaultLayout 格式化时间的默认模板
+// DefaultLayout = "2006-01-02 15:04:05"
+// DateLayout 格式化时间的日期模版
+// DateLayout = "2006-01-02"
 )
 
 // Now 当前时间，格式 yyyy-MM-dd HH:mm:ss
 // @return 当前时间的标准形式字符串
 func Now() string {
-	return time.Now().Format(DefaultLayout)
+	return time.Now().Format(time.DateTime)
 }
 
 // Today 获取当前日期，格式 yyyy-MM-dd
 // @return 当前时间的标准形式字符串
 func Today() string {
-	return time.Now().Format(DateLayout)
+	return time.Now().Format(time.DateOnly)
+}
+
+// BeginOfDay 获取某天的开始时间
+// @param 日期
+// @return 返回输入日期的开始时间
+func BeginOfDay(date time.Time) string {
+	beginDate := ToStr(date, time.DateOnly)
+	return strKit.Splicing(beginDate, " 00:00:00")
+}
+
+// EndOfDay 获取某天的结束时间
+// @param 日期
+// @return 返回输入日期的结束时间
+func EndOfDay(date time.Time) string {
+	endDate := ToStr(date, time.DateOnly)
+	return strKit.Splicing(endDate, " 23:59:59")
 }
 
 // GetYear 获得年的部分
@@ -74,28 +91,57 @@ func Quarter(dateTime time.Time) string {
 // @param dateTime 日期
 // @return "yyyy-MM-dd HH:mm:ss" 格式字符串
 func ToDateTimeStr(dateTime time.Time) string {
-	return dateTime.Local().Format(DefaultLayout)
+	return ToStr(dateTime, time.DateTime)
+}
+
+// ToDateStr 时间转换为默认格式 yyyy-MM-dd
+// @param dateTime 日期
+// @return "yyyy-MM-dd" 格式字符串
+func ToDateStr(dateTime time.Time) string {
+	return ToStr(dateTime, time.DateOnly)
+}
+
+// DateStrToTime 日期时间字符串转time类型
+// @param str 日期时间字符串 yyyy-MM-dd
+// @return 返回时间类型数据
+func DateStrToTime(str string) time.Time {
+	t, err := time.ParseInLocation(time.DateOnly, str, time.Local)
+	if nil == err && !t.IsZero() {
+		return t
+	}
+	return time.Time{}
+}
+
+// DateTimeStrToTime 日期时间字符串转time类型
+// @param str 日期时间字符串 yyyy-MM-dd HH:mm:ss
+// @return 返回时间类型数据
+func DateTimeStrToTime(str string) time.Time {
+	t, err := time.ParseInLocation(time.DateTime, str, time.Local)
+	if nil == err && !t.IsZero() {
+		return t
+	}
+	return time.Time{}
 }
 
 // ToStr 时间转换为字符串
 // @param dateTime 日期
 // @return 格式化后字符串
 func ToStr(dateTime time.Time, format string) string {
-	return dateTime.Format(format)
+	return dateTime.Local().Format(format)
 }
 
 // MillisecondOfToStr 毫秒时间戳转字符串
 // @param timeMillis 时间戳，毫秒数
 // @return "yyyy-MM-dd HH:mm:ss" 格式字符串
 func MillisecondOfToStr(timeMillis int64) string {
-	return time.UnixMilli(timeMillis).Format(DefaultLayout)
+	return time.UnixMilli(timeMillis).Format(time.DateTime)
 }
 
 // SecondOfToStr 秒·时间戳转换为字符串
 // @param timeSecond 时间戳，秒数
 // @return "yyyy-MM-dd HH:mm:ss" 格式字符串
 func SecondOfToStr(timeSecond int64) string {
-	return time.Unix(timeSecond, 0).Format(DefaultLayout)
+	return time.Unix(timeSecond, 0).Format(time.DateTime)
 }
 
 // Yesterday 昨天
@@ -215,7 +261,7 @@ func OffSet(dateTime time.Time, timeUnit TimeUnit, offset int) (time.Time, error
 		return dateTime.AddDate(0, 0, offset), nil
 	case TimeWeek:
 		// 周
-		return dateTime.AddDate(0, 0, offset), nil
+		return dateTime.AddDate(0, 0, offset*7), nil
 	case TimeMonth:
 		// 月
 		return dateTime.AddDate(0, offset, 0), nil
