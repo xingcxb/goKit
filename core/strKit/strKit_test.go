@@ -14,6 +14,6 @@ func TestSplicing(t *testing.T) {
 	fmt.Println("消耗时间", endTime-beginTime)
 	fmt.Println(FirstUpper("abv"))
 	fmt.Println(RemoveAll("abcdefghijklmn", "n", "m"))
-	fmt.Println(AutoReplaceMiddle("xingcxb@hotmail.com"))
+	fmt.Println(AutoReplaceMiddle("abc"))
 	fmt.Println(ReplaceIndex(1, 2, "xingcxb@hotmail.com", "3"))
 }
