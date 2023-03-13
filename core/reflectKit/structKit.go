@@ -1,12 +1,15 @@
 // Package reflectKit 反射工具包
 package reflectKit
 
-import "reflect"
+import (
+	"encoding/json"
+	"reflect"
+)
 
-// StructToMap 结构体转换为map[string]string
+// StructToMapSS 结构体转换为map[string]string
 // @param request 待转换的结构体
-// @return map[string]string，由于value中类型的可能性太多了，为了防止出口后太麻烦统一为string
-func StructToMap(body interface{}) map[string]string {
+// @return 通常在参数上使用
+func StructToMapSS(body interface{}) map[string]string {
 	t := reflect.TypeOf(body)
 	v := reflect.ValueOf(body)
 	var newMap = make(map[string]string)
@@ -16,4 +19,14 @@ func StructToMap(body interface{}) map[string]string {
 		newMap[key] = value
 	}
 	return newMap
+}
+
+// StructToMapSI 结构体转换为map[string]string
+// @param v 待转换的结构体
+// @return map[string]interface
+func StructToMapSI(v interface{}) map[string]interface{} {
+	data, _ := json.Marshal(v)
+	m := make(map[string]interface{})
+	json.Unmarshal(data, &m)
+	return m
 }

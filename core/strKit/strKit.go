@@ -5,6 +5,7 @@ import (
 	"github.com/xingcxb/goKit/core/arrayKit"
 	"math"
 	"strings"
+	"unicode/utf8"
 )
 
 const (
@@ -58,7 +59,7 @@ func MapParamsToUrlParams(paramsMap map[string]string) string {
 // @param replaceStr 替换的字符串
 // @return
 func ReplaceIndex(start, end int, str, replaceStr string) string {
-	return strings.Replace(str, str[start:end], replaceStr, 1)
+	return strings.Replace(str, string([]rune(str)[start:end]), replaceStr, 1)
 }
 
 // AutoReplaceMiddle 替换中间字符为*
@@ -68,6 +69,9 @@ func ReplaceIndex(start, end int, str, replaceStr string) string {
 // @param str 待替换的字符
 // @return 返回替换后的字符串
 func AutoReplaceMiddle(str string) string {
+	if len(str) < 2 {
+		return str
+	}
 	// 要改变的字符串
 	changeStr := ""
 	// 邮箱尾缀
@@ -82,15 +86,15 @@ func AutoReplaceMiddle(str string) string {
 	} else {
 		changeStr = str
 	}
-	length := len(changeStr)
+	length := utf8.RuneCountInString(changeStr)
 	num := length/2 - 1
 	length = length - num
-	beginIndex := int(math.Floor(float64(length / 2)))
+	beginIndex := int(math.Ceil(float64(length / 2)))
 	oldReStr := ""
-	for i := 0; i < num; i++ {
+	for i := 0; i < num+1; i++ {
 		oldReStr = Splicing(oldReStr, "*")
 	}
-	return fmt.Sprintf("%v%v", ReplaceIndex(beginIndex, beginIndex+num, changeStr, oldReStr), mailSuffix)
+	return fmt.Sprintf("%v%v", ReplaceIndex(beginIndex, beginIndex+num+1, changeStr, oldReStr), mailSuffix)
 }
 
 // Reverse 反转字符串 例如：abcd =》dcba
