@@ -93,7 +93,7 @@ func AutoReplaceMiddle(str string) string {
 	} else {
 		changeStr = str
 	}
-	length := utf8.RuneCountInString(changeStr)
+	length := Length(changeStr)
 	num := length/2 - 1
 	length = length - num
 	beginIndex := int(math.Ceil(float64(length / 2)))
