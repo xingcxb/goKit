@@ -6,6 +6,7 @@ import (
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/xingcxb/goKit/core/dateKit"
+	"net"
 )
 
 type BootTimeInfo struct {
@@ -49,4 +50,26 @@ func DiskSpaceInfo() (string, error) {
 	}
 	_b, err := json.Marshal(diskSpaceInfo)
 	return string(_b), err
+}
+
+// GetLocalIp 获取本地ip
+func GetLocalIp() (string, error) {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return "", err
+	}
+	for _, addr := range addrs {
+		ipAddr, ok := addr.(*net.IPNet)
+		if !ok {
+			continue
+		}
+		if ipAddr.IP.IsLoopback() {
+			continue
+		}
+		if !ipAddr.IP.IsGlobalUnicast() {
+			continue
+		}
+		return ipAddr.IP.String(), nil
+	}
+	return "", nil
 }
