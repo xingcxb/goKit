@@ -8,11 +8,16 @@ import (
 )
 
 var (
-// DefaultLayout 格式化时间的默认模板
-// DefaultLayout = "2006-01-02 15:04:05"
-// DateLayout 格式化时间的日期模版
-// DateLayout = "2006-01-02"
+	// DefaultLayout 格式化时间的默认模板
+	// DefaultLayout = "2006-01-02 15:04:05"
+	// DateLayout 格式化时间的日期模版
+	// DateLayout = "2006-01-02"
+
+	// DateLayoutYM 格式化时间的年月模版
+	DateLayoutYM = "2006-01"
 )
+
+// ============获取时间================
 
 // Now 当前时间，格式 yyyy-MM-dd HH:mm:ss
 // @return 当前时间的标准形式字符串
@@ -30,7 +35,7 @@ func Today() string {
 // @param 日期
 // @return 返回输入日期的开始时间
 func BeginOfDay(date time.Time) string {
-	beginDate := ToStr(date, time.DateOnly)
+	beginDate := Format(date, time.DateOnly)
 	return strKit.Splicing(beginDate, " 00:00:00")
 }
 
@@ -38,7 +43,7 @@ func BeginOfDay(date time.Time) string {
 // @param 日期
 // @return 返回输入日期的结束时间
 func EndOfDay(date time.Time) string {
-	endDate := ToStr(date, time.DateOnly)
+	endDate := Format(date, time.DateOnly)
 	return strKit.Splicing(endDate, " 23:59:59")
 }
 
@@ -87,63 +92,6 @@ func Quarter(dateTime time.Time) string {
 	}
 }
 
-// ToDateTimeStr 时间转换为默认格式 yyyy-MM-dd HH:mm:ss
-// @param dateTime 日期
-// @return "yyyy-MM-dd HH:mm:ss" 格式字符串
-func ToDateTimeStr(dateTime time.Time) string {
-	return ToStr(dateTime, time.DateTime)
-}
-
-// ToDateStr 时间转换为默认格式 yyyy-MM-dd
-// @param dateTime 日期
-// @return "yyyy-MM-dd" 格式字符串
-func ToDateStr(dateTime time.Time) string {
-	return ToStr(dateTime, time.DateOnly)
-}
-
-// DateStrToTime 日期时间字符串转time类型
-// @param str 日期时间字符串 yyyy-MM-dd
-// @return 返回时间类型数据
-func DateStrToTime(str string) time.Time {
-	t, err := time.ParseInLocation(time.DateOnly, str, time.Local)
-	if nil == err && !t.IsZero() {
-		return t
-	}
-	return time.Time{}
-}
-
-// DateTimeStrToTime 日期时间字符串转time类型
-// @param str 日期时间字符串 yyyy-MM-dd HH:mm:ss
-// @return 返回时间类型数据
-func DateTimeStrToTime(str string) time.Time {
-	t, err := time.ParseInLocation(time.DateTime, str, time.Local)
-	if nil == err && !t.IsZero() {
-		return t
-	}
-	return time.Time{}
-}
-
-// ToStr 时间转换为字符串
-// @param dateTime 日期
-// @return 格式化后字符串
-func ToStr(dateTime time.Time, format string) string {
-	return dateTime.Local().Format(format)
-}
-
-// MillisecondOfToStr 毫秒时间戳转字符串
-// @param timeMillis 时间戳，毫秒数
-// @return "yyyy-MM-dd HH:mm:ss" 格式字符串
-func MillisecondOfToStr(timeMillis int64) string {
-	return time.UnixMilli(timeMillis).Format(time.DateTime)
-}
-
-// SecondOfToStr 秒·时间戳转换为字符串
-// @param timeSecond 时间戳，秒数
-// @return "yyyy-MM-dd HH:mm:ss" 格式字符串
-func SecondOfToStr(timeSecond int64) string {
-	return time.Unix(timeSecond, 0).Format(time.DateTime)
-}
-
 // Yesterday 昨天
 // @return 昨天
 func Yesterday() (time.Time, error) {
@@ -167,6 +115,95 @@ func LastWeek() (time.Time, error) {
 func NextWeek() (time.Time, error) {
 	return OffsetWeek(time.Now(), 1)
 }
+
+// ======================== 格式化日期 ========================
+
+// FormatDateTime 时间转换为默认格式 yyyy-MM-dd HH:mm:ss
+// @param dateTime 日期
+// @return "yyyy-MM-dd HH:mm:ss" 格式字符串
+func FormatDateTime(dateTime time.Time) string {
+	return Format(dateTime, time.DateTime)
+}
+
+// FormatDate 时间转换为默认格式 yyyy-MM-dd
+// @param dateTime 日期
+// @return "yyyy-MM-dd" 格式字符串
+func FormatDate(dateTime time.Time) string {
+	return Format(dateTime, time.DateOnly)
+}
+
+// Format 时间转换为字符串
+// @param dateTime 日期
+// @return 格式化后字符串
+func Format(dateTime time.Time, format string) string {
+	return dateTime.Local().Format(format)
+}
+
+// ParseDate 日期时间字符串转time类型
+// @param str 日期时间字符串 yyyy-MM-dd
+// @return 返回时间类型数据
+func ParseDate(str string) time.Time {
+	t, err := time.ParseInLocation(time.DateOnly, str, time.Local)
+	if nil == err && !t.IsZero() {
+		return t
+	}
+	return time.Time{}
+}
+
+// ParseDateTime 日期时间字符串转time类型
+// @param str 日期时间字符串 yyyy-MM-dd HH:mm:ss
+// @return 返回时间类型数据
+func ParseDateTime(str string) time.Time {
+	t, err := time.ParseInLocation(time.DateTime, str, time.Local)
+	if nil == err && !t.IsZero() {
+		return t
+	}
+	return time.Time{}
+}
+
+// MillisecondOfToStr 毫秒时间戳转字符串
+// @param timeMillis 时间戳，毫秒数
+// @return "yyyy-MM-dd HH:mm:ss" 格式字符串
+func MillisecondOfToStr(timeMillis int64) string {
+	return time.UnixMilli(timeMillis).Format(time.DateTime)
+}
+
+// SecondOfToStr 秒·时间戳转换为字符串
+// @param timeSecond 时间戳，秒数
+// @return "yyyy-MM-dd HH:mm:ss" 格式字符串
+func SecondOfToStr(timeSecond int64) string {
+	return time.Unix(timeSecond, 0).Format(time.DateTime)
+}
+
+// ======================== 日期比较 ========================
+
+// IsSameDay 判断两个日期是否为同一天
+// @param date1 日期1
+// @param date2 日期2
+// @return true：是同一天，false：不是同一天
+func IsSameDay(date1, date2 time.Time) bool {
+	date1Str := FormatDate(date1)
+	date2Str := FormatDate(date2)
+	if date1Str == date2Str {
+		return true
+	}
+	return false
+}
+
+// IsSameMonth 判断两个日期是否为同一月
+// @param date1 日期1
+// @param date2 日期2
+// @return true：是同一月，false：不是同一月
+func isSameMonth(date1, date2 time.Time) bool {
+	date1Str := Format(date1, DateLayoutYM)
+	date2Str := Format(date2, DateLayoutYM)
+	if date1Str == date2Str {
+		return true
+	}
+	return false
+}
+
+// ================= 日期偏移 =================
 
 // OffsetMillisecond 偏移毫秒数
 // @param date – 日期
@@ -271,4 +308,20 @@ func OffSet(dateTime time.Time, timeUnit TimeUnit, offset int) (time.Time, error
 	default:
 		return time.Time{}, errors.New("timeUnit暂不支持")
 	}
+}
+
+// =============其它================
+
+// SpendNt 计时，常用于记录某段代码的执行时间，单位：纳秒
+// @param preTime 之前记录的时间
+// @return 两次记录时间的差值，单位：纳秒
+func SpendNt(preTime int64) int64 {
+	return time.Now().UnixNano() - preTime
+}
+
+// SpendMs 计时，常用于记录某段代码的执行时间，单位：毫秒
+// @param preTime 之前记录的时间
+// @return 两次记录时间的差值，单位：毫秒
+func SpendMs(preTime int64) int64 {
+	return time.Now().UnixNano()/1e6 - preTime
 }
