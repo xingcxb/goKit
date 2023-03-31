@@ -144,22 +144,36 @@ func GetMacOSFanSpeed() (string, error) {
 }
 
 // GetTemperature 获取设备温度
-func GetTemperature() string {
+func GetTemperature() (string, error) {
 	temperature := smc.GetTemperature()
-	fmt.Println("---===>", temperature)
-	return ""
+	temperatureJson, err := json.Marshal(temperature)
+	return string(temperatureJson), err
 }
 
 // GetPower 获取电源信息
-func GetPower() string {
+func GetPower() (string, error) {
 	power := smc.GetPower()
-	fmt.Println("======>", power)
-	return ""
+	powerJson, err := json.Marshal(power)
+	return string(powerJson), err
 }
 
 // GetVoltage 获取电压信息
-func GetVoltage() string {
+func GetVoltage() (string, error) {
 	voltage := smc.GetVoltage()
-	fmt.Println("------>", voltage)
-	return ""
+	voltageJson, err := json.Marshal(voltage)
+	return string(voltageJson), err
+}
+
+// GetBattery 获取电池信息
+func GetBattery() (string, error) {
+	battery := smc.GetBattery()
+	batteryJson, err := json.Marshal(battery)
+	return string(batteryJson), err
+}
+
+// GetCurrent 获取电流信息
+func GetCurrent() (string, error) {
+	current := smc.GetCurrent()
+	currentJson, err := json.Marshal(current)
+	return string(currentJson), err
 }
