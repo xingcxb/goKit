@@ -3,6 +3,7 @@ package osKit
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/xingcxb/goKit/core/dateKit"
 )
@@ -38,4 +39,14 @@ func OsInfo() (string, error) {
 		return "", err
 	}
 	return string(_b), nil
+}
+
+// DiskSpaceInfo 获取硬盘容量信息
+func DiskSpaceInfo() (string, error) {
+	diskSpaceInfo, err := disk.IOCounters()
+	if err != nil {
+		return "", err
+	}
+	_b, err := json.Marshal(diskSpaceInfo)
+	return string(_b), err
 }

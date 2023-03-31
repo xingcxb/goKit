@@ -13,6 +13,13 @@ const (
 	SPACE = " " // 字符串常量：空格符 " "
 )
 
+// Length 获取字符串长度（使用len方法获取字符串的字节数）
+// @param 字符串
+// @return 返回字符串长度
+func Length(str string) int {
+	return utf8.RuneCountInString(str)
+}
+
 // Splicing 字符串拼接
 // @param str 待拼凑的字符串
 func Splicing(str ...string) string {
@@ -86,7 +93,7 @@ func AutoReplaceMiddle(str string) string {
 	} else {
 		changeStr = str
 	}
-	length := utf8.RuneCountInString(changeStr)
+	length := Length(changeStr)
 	num := length/2 - 1
 	length = length - num
 	beginIndex := int(math.Ceil(float64(length / 2)))
