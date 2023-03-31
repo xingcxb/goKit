@@ -16,4 +16,5 @@ func TestSplicing(t *testing.T) {
 	fmt.Println(RemoveAll("abcdefghijklmn", "n", "m"))
 	fmt.Println(AutoReplaceMiddle("abc"))
 	fmt.Println(ReplaceIndex(1, 2, "xingcxb@hotmail.com", "3"))
+	fmt.Println(SliceToStr([]string{"a", "b", "c"}))
 }

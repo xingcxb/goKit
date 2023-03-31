@@ -121,3 +121,14 @@ func Reverse(str string) string {
 func FirstUpper(str string) string {
 	return fmt.Sprintf("%v%v", strings.ToUpper(str[:1]), str[1:])
 }
+
+// SliceToStr 切片转字符串，用逗号分隔
+// @param strs 切片
+// @return 字符串
+func SliceToStr(strs []string) string {
+	newStr := ""
+	for _, str := range strs {
+		newStr = Splicing(newStr, str, ",")
+	}
+	return newStr
+}
