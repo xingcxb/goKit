@@ -6,7 +6,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.8.0
 	github.com/dkorunic/iSMC v0.6.4
 	github.com/redis/go-redis/v9 v9.0.2
-	github.com/shirou/gopsutil/v3 v3.23.1
+	github.com/shirou/gopsutil/v3 v3.23.2
 	github.com/tidwall/gjson v1.14.4
 )
 

@@ -19,6 +19,8 @@ func TestCpu(t *testing.T) {
 	fmt.Println("内存信息：", memory, err)
 	diskInfo, err := GetDiskInfo()
 	fmt.Println("硬盘信息：", diskInfo, err)
+	diskSpaceInfo, err := DiskSpaceInfo()
+	fmt.Println("硬盘空间信息：", diskSpaceInfo, err)
 	fan, err := GetMacOSFanSpeed()
 	fmt.Println("风扇转速：", fan, err)
 	power, err := GetPower()
