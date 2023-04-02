@@ -7,7 +7,7 @@ import (
 )
 
 // UrlEncode URL编码
-// @param 待编码字符串
+// @param str 待编码字符串
 // @return 编码结果
 func UrlEncode(str string) string {
 	index := strings.Index(str, "?")
@@ -33,7 +33,7 @@ func UrlEncode(str string) string {
 }
 
 // UrlDecode URL解码
-// @param 待解码字符串
+// @param str 待解码字符串
 // @return 解码结果
 func UrlDecode(str string) (string, error) {
 	index := strings.Index(str, "?")
