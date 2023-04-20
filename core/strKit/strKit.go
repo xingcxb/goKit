@@ -59,6 +59,22 @@ func MapParamsToUrlParams(paramsMap map[string]string) string {
 	return urlParams
 }
 
+// StrParamsToMapParams URL字符串参数转map
+// @param str URL字符串参数
+// @return 返回map类型的参数
+func StrParamsToMapParams(str string) map[string]string {
+	paramsMap := make(map[string]string)
+	if str == "" {
+		return paramsMap
+	}
+	params := strings.Split(str, "&")
+	for _, param := range params {
+		paramArr := strings.Split(param, "=")
+		paramsMap[paramArr[0]] = paramArr[1]
+	}
+	return paramsMap
+}
+
 // ReplaceIndex 通过下标替换值
 // @param start 开始下标
 // @param end 结束下标
@@ -120,4 +136,15 @@ func Reverse(str string) string {
 // @return 返回首字母大写的字符串
 func FirstUpper(str string) string {
 	return fmt.Sprintf("%v%v", strings.ToUpper(str[:1]), str[1:])
+}
+
+// SliceToStr 切片转字符串，用逗号分隔
+// @param strs 切片
+// @return 字符串
+func SliceToStr(strs []string) string {
+	newStr := ""
+	for _, str := range strs {
+		newStr = Splicing(newStr, str, ",")
+	}
+	return newStr
 }

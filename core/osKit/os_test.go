@@ -33,4 +33,6 @@ func TestCpu(t *testing.T) {
 	fmt.Println("电池信息：", battery, err)
 	current, err := GetCurrent()
 	fmt.Println("当前信息：", current, err)
+	ip, err := GetLocalIp()
+	fmt.Println("本地ip：", ip, err)
 }
