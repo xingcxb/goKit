@@ -146,5 +146,5 @@ func SliceToStr(strs []string) string {
 	for _, str := range strs {
 		newStr = Splicing(newStr, str, ",")
 	}
-	return newStr
+	return newStr[:len(newStr)-1]
 }
