@@ -23,3 +23,7 @@ func TestHttpPost(t *testing.T) {
 	}
 	fmt.Println(response)
 }
+
+func TestDownload(t *testing.T) {
+	fmt.Println(httpKit.HttpDownload("https://juliangip.com/upload/ipInfo.xlsx", "/Users/symbol/Downloads", "", false))
+}
