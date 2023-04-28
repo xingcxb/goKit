@@ -22,7 +22,6 @@ func TestDate(t *testing.T) {
 	fmt.Println(GetMonth(time.Now()))
 	fmt.Println(GetDay(time.Now()))
 	fmt.Println(Quarter(time.Now()))
-	fmt.Println(Format(time.Now(), DefaultLayout))
 	fmt.Println(MillisecondOfToStr(time.Now().UnixMilli()))
 	fmt.Println(SecondOfToStr(time.Now().Unix()))
 	fmt.Println(Yesterday())

@@ -258,7 +258,7 @@ func OffsetWeek(dateTime time.Time, offset int) (time.Time, error) {
 // @param offset – 偏移月数，正数向未来偏移，负数向历史偏移
 // @return 偏移后的日期
 func OffsetMonth(dateTime time.Time, offset int) (time.Time, error) {
-	return OffSet(dateTime, TimeWeek, offset)
+	return OffSet(dateTime, TimeMonth, offset)
 }
 
 // OffsetYear 偏移年
