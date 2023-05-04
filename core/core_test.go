@@ -2,9 +2,9 @@ package core
 
 import (
 	"fmt"
+	"github.com/xingcxb/goKit/core/arrayKit"
 	"github.com/xingcxb/goKit/core/cryptoKit"
 	"github.com/xingcxb/goKit/core/httpKit"
-	"github.com/xingcxb/goKit/core/otherKit"
 	"testing"
 )
 
@@ -13,7 +13,7 @@ func TestHttpPost(t *testing.T) {
 	params["trade_no"] = "1111"
 	params["new_ip"] = "171.42.100.153"
 	params["reset"] = "1"
-	value := otherKit.JoinStringsInASCII(params, "&", false, false)
+	value := arrayKit.JoinStringsInASCII(params, "&", false, false)
 	value = value + "&key=123123"
 	sign := cryptoKit.Md5(value)
 	params["sign"] = sign
