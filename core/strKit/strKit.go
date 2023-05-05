@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/xingcxb/goKit/core/arrayKit"
 	"math"
+	"strconv"
 	"strings"
 	"unicode/utf8"
 )
@@ -147,4 +148,44 @@ func SliceToStr(strs []string) string {
 		newStr = Splicing(newStr, str, ",")
 	}
 	return newStr[:len(newStr)-1]
+}
+
+// CleanStrSymbol 清除字符串中的html标签
+func CleanStrSymbol(str string) string {
+	return strings.ReplaceAll(str, "</?[^>]+>", "")
+}
+
+// StrToAscii 字符串转ASCII码
+// @param str 字符串
+// @param separator 分隔符，如果为空则默认为逗号
+func StrToAscii(str, separator string) string {
+	StrAscii := ""
+	if separator == "" {
+		separator = ","
+	}
+	strChar := []byte(str)
+	for i := 0; i < len(strChar); i++ {
+		StrAscii = Splicing(StrAscii, strconv.Itoa(int(strChar[i])), separator)
+	}
+	return StrAscii[:len(StrAscii)-1]
+}
+
+// AsciiToStr ASCII码转字符串
+// @param str ASCII码
+// @param separator 分隔符，如果为空则默认为逗号
+func AsciiToStr(str, separator string) string {
+	if separator == "" {
+		// 如果没有传递分隔符，默认采用逗号
+		separator = ","
+	}
+	// 将字符串转换为字符串数组
+	strArr := strings.Split(str, separator)
+	newStr := ""
+	for _, s := range strArr {
+		// 将字符串转换为int类型
+		i, _ := strconv.Atoi(s)
+		// 将int类型的ascii转换为字符类型
+		newStr = Splicing(newStr, string(rune(i)), "")
+	}
+	return newStr
 }
