@@ -21,7 +21,7 @@ func StructToMapSS(body interface{}) map[string]string {
 	return newMap
 }
 
-// StructToMapSI 结构体转换为map[string]string
+// StructToMapSI 结构体转换为map[string]interface
 // @param v 待转换的结构体
 // @return map[string]interface
 func StructToMapSI(v interface{}) map[string]interface{} {

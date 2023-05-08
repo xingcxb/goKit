@@ -10,11 +10,12 @@ import (
 )
 
 const (
-	EMPTY = ""  // 字符串常量：空字符串 ""
-	SPACE = " " // 字符串常量：空格符 " "
+	EMPTY     = ""  // 字符串常量：空字符串 ""
+	SPACE     = " " // 字符串常量：空格符 " "
+	UNDERLINE = "_" // 字符串常量：下划线 _
 )
 
-// Length 获取字符串长度（使用len方法获取字符串的字节数）
+// Length 获取字符串长度
 // @param 字符串
 // @return 返回字符串长度
 func Length(str string) int {
@@ -119,6 +120,34 @@ func AutoReplaceMiddle(str string) string {
 		oldReStr = Splicing(oldReStr, "*")
 	}
 	return fmt.Sprintf("%v%v", ReplaceIndex(beginIndex, beginIndex+num+1, changeStr, oldReStr), mailSuffix)
+}
+
+// IsEnLetter 判断单个字符是否为英文，如果字符长度超出单个字符直接判定为false
+// @params str 待判断字符串
+func IsEnLetter(str string) bool {
+	len := Length(str)
+	if len > 2 {
+		return false
+	}
+	s, _ := strconv.Atoi(str)
+	return (s >= 97 && s <= 122) || (s >= 65 && s <= 90)
+}
+
+// SplitterToHump 分割符转换为驼峰
+// @param str 待处理的字符
+// @param splitter 分割符，默认为下划线 _
+func SplitterToHump(str, splitter string) string {
+	if splitter == "" {
+		splitter = UNDERLINE
+	}
+	words := strings.Split(str, splitter)
+	newView := ""
+	for i := range words {
+		words[i] = strings.Title(words[i])
+	}
+	camelStr := strings.Join(words, "")
+	fmt.Println(camelStr)
+	return newView
 }
 
 // Reverse 反转字符串 例如：abcd =》dcba
