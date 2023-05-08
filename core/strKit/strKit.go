@@ -133,23 +133,6 @@ func IsEnLetter(str string) bool {
 	return (s >= 97 && s <= 122) || (s >= 65 && s <= 90)
 }
 
-// SplitterToHump 分割符转换为驼峰
-// @param str 待处理的字符
-// @param splitter 分割符，默认为下划线 _
-func SplitterToHump(str, splitter string) string {
-	if splitter == "" {
-		splitter = UNDERLINE
-	}
-	words := strings.Split(str, splitter)
-	newView := ""
-	for i := range words {
-		words[i] = strings.Title(words[i])
-	}
-	camelStr := strings.Join(words, "")
-	fmt.Println(camelStr)
-	return newView
-}
-
 // Reverse 反转字符串 例如：abcd =》dcba
 // @param str – 被反转的字符串
 // @return 反转后的字符串
@@ -166,6 +149,21 @@ func Reverse(str string) string {
 // @return 返回首字母大写的字符串
 func FirstUpper(str string) string {
 	return fmt.Sprintf("%v%v", strings.ToUpper(str[:1]), str[1:])
+}
+
+// SplitterToHump 分割符转换为驼峰
+// @param str 待处理的字符
+// @param splitter 分割符，默认为下划线 _
+func SplitterToHump(str, splitter string) string {
+	if splitter == "" {
+		splitter = UNDERLINE
+	}
+	strs := strings.Split(str, splitter)
+	newView := ""
+	for _, s := range strs {
+		newView = Splicing(newView, FirstUpper(s))
+	}
+	return newView
 }
 
 // SliceToStr 切片转字符串，用逗号分隔
