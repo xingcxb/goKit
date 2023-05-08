@@ -19,5 +19,6 @@ func TestSplicing(t *testing.T) {
 	fmt.Println(SliceToStr([]string{"a", "b", "c"}))
 	fmt.Println(StrToAscii("ab", "|"))
 	fmt.Println(AsciiToStr("97|98", "|"))
+	fmt.Println(SplitterToHump("abc_hello", "_"))
 	fmt.Println(SplitterToHump("你_好_nice", ""))
 }
