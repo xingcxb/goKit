@@ -161,7 +161,7 @@ func SplitterToHump(str, splitter string) string {
 	strs := strings.Split(str, splitter)
 	newView := ""
 	for _, s := range strs {
-		newView = Splicing(newView, FirstUpper(s))
+		newView = Splicing(newView, strings.Title(s))
 	}
 	return newView
 }
