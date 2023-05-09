@@ -3,10 +3,10 @@ module github.com/xingcxb/goKit
 go 1.20
 
 require (
-	github.com/PuerkitoBio/goquery v1.8.0
+	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/dkorunic/iSMC v0.6.4
-	github.com/redis/go-redis/v9 v9.0.2
-	github.com/shirou/gopsutil/v3 v3.23.2
+	github.com/redis/go-redis/v9 v9.0.4
+	github.com/shirou/gopsutil/v3 v3.23.4
 	github.com/tidwall/gjson v1.14.4
 )
 
@@ -18,11 +18,12 @@ require (
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
 	github.com/panotza/gosmc v1.0.0 // indirect
 	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
+	github.com/shoenig/go-m1cpu v0.1.5 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
-	github.com/tidwall/pretty v1.2.0 // indirect
+	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	golang.org/x/net v0.8.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/sys v0.7.0 // indirect
 )
