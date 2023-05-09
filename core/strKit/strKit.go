@@ -125,8 +125,8 @@ func AutoReplaceMiddle(str string) string {
 // IsEnLetter 判断单个字符是否为英文，如果字符长度超出单个字符直接判定为false
 // @params str 待判断字符串
 func IsEnLetter(str string) bool {
-	len := Length(str)
-	if len > 2 {
+	strLen := Length(str)
+	if strLen > 2 {
 		return false
 	}
 	s, _ := strconv.Atoi(str)
