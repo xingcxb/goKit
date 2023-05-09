@@ -148,7 +148,20 @@ func Reverse(str string) string {
 // @param 要处理的字符
 // @return 返回首字母大写的字符串
 func FirstUpper(str string) string {
+	if str == "" {
+		return ""
+	}
 	return fmt.Sprintf("%v%v", strings.ToUpper(str[:1]), str[1:])
+}
+
+// FirstLower 首字母小写
+// @param 要处理的字符
+// @return 返回首字母大写的字符串
+func FirstLower(str string) string {
+	if str == "" {
+		return ""
+	}
+	return fmt.Sprintf("%v%v", strings.ToLower(str[:1]), str[1:])
 }
 
 // SplitterToHump 分割符转换为驼峰

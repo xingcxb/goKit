@@ -31,7 +31,31 @@ func Contains(strs []string, char string) bool {
 	return IndexOf(strs, char) > IndexNotFound
 }
 
-// JoinStringsInASCII 将map数据key以ASCII码从小到大排序后拼接
+// BubbleDescSort 冒泡排序 倒序
+// @param values 待排序的字符串数组
+func BubbleDescSort(values []string) []string {
+	for i := 0; i < len(values)-1; i++ {
+		for j := i + 1; j < len(values); j++ {
+			if strings.Count(values[i], ":") < strings.Count(values[j], ":") {
+				values[i], values[j] = values[j], values[i]
+			}
+		}
+	}
+	return values
+}
+
+// BubbleAscSort 冒泡排序 正序
+// @param values 待排序的字符串数组
+func BubbleAscSort(values []string) []string {
+	for i := 0; i < len(values)-1; i++ {
+		for j := i + 1; j < len(values); j++ {
+			if strings.Count(values[i], ":") > strings.Count(values[j], ":") {
+				values[i], values[j] = values[j], values[i]
+			}
+		}
+	}
+	return values
+} // JoinStringsInASCII 将map数据key以ASCII码从小到大排序后拼接
 // @param data 待拼接的数据
 // @param sep 连接符
 // @param onlyValues 是否只包含参数值，true则不包含参数名，否则参数名和参数值均有
