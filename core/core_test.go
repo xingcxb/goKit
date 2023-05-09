@@ -5,6 +5,8 @@ import (
 	"github.com/xingcxb/goKit/core/arrayKit"
 	"github.com/xingcxb/goKit/core/cryptoKit"
 	"github.com/xingcxb/goKit/core/httpKit"
+	"github.com/xingcxb/goKit/core/pathKit"
+	"github.com/xingcxb/goKit/core/reflectKit"
 	"testing"
 )
 
@@ -26,4 +28,15 @@ func TestHttpPost(t *testing.T) {
 
 func TestDownload(t *testing.T) {
 	fmt.Println(httpKit.HttpDownload("https://juliangip.com/upload/ipInfo.xlsx", "/Users/symbol/Downloads", "", false))
+}
+
+func TestPath(t *testing.T) {
+	fmt.Println(pathKit.GetAbsolutePackagePath())
+}
+
+func TestRet(t *testing.T) {
+	ret := &reflectKit.Ret{}
+	ret.Ok().Set("code", 200).Set("message", "success")
+	fmt.Println(ret.IsOk(), ret.Get("message"))
+	fmt.Println(ret.ToJSON())
 }

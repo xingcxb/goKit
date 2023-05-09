@@ -112,7 +112,9 @@ func HttpPostFull(urlString string, headers, paramMap map[string]string, body st
 // @param timeout 超时时长，-1表示默认超时，单位毫秒
 func HttpBasic(urlString string, httpMethod string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
 	urlParam := strKit.MapParamsToUrlParams(paramMap)
-	urlString = strKit.Splicing(urlString, "?", urlParam)
+	if urlParam != "" {
+		urlString = strKit.Splicing(urlString, "?", urlParam)
+	}
 	bodyReader := strings.NewReader(body)
 	req, _ := http.NewRequest(httpMethod, urlString, bodyReader)
 	for k, v := range headers {

@@ -125,8 +125,8 @@ func AutoReplaceMiddle(str string) string {
 // IsEnLetter 判断单个字符是否为英文，如果字符长度超出单个字符直接判定为false
 // @params str 待判断字符串
 func IsEnLetter(str string) bool {
-	len := Length(str)
-	if len > 2 {
+	strLen := Length(str)
+	if strLen > 2 {
 		return false
 	}
 	s, _ := strconv.Atoi(str)
@@ -148,7 +148,20 @@ func Reverse(str string) string {
 // @param 要处理的字符
 // @return 返回首字母大写的字符串
 func FirstUpper(str string) string {
+	if str == "" {
+		return ""
+	}
 	return fmt.Sprintf("%v%v", strings.ToUpper(str[:1]), str[1:])
+}
+
+// FirstLower 首字母小写
+// @param 要处理的字符
+// @return 返回首字母大写的字符串
+func FirstLower(str string) string {
+	if str == "" {
+		return ""
+	}
+	return fmt.Sprintf("%v%v", strings.ToLower(str[:1]), str[1:])
 }
 
 // SplitterToHump 分割符转换为驼峰
@@ -161,7 +174,7 @@ func SplitterToHump(str, splitter string) string {
 	strs := strings.Split(str, splitter)
 	newView := ""
 	for _, s := range strs {
-		newView = Splicing(newView, FirstUpper(s))
+		newView = Splicing(newView, strings.Title(s))
 	}
 	return newView
 }

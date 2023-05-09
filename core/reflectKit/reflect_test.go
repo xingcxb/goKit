@@ -20,3 +20,10 @@ func TestDefaultValue(t *testing.T) {
 	fmt.Println(u.Name)  // Goku
 	fmt.Println(u.Power) // 9000.01
 }
+
+func TestRetKit(t *testing.T) {
+	ret := &Ret{}
+	ret.Ok().Set("code", 200).Set("message", "success")
+	fmt.Println(ret.IsOk(), ret.Get("message"))
+	fmt.Println(ret.ToJSON())
+}
