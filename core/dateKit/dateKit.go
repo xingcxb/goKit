@@ -130,6 +130,29 @@ func NextWeek() (time.Time, error) {
 	return OffsetWeek(time.Now(), 1)
 }
 
+// LengthOfMonth 获取指定日期的月份的天数
+// @param dateTime 日期
+func LengthOfMonth(dateTime time.Time) int {
+	return time.Date(dateTime.Year(), dateTime.Month()+1, 0, 0, 0, 0, 0, dateTime.Location()).Day()
+}
+
+// LengthOfYear 获取指定日期的年份的天数
+// @param dateTime 日期
+func LengthOfYear(dateTime time.Time) int {
+	if IsLeapYear(dateTime) {
+		return 366
+	}
+	return 365
+}
+
+// IsLeapYear 判断是否是闰年
+// @param dateTime 日期
+// @return 是否是闰年
+func IsLeapYear(dateTime time.Time) bool {
+	year := dateTime.Year()
+	return (year%4 == 0 && year%100 != 0) || year%400 == 0
+}
+
 // ======================== 格式化日期 ========================
 
 // FormatDateTime 时间转换为默认格式 yyyy-MM-dd HH:mm:ss
