@@ -145,7 +145,7 @@ func RandomStrBasic(baseString string, length int) string {
 	baseLength := len(baseString)
 	for i := 0; i < length; i++ {
 		number := RandomLong(baseLength)
-		ArrayCharNumber := strings.Split(BaseCharNumber, "")
+		ArrayCharNumber := strings.Split(baseString, "")
 		sb.WriteString(ArrayCharNumber[number])
 	}
 	return sb.String()
