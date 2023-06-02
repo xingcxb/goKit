@@ -17,7 +17,7 @@ func TestDefaultValue(t *testing.T) {
 		fmt.Println("Uh oh: ", err)
 	}
 
-	fmt.Println(u.Name)  // Goku
+	fmt.Println(u.Name)  // xingcxb.com
 	fmt.Println(u.Power) // 9000.01
 }
 

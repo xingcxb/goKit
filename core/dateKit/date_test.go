@@ -40,6 +40,10 @@ func TestCD(t *testing.T) {
 	fmt.Println(y, m, d)
 }
 
+func TestLengthOfMonth(t *testing.T) {
+	fmt.Println(LengthOfMonth(ParseDate("2020-02-05")))
+}
+
 // 创建公历转换到农历的映射
 var lunarMap = [...]int{
 	21, 33, 45, 57, 68, 79, 90, 101, 113, 124,

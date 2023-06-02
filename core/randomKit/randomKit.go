@@ -5,8 +5,10 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"github.com/xingcxb/goKit/core/dateKit"
 	"github.com/xingcxb/goKit/core/strKit"
 	"strings"
+	"time"
 )
 
 const (
@@ -21,8 +23,12 @@ var (
 	BaseNumber = "0123456789"
 	// BaseChar 用于随机选的字符
 	BaseChar = "abcdefghijklmnopqrstuvwxyz"
+	// BaseUpperCaseChar 用于随机选的大写字符
+	BaseUpperCaseChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	// BaseCharNumber 用于随机选的字符和数字
 	BaseCharNumber = fmt.Sprintf("%v%v", BaseChar, BaseNumber)
+	// BaseAllChar 用于随机选的字符、数字和大写字符
+	BaseAllChar = fmt.Sprintf("%v%v%v", BaseChar, BaseNumber, BaseUpperCaseChar)
 )
 
 func init() {
@@ -99,11 +105,30 @@ func RandomStringWithoutStr(length int, elemData string) string {
 	return RandomStrBasic(str, length)
 }
 
+// RandomTradeNo 创建订单号, 如果存在字母则字母为大写
+// @param length 长度(指排除YYYYMMDDHHmmss之后的长度)
+// @param isLetter 是否包含字母 true 允许字母| false 不允许字母
+func RandomTradeNo(length int, isLetter bool) string {
+	date := dateKit.Format(time.Now(), dateKit.DateLayoutPureYMDHMS)
+	randomStr := ""
+	if isLetter {
+		randomStr = RandomStrBasic(strKit.Splicing(BaseAllChar, BaseCharNumber), length)
+	} else {
+		randomStr = RandomStrBasic(BaseCharNumber, length)
+	}
+	return strKit.Splicing(date, randomStr)
+}
+
 // RandomNumbers 获得一个只包含数字的字符串
 // @param length – 字符串的长度
 // @return 随机字符串
 func RandomNumbers(length int) string {
 	return RandomStrBasic(BaseNumber, length)
+}
+
+// RandomStr 随机字符串
+func RandomStr(length int) string {
+	return RandomStrBasic(strKit.Splicing(BaseUpperCaseChar, BaseChar, BaseCharNumber), length)
 }
 
 // RandomStrBasic 获得一个随机的字符串
@@ -120,7 +145,7 @@ func RandomStrBasic(baseString string, length int) string {
 	baseLength := len(baseString)
 	for i := 0; i < length; i++ {
 		number := RandomLong(baseLength)
-		ArrayCharNumber := strings.Split(BaseCharNumber, "")
+		ArrayCharNumber := strings.Split(baseString, "")
 		sb.WriteString(ArrayCharNumber[number])
 	}
 	return sb.String()

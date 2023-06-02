@@ -15,6 +15,20 @@ var (
 
 	// DateLayoutYM 格式化时间的年月模版
 	DateLayoutYM = "2006-01"
+	// DateLayoutYMD 格式化时间的年月日模版
+	DateLayoutYMD = "2006-01-02"
+	// DateLayoutHMS 格式化时间的时分秒模版
+	DateLayoutHMS = "15:04:05"
+	// DateLayoutYMDHMS 格式化时间的年月日时分秒模版
+	DateLayoutYMDHMS = "2006-01-02 15:04:05"
+	// DateLayoutYMDHMSS 格式化时间的年月日时分秒毫秒模版
+	DateLayoutYMDHMSS = "2006-01-02 15:04:05.000"
+	// DateLayoutPureYMD 格式化时间的纯年月日模版
+	DateLayoutPureYMD = "20060102"
+	// DateLayoutPureYMDHMS 格式化时间的纯年月日时分秒模版
+	DateLayoutPureYMDHMS = "20060102150405"
+	// DateLayoutPureYMDHMSS 格式化时间的纯时分秒毫秒模版
+	DateLayoutPureYMDHMSS = "20060102150405000"
 )
 
 // ============获取时间================
@@ -114,6 +128,29 @@ func LastWeek() (time.Time, error) {
 // @return 下周
 func NextWeek() (time.Time, error) {
 	return OffsetWeek(time.Now(), 1)
+}
+
+// LengthOfMonth 获取指定日期的月份的天数
+// @param dateTime 日期
+func LengthOfMonth(dateTime time.Time) int {
+	return time.Date(dateTime.Year(), dateTime.Month()+1, 0, 0, 0, 0, 0, dateTime.Location()).Day()
+}
+
+// LengthOfYear 获取指定日期的年份的天数
+// @param dateTime 日期
+func LengthOfYear(dateTime time.Time) int {
+	if IsLeapYear(dateTime) {
+		return 366
+	}
+	return 365
+}
+
+// IsLeapYear 判断是否是闰年
+// @param dateTime 日期
+// @return 是否是闰年
+func IsLeapYear(dateTime time.Time) bool {
+	year := dateTime.Year()
+	return (year%4 == 0 && year%100 != 0) || year%400 == 0
 }
 
 // ======================== 格式化日期 ========================
