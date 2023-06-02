@@ -82,3 +82,7 @@
 ## ⭐`Star goKit`
 
 [![Stargazers over time](https://starchart.cc/xingcxb/goKit.svg)](https://starchart.cc/xingcxb/goKit)
+
+## 📜License
+
+`MIT` 许可证 [LICENSE](LICENSE) ©️ 2023 xingcxb
