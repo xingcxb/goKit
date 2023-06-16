@@ -35,6 +35,10 @@ func TestDate(t *testing.T) {
 	fmt.Println(OffsetYear(time.Now(), 1))
 }
 
+func TestOffset(t *testing.T) {
+	fmt.Println(OffSet(ParseDate("2023-05-31"), TimeMonth, 1))
+}
+
 func TestCD(t *testing.T) {
 	y, m, d := GregorianToLunar(2023, 2, 27)
 	fmt.Println(y, m, d)
