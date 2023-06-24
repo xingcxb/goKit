@@ -12,7 +12,7 @@ import (
 // @param key 键
 // @return 返回值，错误信息
 func GetStr(ctx context.Context, key string) (string, error) {
-	if val, err := rdb.Get(ctx, key).Result(); err != nil {
+	if val, err := Rdb.Get(ctx, key).Result(); err != nil {
 		return "", err
 	} else {
 		return val, nil
@@ -24,7 +24,7 @@ func GetStr(ctx context.Context, key string) (string, error) {
 // @param start 起始下标
 // @param end 结束下标
 func GetRange(ctx context.Context, key string, start, end int64) (string, error) {
-	if str, err := rdb.GetRange(ctx, key, start, end).Result(); err != nil {
+	if str, err := Rdb.GetRange(ctx, key, start, end).Result(); err != nil {
 		return "", err
 	} else {
 		return str, nil
@@ -36,7 +36,7 @@ func GetRange(ctx context.Context, key string, start, end int64) (string, error)
 // @param newValue 新值
 // @return 当前键被替换前的值
 func GetSet(ctx context.Context, key, newValue string) (string, error) {
-	if str, err := rdb.GetSet(ctx, key, newValue).Result(); err != nil {
+	if str, err := Rdb.GetSet(ctx, key, newValue).Result(); err != nil {
 		return "", err
 	} else {
 		return str, nil
@@ -59,9 +59,9 @@ func SetStr(ctx context.Context, key, value string) (bool, error) {
 func SetStrEX(ctx context.Context, key, value string, seconds int) (bool, error) {
 	err := errors.New("")
 	if seconds == -1 || seconds == 0 {
-		err = rdb.Set(ctx, key, value, 0).Err()
+		err = Rdb.Set(ctx, key, value, 0).Err()
 	} else {
-		err = rdb.Set(ctx, key, value, time.Duration(seconds)*time.Second).Err()
+		err = Rdb.Set(ctx, key, value, time.Duration(seconds)*time.Second).Err()
 	}
 	if err != nil {
 		return false, err
@@ -77,9 +77,9 @@ func SetStrEX(ctx context.Context, key, value string, seconds int) (bool, error)
 func SetNX(ctx context.Context, key, value string, seconds int) (bool, error) {
 	err := errors.New("")
 	if seconds == -1 || seconds == 0 {
-		err = rdb.SetNX(ctx, key, value, 0).Err()
+		err = Rdb.SetNX(ctx, key, value, 0).Err()
 	} else {
-		err = rdb.SetNX(ctx, key, value, time.Duration(seconds)*time.Second).Err()
+		err = Rdb.SetNX(ctx, key, value, time.Duration(seconds)*time.Second).Err()
 	}
 	if err != nil {
 		return false, err
@@ -93,7 +93,7 @@ func SetNX(ctx context.Context, key, value string, seconds int) (bool, error) {
 // @param start 替换开始的下标
 // @return 返回成功还是失败，错误信息
 func SetRange(ctx context.Context, key, replaceValue string, start int64) (bool, error) {
-	if err := rdb.SetRange(ctx, key, start, replaceValue).Err(); err != nil {
+	if err := Rdb.SetRange(ctx, key, start, replaceValue).Err(); err != nil {
 		return false, err
 	} else {
 		return true, nil
@@ -104,7 +104,7 @@ func SetRange(ctx context.Context, key, replaceValue string, start int64) (bool,
 // @param key 键
 // @return 返回字符串的长度
 func StrLen(ctx context.Context, key string) (int64, error) {
-	if strLen, err := rdb.StrLen(ctx, key).Uint64(); err != nil {
+	if strLen, err := Rdb.StrLen(ctx, key).Uint64(); err != nil {
 		return -1, err
 	} else {
 		return int64(strLen), nil
@@ -115,7 +115,7 @@ func StrLen(ctx context.Context, key string) (int64, error) {
 // @param key 键
 // @return 返回增加后的值，错误信息
 func Incr(ctx context.Context, key string) (int64, error) {
-	if v, err := rdb.Incr(ctx, key).Result(); err != nil {
+	if v, err := Rdb.Incr(ctx, key).Result(); err != nil {
 		return -1, err
 	} else {
 		return v, nil
@@ -131,31 +131,31 @@ func Incrby(ctx context.Context, key string, value interface{}) (interface{}, er
 	valueType := reflect.TypeOf(value).String()
 	switch valueType {
 	case "int":
-		return rdb.IncrBy(ctx, key, int64(value.(int))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(int))).Result()
 	case "int8":
-		return rdb.IncrBy(ctx, key, int64(value.(int8))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(int8))).Result()
 	case "int16":
-		return rdb.IncrBy(ctx, key, int64(value.(int16))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(int16))).Result()
 	case "int32":
-		return rdb.IncrBy(ctx, key, int64(value.(int32))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(int32))).Result()
 	case "int64":
-		return rdb.IncrBy(ctx, key, value.(int64)).Result()
+		return Rdb.IncrBy(ctx, key, value.(int64)).Result()
 	case "uint":
-		return rdb.IncrBy(ctx, key, int64(value.(uint))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(uint))).Result()
 	case "uint8":
-		return rdb.IncrBy(ctx, key, int64(value.(uint8))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(uint8))).Result()
 	case "uint16":
-		return rdb.IncrBy(ctx, key, int64(value.(uint16))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(uint16))).Result()
 	case "uint32":
-		return rdb.IncrBy(ctx, key, int64(value.(uint32))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(uint32))).Result()
 	case "uint64":
-		return rdb.IncrBy(ctx, key, int64(value.(uint64))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(uint64))).Result()
 	case "uintptr":
-		return rdb.IncrBy(ctx, key, int64(value.(uintptr))).Result()
+		return Rdb.IncrBy(ctx, key, int64(value.(uintptr))).Result()
 	case "float32":
-		return rdb.IncrByFloat(ctx, key, float64(value.(float32))).Result()
+		return Rdb.IncrByFloat(ctx, key, float64(value.(float32))).Result()
 	case "float64":
-		return rdb.IncrByFloat(ctx, key, value.(float64)).Result()
+		return Rdb.IncrByFloat(ctx, key, value.(float64)).Result()
 	default:
 		return false, errors.New("value type error")
 	}
@@ -165,7 +165,7 @@ func Incrby(ctx context.Context, key string, value interface{}) (interface{}, er
 // @param key 键
 // @return 返回减少后的值，错误信息
 func Decr(ctx context.Context, key string) (int64, error) {
-	if v, err := rdb.Decr(ctx, key).Result(); err != nil {
+	if v, err := Rdb.Decr(ctx, key).Result(); err != nil {
 		return -1, err
 	} else {
 		return v, nil

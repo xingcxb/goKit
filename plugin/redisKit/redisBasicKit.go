@@ -23,7 +23,7 @@ type RedisConfig struct {
 
 var (
 	Config RedisConfig
-	rdb    *redis.Client
+	Rdb    *redis.Client
 )
 
 // NewRedisClient *新建一个redis客户端
@@ -41,7 +41,7 @@ func NewRedisClient(config *RedisConfig) error {
 	url.WriteString(config.Port)
 
 	// 创建redis连接
-	rdb = redis.NewClient(&redis.Options{
+	Rdb = redis.NewClient(&redis.Options{
 		Addr:        url.String(),                                     //redis链接地址
 		Username:    config.Username,                                  //设置用户名
 		Password:    config.Password,                                  //设置密码
@@ -55,7 +55,7 @@ func NewRedisClient(config *RedisConfig) error {
 // Ping redis测试是否联通
 // @return 正常返回nil，错误返回错误信息
 func Ping(ctx context.Context) error {
-	err := rdb.Ping(ctx).Err()
+	err := Rdb.Ping(ctx).Err()
 	if err != nil {
 		return err
 	}
@@ -65,7 +65,7 @@ func Ping(ctx context.Context) error {
 // ChangeDb 切换Redis数据库
 // @param dbId redis数据库id
 func ChangeDb(ctx context.Context, dbId int) error {
-	pipe := rdb.Pipeline()
+	pipe := Rdb.Pipeline()
 	_ = pipe.Select(ctx, dbId)
 	_, err := pipe.Exec(ctx)
 	if err != nil {
@@ -78,7 +78,7 @@ func ChangeDb(ctx context.Context, dbId int) error {
 // @return 返回该库下的数量
 func GetDbCount(ctx context.Context, dbId int) int {
 	ChangeDb(ctx, dbId)
-	count, err := rdb.DBSize(ctx).Result()
+	count, err := Rdb.DBSize(ctx).Result()
 	if err != nil {
 		return 0
 	}
@@ -87,8 +87,8 @@ func GetDbCount(ctx context.Context, dbId int) int {
 
 // GetBaseAllInfo  获取redis基础信息
 func GetBaseAllInfo(ctx context.Context) map[string]string {
-	_info := rdb.Info(ctx).String()
-	defer rdb.Close()
+	_info := Rdb.Info(ctx).String()
+	defer Rdb.Close()
 	_vs := strings.Split(_info, "\r\n")
 	infoMap := make(map[string]string)
 	for _, _str := range _vs {
@@ -104,7 +104,7 @@ func GetBaseAllInfo(ctx context.Context) map[string]string {
 // GetDbKeys 获取指定库中的key
 func GetDbKeys(ctx context.Context, cursor uint64) ([]string, error) {
 	keys := make([]string, 0, 1)
-	keys, cursor, err := rdb.Scan(ctx, cursor, "*", 10000).Result()
+	keys, cursor, err := Rdb.Scan(ctx, cursor, "*", 10000).Result()
 	if err != nil {
 		return keys, err
 	}
@@ -113,7 +113,7 @@ func GetDbKeys(ctx context.Context, cursor uint64) ([]string, error) {
 
 // GetTTL 获取redis数据剩余时间，返回剩余时间的秒数；如果是永久有效，返回-1
 func GetTTL(ctx context.Context, key string) string {
-	val, err := rdb.TTL(ctx, key).Result()
+	val, err := Rdb.TTL(ctx, key).Result()
 	if err != nil {
 		return ""
 	}
@@ -153,7 +153,7 @@ func GetKeyInfo(ctx context.Context, key string) (string, error) {
 
 // GetType 获取值类型，返回类型
 func GetType(ctx context.Context, key string) string {
-	allTypeStr := rdb.Type(ctx, key).String()
+	allTypeStr := Rdb.Type(ctx, key).String()
 	arr := strings.Split(allTypeStr, " ")
 	if len(arr) == 3 {
 		typeStr := arr[2]
@@ -165,7 +165,7 @@ func GetType(ctx context.Context, key string) string {
 
 // GetList 获取redis list类型的数据，返回值和大小
 func GetList(ctx context.Context, key string) []string {
-	val, err := rdb.LRange(ctx, key, 0, 100).Result()
+	val, err := Rdb.LRange(ctx, key, 0, 100).Result()
 	if err != nil {
 		return nil
 	}
