@@ -32,6 +32,17 @@ func Splicing(str ...string) string {
 	return newStr.String()
 }
 
+// SubString 字符串截断
+// @param s 原始字符串
+// @param start 开始位置 0 <= start < len(s)
+// @param end 结束位置
+func SubString(s string, start int, end int) string {
+	if start < 0 || start >= len(s) || end < 0 || end > len(s) || start > end {
+		return s // 参数无效，返回原字符串
+	}
+	return s[start:end] // 使用切片操作获取子串
+}
+
 // RemoveAll 去除字符串中指定的多个字符，如有多个则全部去除
 // @param str 原始字符串
 // @param chars 要剔除的字符列表
