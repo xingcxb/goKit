@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/xingcxb/goKit/core/strKit"
+	"strconv"
 	"time"
 )
 
@@ -196,6 +197,20 @@ func ParseDateTime(str string) time.Time {
 		return t
 	}
 	return time.Time{}
+}
+
+// DateTimeStrToMillStr 日期时间字符串转毫秒字符串
+func DateTimeStrToMillStr(str string) string {
+	t := ParseDateTime(str)
+	// 获取时间对象对应的 Unix 时间戳，并将其转换为字符串形式
+	return strconv.FormatInt(t.UnixMilli(), 10)
+}
+
+// DateTimeStrToSecondStr 日期时间字符串转秒字符串
+func DateTimeStrToSecondStr(str string) string {
+	t := ParseDateTime(str)
+	// 获取时间对象对应的 Unix 时间戳，并将其转换为字符串形式
+	return strconv.FormatInt(t.Unix(), 10)
 }
 
 // MillisecondOfToStr 毫秒时间戳转字符串
