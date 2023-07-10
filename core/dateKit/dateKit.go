@@ -200,6 +200,7 @@ func ParseDateTime(str string) time.Time {
 }
 
 // DateTimeStrToMillStr 日期时间字符串转毫秒字符串
+// @param str 日期时间字符串 yyyy-MM-dd HH:mm:ss
 func DateTimeStrToMillStr(str string) string {
 	t := ParseDateTime(str)
 	// 获取时间对象对应的 Unix 时间戳，并将其转换为字符串形式
@@ -207,6 +208,7 @@ func DateTimeStrToMillStr(str string) string {
 }
 
 // DateTimeStrToSecondStr 日期时间字符串转秒字符串
+// @param str 日期时间字符串 yyyy-MM-dd HH:mm:ss
 func DateTimeStrToSecondStr(str string) string {
 	t := ParseDateTime(str)
 	// 获取时间对象对应的 Unix 时间戳，并将其转换为字符串形式
