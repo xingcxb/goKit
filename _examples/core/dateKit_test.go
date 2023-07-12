@@ -121,3 +121,73 @@ func TestDateTimeToSecondStr(t *testing.T) {
 func TestMillisecondToDateTime(t *testing.T) {
 	fmt.Println(dateKit.MillisecondOfToStr(1580892732000))
 }
+
+// 秒时间戳转换为日期时间
+func TestSecondToDateTime(t *testing.T) {
+	fmt.Println(dateKit.SecondOfToStr(1580892732))
+}
+
+// 判断两个日期是否为同一天
+func TestIsSameDay(t *testing.T) {
+	fmt.Println(dateKit.IsSameDay(time.Now(), time.Now()))
+}
+
+// 判断两个日期是否为同一月
+func TestIsSameMonth(t *testing.T) {
+	fmt.Println(dateKit.IsSameMonth(time.Now(), time.Now()))
+}
+
+// 日期偏移毫秒数
+func TestAddMillisecond(t *testing.T) {
+	fmt.Println(dateKit.OffsetMillisecond(time.Now(), 1000))
+}
+
+// 日期偏移秒数
+func TestAddSecond(t *testing.T) {
+	fmt.Println(dateKit.OffsetSecond(time.Now(), 1000))
+}
+
+// 日期偏移分钟数
+func TestAddMinute(t *testing.T) {
+	fmt.Println(dateKit.OffsetMinute(time.Now(), 1000))
+}
+
+// 日期偏移小时数
+func TestAddHour(t *testing.T) {
+	fmt.Println(dateKit.OffsetHour(time.Now(), 1000))
+}
+
+// 日期偏移天数
+func TestAddDay(t *testing.T) {
+	fmt.Println(dateKit.OffsetDay(time.Now(), 1000))
+}
+
+// 日期偏移周数
+func TestAddWeek(t *testing.T) {
+	fmt.Println(dateKit.OffsetWeek(time.Now(), 1))
+}
+
+// 日期偏移月数
+func TestAddMonth(t *testing.T) {
+	fmt.Println(dateKit.OffsetMonth(time.Now(), 1))
+}
+
+// 日期偏移年数
+func TestAddYear(t *testing.T) {
+	fmt.Println(dateKit.OffsetYear(time.Now(), 1))
+}
+
+// 日期偏移
+func TestAdd(t *testing.T) {
+	fmt.Println(dateKit.OffSet(time.Now(), dateKit.TimeYear, 1))
+}
+
+// 计时纳秒
+func TestNt(t *testing.T) {
+	fmt.Println(dateKit.SpendNt(1580892732 * 1e6))
+}
+
+// 计算毫秒
+func TestMs(t *testing.T) {
+	fmt.Println(dateKit.SpendMs(1580892732 * 1e3))
+}

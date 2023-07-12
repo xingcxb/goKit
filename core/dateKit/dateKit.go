@@ -248,7 +248,7 @@ func IsSameDay(date1, date2 time.Time) bool {
 // @param date1 日期1
 // @param date2 日期2
 // @return true：是同一月，false：不是同一月
-func isSameMonth(date1, date2 time.Time) bool {
+func IsSameMonth(date1, date2 time.Time) bool {
 	date1Str := Format(date1, DateLayoutYM)
 	date2Str := Format(date2, DateLayoutYM)
 	if date1Str == date2Str {
