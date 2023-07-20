@@ -19,9 +19,13 @@ func TestCount(t *testing.T) {
 }
 
 func TestIsMatch(t *testing.T) {
-	fmt.Println(regKit.IsMatch(regKit.NumbersPattern, "www.baidu.com/abc.doc"))
+	fmt.Println(regKit.IsMatch(regKit.NumbersPattern, "1www.baidu.com/abc.doc"))
 }
 
 func TestIndex(t *testing.T) {
 	fmt.Println(regKit.Index("baidu", "www.baidu.com/abc.baidu.doc"))
+}
+
+func TestGet(t *testing.T) {
+	fmt.Println(regKit.Get(regKit.WordPattern, "www.baidu.com/abc.doc", 6))
 }
