@@ -16,9 +16,12 @@ type MailAccount struct {
 }
 
 // SendMail 发送邮件
-// @param toAddress 接收者邮箱地址
-// @param subject 邮件主题
-// @param body 邮件内容
+/**
+ * @param toAddress 接收者邮箱地址
+ * @param subject 邮件主题
+ * @param body 邮件内容
+ * @return 返回错误信息
+ */
 func (m *MailAccount) SendMail(toAddress string, subject string, body string) error {
 	// 设置头部信息
 	headers := make(map[string]string, 0)

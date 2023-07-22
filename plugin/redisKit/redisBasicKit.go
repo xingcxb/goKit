@@ -132,6 +132,10 @@ type VObj struct {
 }
 
 // GetKeyInfo 通过key获取该键下值的所有信息
+/**
+ * @param key 键
+ * @return 返回值的所有信息,如果获取失败，返回错误信息
+ */
 func GetKeyInfo(ctx context.Context, key string) (string, error) {
 	// 获取值
 	v, err := GetStr(ctx, key)
@@ -152,6 +156,10 @@ func GetKeyInfo(ctx context.Context, key string) (string, error) {
 }
 
 // GetType 获取值类型，返回类型
+/**
+ * @param key 键
+ * @return 返回值的类型
+ */
 func GetType(ctx context.Context, key string) string {
 	allTypeStr := Rdb.Type(ctx, key).String()
 	arr := strings.Split(allTypeStr, " ")
@@ -164,6 +172,10 @@ func GetType(ctx context.Context, key string) string {
 }
 
 // GetList 获取redis list类型的数据，返回值和大小
+/**
+ * @param key 键
+ * @return 返回值和大小
+ */
 func GetList(ctx context.Context, key string) []string {
 	val, err := Rdb.LRange(ctx, key, 0, 100).Result()
 	if err != nil {

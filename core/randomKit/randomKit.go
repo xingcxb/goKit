@@ -64,6 +64,10 @@ func asyncProducingRandomBufferBytesLoop() {
 // 1. max只能大于0，否则直接返回max;
 // 2. 结果大于或等于0，但小于max;
 // 3. 结果数字为32位，小于math. max32。
+/**
+ * @param max 最大数（不包含）
+ * @return 随机数
+ */
 func RandomLong(max int) int {
 	if max <= 0 {
 		return max
@@ -76,9 +80,11 @@ func RandomLong(max int) int {
 }
 
 // RandomInt 获得指定范围内的随机数[min, max)
-// @param min 最小数（包含）
-// @param max 最大数（不包含）
-// @return 随机数
+/**
+ * @param min 最小数（包含）
+ * @param max 最大数（不包含）
+ * @return 随机数
+ */
 func RandomInt(min, max int) int {
 	if min >= max {
 		return min
@@ -90,15 +96,19 @@ func RandomInt(min, max int) int {
 }
 
 // RandomBool 获得随机Boolean值
-// @return true or false
+/**
+ * @return 随机Boolean值
+ */
 func RandomBool() bool {
 	return 0 == RandomLong(2)
 }
 
 // RandomStringWithoutStr 获得一个随机的字符串（只包含数字和字符） 并排除指定字符串
-// @param length – 字符串的长度
-// @param elemData – 要排除的字符串,如：去重容易混淆的字符串，oO0、lL1、q9Q、pP
-// @return 随机字符串
+/**
+ * @param length – 字符串的长度
+ * @param elemData – 要排除的字符串,如：去重容易混淆的字符串，oO0、lL1、q9Q、pP
+ * @return 随机字符串
+ */
 func RandomStringWithoutStr(length int, elemData string) string {
 	str := BaseCharNumber
 	str = strKit.RemoveAll(str, strings.Split(elemData, "")...)
@@ -106,8 +116,11 @@ func RandomStringWithoutStr(length int, elemData string) string {
 }
 
 // RandomTradeNo 创建订单号, 如果存在字母则字母为大写
-// @param length 长度(指排除YYYYMMDDHHmmss之后的长度)
-// @param isLetter 是否包含字母 true 允许字母| false 不允许字母
+/**
+ * @param length 长度(指排除YYYYMMDDHHmmss之后的长度)
+ * @param isLetter 是否包含字母 true 允许字母| false 不允许字母
+ * @return 订单号
+ */
 func RandomTradeNo(length int, isLetter bool) string {
 	date := dateKit.Format(time.Now(), dateKit.DateLayoutPureYMDHMS)
 	randomStr := ""
@@ -120,20 +133,29 @@ func RandomTradeNo(length int, isLetter bool) string {
 }
 
 // RandomNumbers 获得一个只包含数字的字符串
-// @param length – 字符串的长度
-// @return 随机字符串
+/**
+ * @param length – 字符串的长度
+ * @return 随机字符串
+ */
 func RandomNumbers(length int) string {
 	return RandomStrBasic(BaseNumber, length)
 }
 
 // RandomStr 随机字符串
+/**
+ * @param length – 字符串的长度
+ * @return 随机字符串
+ */
 func RandomStr(length int) string {
 	return RandomStrBasic(strKit.Splicing(BaseUpperCaseChar, BaseChar, BaseCharNumber), length)
 }
 
 // RandomStrBasic 获得一个随机的字符串
-// @param baseString 随机字符选取的样本
-// @param length 字符串的长度
+/**
+ * @param baseString 随机字符选取的样本
+ * @param length 字符串的长度
+ * @return 随机字符串
+ */
 func RandomStrBasic(baseString string, length int) string {
 	if baseString == "" {
 		return strKit.EMPTY

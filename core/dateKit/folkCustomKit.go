@@ -4,8 +4,10 @@ package dateKit
 import "time"
 
 // Constellation 获取当前时间的星座
-// @param date 日期
-// @return 返回星座名称
+/**
+ * @param date 日期
+ * @return 返回星座名称
+ */
 func Constellation(date time.Time) (s string) {
 	month := date.Month()
 	day := date.Day()

@@ -39,8 +39,10 @@ func (e ErrorUnsupportedType) Error() string {
 }
 
 // StructDefault 给结构体增加默认值
-// @param t 结构体
-// @return 返回错误信息
+/**
+ * @param t 结构体
+ * @return 返回错误信息
+ */
 func StructDefault(t interface{}) error {
 	val := reflect.ValueOf(t)
 	if val.Kind() != reflect.Ptr {

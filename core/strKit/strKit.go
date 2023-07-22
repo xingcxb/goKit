@@ -16,14 +16,19 @@ const (
 )
 
 // Length 获取字符串长度
-// @param 字符串
-// @return 返回字符串长度
+/**
+ * @param str 字符串
+ * @return 返回字符串长度
+ */
 func Length(str string) int {
 	return utf8.RuneCountInString(str)
 }
 
 // Splicing 字符串拼接
-// @param str 待拼凑的字符串
+/**
+ * 	@param str 待拼凑的字符串
+ * 	@return 返回拼凑后的字符串
+ */
 func Splicing(str ...string) string {
 	var newStr = strings.Builder{}
 	for i := 0; i < len(str); i++ {
@@ -33,9 +38,12 @@ func Splicing(str ...string) string {
 }
 
 // SubString 字符串截断
-// @param s 原始字符串
-// @param start 开始位置 0 <= start < len(s)
-// @param end 结束位置
+/**
+ * @param s 原始字符串
+ * @param start 开始位置 0 <= start < len(s)
+ * @param end 结束位置
+ * @return 返回截取后的字符串
+ */
 func SubString(s string, start int, end int) string {
 	if start < 0 || start >= len(s) || end < 0 || end > len(s) || start > end {
 		return s // 参数无效，返回原字符串
@@ -44,9 +52,11 @@ func SubString(s string, start int, end int) string {
 }
 
 // RemoveAll 去除字符串中指定的多个字符，如有多个则全部去除
-// @param str 原始字符串
-// @param chars 要剔除的字符列表
-// @return 去除后的字符
+/**
+ * @param str 原始字符串
+ * @param chars 要剔除的字符列表
+ * @return 去除后的字符
+ */
 func RemoveAll(str string, chars ...string) string {
 	sb := strings.Builder{}
 	charStr := strings.Split(str, "")
@@ -59,7 +69,10 @@ func RemoveAll(str string, chars ...string) string {
 }
 
 // MapParamsToUrlParams 请求链接中的params转字符串
-// @param paramsMap 请求map类型的请求参数，通常来说请求参数都是字符串
+/**
+ * @param paramsMap 请求map类型的请求参数，通常来说请求参数都是字符串
+ * @return 返回拼凑后的字符串
+ */
 func MapParamsToUrlParams(paramsMap map[string]string) string {
 	urlParams := ""
 	if paramsMap == nil {
@@ -73,8 +86,10 @@ func MapParamsToUrlParams(paramsMap map[string]string) string {
 }
 
 // StrParamsToMapParams URL字符串参数转map
-// @param str URL字符串参数
-// @return 返回map类型的参数
+/**
+ * @param str URL字符串参数
+ * @return 返回map类型的参数
+ */
 func StrParamsToMapParams(str string) map[string]string {
 	paramsMap := make(map[string]string)
 	if str == "" {
@@ -89,21 +104,22 @@ func StrParamsToMapParams(str string) map[string]string {
 }
 
 // ReplaceIndex 通过下标替换值
-// @param start 开始下标
-// @param end 结束下标
-// @param str 要替换字符串
-// @param replaceStr 替换的字符串
-// @return
+/**
+ * @param start 开始下标
+ * @param end 结束下标
+ * @param str 要替换字符串
+ * @param replaceStr 替换的字符串
+ * @return 返回替换后的字符串
+ */
 func ReplaceIndex(start, end int, str, replaceStr string) string {
 	return strings.Replace(str, string([]rune(str)[start:end]), replaceStr, 1)
 }
 
-// AutoReplaceMiddle 替换中间字符为*
-//
-//	如果为单字符的则无法隐藏eg:a  ,  a@qq.com
-//
-// @param str 待替换的字符
-// @return 返回替换后的字符串
+// AutoReplaceMiddle 替换中间字符为* 如果为单字符的则无法隐藏eg:a  ,  a@qq.com
+/**
+ * @param str 待替换的字符
+ * @return 返回替换后的字符串
+ */
 func AutoReplaceMiddle(str string) string {
 	if len(str) < 2 {
 		return str
@@ -134,7 +150,10 @@ func AutoReplaceMiddle(str string) string {
 }
 
 // IsEnLetter 判断单个字符是否为英文，如果字符长度超出单个字符直接判定为false
-// @params str 待判断字符串
+/**
+ * @param str 待判断字符串
+ * @return 返回是否为英文
+ */
 func IsEnLetter(str string) bool {
 	strLen := Length(str)
 	if strLen > 2 {
@@ -145,8 +164,10 @@ func IsEnLetter(str string) bool {
 }
 
 // Reverse 反转字符串 例如：abcd =》dcba
-// @param str – 被反转的字符串
-// @return 反转后的字符串
+/**
+ * @param str 被反转的字符串
+ * @return 反转后的字符串
+ */
 func Reverse(str string) string {
 	strArray := strings.Split(str, "")
 	for i, j := 0, len(strArray)-1; i < j; i, j = i+1, j-1 {
@@ -156,8 +177,10 @@ func Reverse(str string) string {
 }
 
 // FirstUpper 首字母大写
-// @param 要处理的字符
-// @return 返回首字母大写的字符串
+/**
+ * @param str 要处理的字符
+ * @return 返回首字母大写的字符串
+ */
 func FirstUpper(str string) string {
 	if str == "" {
 		return ""
@@ -166,8 +189,10 @@ func FirstUpper(str string) string {
 }
 
 // FirstLower 首字母小写
-// @param 要处理的字符
-// @return 返回首字母大写的字符串
+/**
+ * @param str 要处理的字符
+ * @return 返回首字母大写的字符串
+ */
 func FirstLower(str string) string {
 	if str == "" {
 		return ""
@@ -176,8 +201,11 @@ func FirstLower(str string) string {
 }
 
 // SplitterToHump 分割符转换为驼峰
-// @param str 待处理的字符
-// @param splitter 分割符，默认为下划线 _
+/**
+ * @param str 待处理的字符
+ * @param splitter 分割符，默认为下划线 _
+ * @return 返回驼峰字符串
+ */
 func SplitterToHump(str, splitter string) string {
 	if splitter == "" {
 		splitter = UNDERLINE
@@ -191,8 +219,10 @@ func SplitterToHump(str, splitter string) string {
 }
 
 // SliceToStr 切片转字符串，用逗号分隔
-// @param strs 切片
-// @return 字符串
+/**
+ * 	@param strs 切片
+ * 	@return 字符串
+ */
 func SliceToStr(strs []string) string {
 	newStr := ""
 	for _, str := range strs {
@@ -202,13 +232,20 @@ func SliceToStr(strs []string) string {
 }
 
 // CleanStrSymbol 清除字符串中的html标签
+/**
+ * @param str 字符串
+ * @return 返回清除后的字符串
+ */
 func CleanStrSymbol(str string) string {
 	return strings.ReplaceAll(str, "</?[^>]+>", "")
 }
 
 // StrToAscii 字符串转ASCII码
-// @param str 字符串
-// @param separator 分隔符，如果为空则默认为逗号
+/**
+ * @param str 字符串
+ * @param separator 分隔符，如果为空则默认为逗号
+ * @return 返回ASCII码
+ */
 func StrToAscii(str, separator string) string {
 	StrAscii := ""
 	if separator == "" {
@@ -222,8 +259,11 @@ func StrToAscii(str, separator string) string {
 }
 
 // AsciiToStr ASCII码转字符串
-// @param str ASCII码
-// @param separator 分隔符，如果为空则默认为逗号
+/**
+ * @param str ASCII码
+ * @param separator 分隔符，如果为空则默认为逗号
+ * @return 返回字符串
+ */
 func AsciiToStr(str, separator string) string {
 	if separator == "" {
 		// 如果没有传递分隔符，默认采用逗号
