@@ -33,6 +33,15 @@ func TestDate(t *testing.T) {
 	fmt.Println(OffsetHour(time.Now(), 1))
 	fmt.Println(OffsetMonth(time.Now(), 1))
 	fmt.Println(OffsetYear(time.Now(), 1))
+
+}
+
+func TestDateTimeStrToMillStr(t *testing.T) {
+	fmt.Println(DateTimeStrToMillStr("2021-09-01 00:00:00"))
+}
+
+func TestDateTimeStrToSecondStr(t *testing.T) {
+	fmt.Println(DateTimeStrToSecondStr("2021-09-01 00:00:00"))
 }
 
 func TestOffset(t *testing.T) {

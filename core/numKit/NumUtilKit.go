@@ -8,7 +8,10 @@ const (
 )
 
 // FormatNumUnit 将数字格式化携带单位
-// @param num 数字
+/**
+ * @param num 数字
+ * @return string
+ */
 func FormatNumUnit(num int) string {
 	if num < 10000 {
 		//如果小于1万

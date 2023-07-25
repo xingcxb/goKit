@@ -7,15 +7,18 @@ import (
 )
 
 // CreateExcel 生成excel
-// filePath 文件路径
-// fileName 文件名
-// sheetName sheet名
-// headers 表头
-// contents 内容 双切片按数据库的行列来理解，第一层切片为数据库单条数据，第二层切片为单条数据中的各个元素；
-// <br/> 例如：[[1,2,3],[4,5,6]] 生成的excel为：
-// <br/> 	A B C
-// <br/> 1	1 2 3
-// <br/> 2	4 5 6
+/**
+ * @param filePath 文件路径
+ * @param fileName 文件名
+ * @param sheetName sheet名
+ * @param headers 表头
+ * @param contents 内容 双切片按数据库的行列来理解，第一层切片为数据库单条数据，第二层切片为单条数据中的各个元素；
+ * <br/> 例如：[[1,2,3],[4,5,6]] 生成的excel为：
+ * <br/> 	A B C
+ * <br/> 1	1 2 3
+ * <br/> 2	4 5 6
+ * @return 返回生成的excel文件路径
+ */
 func CreateExcel(fileName, sheetName string, headers []string, contents [][]interface{}) (string, error) {
 	// 强制文件路径
 	filePath := fileKit.GetCurrentAbPath()

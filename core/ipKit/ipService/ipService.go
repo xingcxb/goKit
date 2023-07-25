@@ -28,7 +28,10 @@ type IpInfo struct {
 }
 
 // RandomQuery 随机查询ip的地址信息
-// @param ip 要查询的ip
+/**
+ * @param ip 要查询的ip
+ * @return IpInfo,error
+ */
 func RandomQuery(ip string) (IpInfo, error) {
 	if randomKit.RandomInt(0, 1) == 0 {
 		return GetIpInfoCZ(ip)
@@ -37,8 +40,11 @@ func RandomQuery(ip string) (IpInfo, error) {
 }
 
 // GetIpInfoCZ 获取ip信息，数据来自纯真
-// 数据来源网址 https://www.cz88.net/
-// @param ip 要查询的ip
+/**
+ * 数据来源网址 https://www.cz88.net/
+ * @param ip 要查询的ip
+ * @return IpInfo,error
+ */
 func GetIpInfoCZ(ip string) (IpInfo, error) {
 	ipInfo := IpInfo{Ip: ip}
 	requestUrl := strKit.Splicing(requestUrlCZ, ip)
@@ -57,8 +63,11 @@ func GetIpInfoCZ(ip string) (IpInfo, error) {
 }
 
 // GetIpInfoCip 获取ip信息，数据来自ip138
-// 数据来源网址 http://www.cip.cc/
-// @param ip 要查询的ip
+/**
+ * 数据来源网址 http://www.cip.cc/
+ * @param ip 要查询的ip
+ * @return IpInfo,error
+ */
 func GetIpInfoCip(ip string) (IpInfo, error) {
 	ipInfo := IpInfo{Ip: ip}
 	requestUrl := strKit.Splicing("https://www.cip.cc/", ip)

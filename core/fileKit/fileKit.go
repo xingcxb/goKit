@@ -13,9 +13,10 @@ import (
 )
 
 // Exists 文件或文件夹是否存在
-// @param {[type]} ctx context.Context [description]
-// @param {string} path 文件夹路径
-// @return bool true 存在 false 不存在
+/**
+ * @param path 文件或文件夹路径
+ * @return bool true 存在 false 不存在
+ */
 func Exists(path string) bool {
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
@@ -25,8 +26,10 @@ func Exists(path string) bool {
 }
 
 // CreateFile 创建文件
-// @param {string} filePath 文件路径
-// @return error
+/**
+ * @param filePath 文件路径
+ * @return error
+ */
 func CreateFile(filePath string) error {
 	// 判断文件是否存在
 	if Exists(filePath) {
@@ -42,10 +45,12 @@ func CreateFile(filePath string) error {
 }
 
 // SaveFile 保存信息到文件
-// @param {string} filePath 文件夹路径
-// @param {string} fileName 文件名
-// @param {string} content 文件内容
-// @return error
+/**
+ * @param filePath 文件夹路径
+ * @param fileName 文件名
+ * @param content 文件内容
+ * @return error
+ */
 func SaveFile(filePath, fileName, content string) error {
 	// 文件夹路径
 	folderPath := strKit.Splicing(filePath, "/", fileName)
@@ -65,13 +70,15 @@ func SaveFile(filePath, fileName, content string) error {
 	return nil
 }
 
-// GetFileTotalLines 获取文件总行数<br/>
-// 注意：<br/>
-//  1. 读取大文件时，会消耗大量内存
-//  2. 读取商业加密文本时行数上面会异常
-//  3. 空白行不会被计算
-//
-// @param filePath 文件路径
+// GetFileTotalLines 获取文件总行数
+/**
+ * 注意：
+ * 1. 读取大文件时，会消耗大量内存
+ * 2. 读取商业加密文本时行数上面会异常
+ * 3. 空白行不会被计算
+ * @param filePath 文件路径
+ * @return 文件总行数, 错误信息
+ */
 func GetFileTotalLines(filePath string) (int, error) {
 	if filePath == "" {
 		return 0, errors.New("文件路径不能为空")
@@ -94,8 +101,10 @@ func GetFileTotalLines(filePath string) (int, error) {
 }
 
 // FileDirSize 获取文件/文件夹下所有文件的大小
-// @param path 文件/文件夹路径
-// @return 文件大小[byte], 错误信息
+/**
+ * @param path 文件/文件夹路径
+ * @return 文件大小[byte], 错误信息
+ */
 func FileDirSize(path string) (int, error) {
 	// 打开文件
 	f, err := os.Open(path)

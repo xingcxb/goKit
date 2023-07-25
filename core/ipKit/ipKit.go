@@ -6,7 +6,10 @@ import (
 )
 
 // GetIpAddressInfo 获取ip物理地址信息
-// @param ip 需要查询的ip地址
+/**
+ * @param ip 需要查询的ip地址
+ * @return string,error
+ */
 func GetIpAddressInfo(ip string) (string, error) {
 	ipInfoObj, err := ipService.RandomQuery(ip)
 	if err != nil {

@@ -9,7 +9,9 @@ import (
 )
 
 // GetAbsolutePackagePath 获取当前调用函数的绝对路径文件夹
-// @return 绝对路径, 错误信息
+/**
+ * @return string 绝对路径 错误信息
+ */
 func GetAbsolutePackagePath() (string, error) {
 	dir, err := getCurrentAbPathByExecutable()
 	if err != nil {

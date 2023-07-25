@@ -12,10 +12,13 @@ import (
 )
 
 // HttpDownload 下载文件
-// @param urlString 网址
-// @param savePath 保存路径
-// @param fileName 文件名，如果不存在则自动获取
-// @param isCover 是否覆盖 true 覆盖 false 不覆盖
+/**
+ * @param urlString 网址
+ * @param savePath 保存路径
+ * @param fileName 文件名，如果不存在则自动获取
+ * @param isCover 是否覆盖 true 覆盖 false 不覆盖
+ * @return string 文件路径,error
+ */
 func HttpDownload(urlString, savePath, fileName string, isCover bool) (string, error) {
 	if savePath == "" {
 		return "", errors.New("保存路径为空")
@@ -71,45 +74,60 @@ func HttpDownload(urlString, savePath, fileName string, isCover bool) (string, e
 }
 
 // HttpGet 发送get请求
-// @param urlString 网址
+/**
+ * @param urlString 网址
+ * @return string 网页内容,error
+ */
 func HttpGet(urlString string) (string, error) {
 	return HttpGetFull(urlString, nil, nil, "", -1)
 }
 
 // HttpGetFull 发送get请求[完整版]
-// @param urlString 网址
-// @param headers header信息
-// @param paramMap post表单数据
-// @param body body数据
-// @param timeout 超时时长，-1表示默认超时，单位毫秒
+/**
+ * @param urlString 网址
+ * @param headers header信息
+ * @param paramMap post表单数据
+ * @param body body数据
+ * @param timeout 超时时长，-1表示默认超时，单位毫秒
+ * @return string 网页内容,error
+ */
 func HttpGetFull(urlString string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
 	return HttpBasic(urlString, http.MethodGet, headers, paramMap, body, timeout)
 }
 
 // HttpPost 发送post基础请求
-// @param urlString 网址
-// @param params post表单数据
+/**
+ * @param urlString 网址
+ * @param params post表单数据
+ * @return string 网页内容,error
+ */
 func HttpPost(urlString string, params map[string]string) (string, error) {
 	return HttpBasic(urlString, http.MethodPost, nil, params, "", -1)
 }
 
 // HttpPostFull 发送post请求[完整版]
-// @param urlString 网址
-// @param headers header信息
-// @param paramMap post表单数据
-// @param body body数据
-// @param timeout 超时时长，-1表示默认超时，单位毫秒
+/**
+ * @param urlString 网址
+ * @param headers header信息
+ * @param paramMap post表单数据
+ * @param body body数据
+ * @param timeout 超时时长，-1表示默认超时，单位毫秒
+ * @return string 网页内容,error
+ */
 func HttpPostFull(urlString string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
 	return HttpBasic(urlString, http.MethodPost, headers, paramMap, body, timeout)
 }
 
 // HttpBasic 发送http请求[基础]
-// @param urlString 网址
-// @param httpMethod http请求方法
-// @param headers header信息
-// @param paramMap post表单数据
-// @param body body数据
-// @param timeout 超时时长，-1表示默认超时，单位毫秒
+/**
+ * @param urlString 网址
+ * @param httpMethod http请求方法
+ * @param headers header信息
+ * @param paramMap post表单数据
+ * @param body body数据
+ * @param timeout 超时时长，-1表示默认超时，单位毫秒
+ * @return string 网页内容,error
+ */
 func HttpBasic(urlString string, httpMethod string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
 	urlParam := strKit.MapParamsToUrlParams(paramMap)
 	if urlParam != "" {
