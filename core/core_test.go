@@ -27,7 +27,7 @@ func TestHttpPost(t *testing.T) {
 }
 
 func TestDownload(t *testing.T) {
-	fmt.Println(httpKit.HttpDownload("https://juliangip.com/upload/ipInfo.xlsx", "/Users/symbol/Downloads", "", false))
+	fmt.Println(httpKit.HttpDownload("https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg", "/Users/symbol/Downloads", "", false))
 }
 
 func TestPath(t *testing.T) {
