@@ -100,7 +100,7 @@ func GetFileTotalLines(filePath string) (int, error) {
 	return lines, nil
 }
 
-// FileDirSize 获取文件/文件夹下所有文件的大小
+// FileDirSize 获取文件/文件夹下所有文件的大小[byte]
 /**
  * @param path 文件/文件夹路径
  * @return 文件大小[byte], 错误信息

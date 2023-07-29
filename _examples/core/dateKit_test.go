@@ -2,7 +2,6 @@ package core
 
 import (
 	"fmt"
-	"github.com/tidwall/gjson"
 	"github.com/xingcxb/goKit/core/dateKit"
 	"testing"
 	"time"
@@ -193,11 +192,6 @@ func TestMs(t *testing.T) {
 	fmt.Println(dateKit.SpendMs(1580892732 * 1e3))
 }
 
-func TestJson(t *testing.T) {
-	strJson := `"a":{"t1": {"v1": "vv1"},"t2": {"v2": "vv2"}} `
-	result := gjson.Get(strJson, "a")
-	result.ForEach(func(key, value gjson.Result) bool {
-		fmt.Println(key.String(), " ==> ", value.String())
-		return true
-	})
+func TestConstellation(t *testing.T) {
+	fmt.Println(dateKit.Constellation(time.Now()))
 }

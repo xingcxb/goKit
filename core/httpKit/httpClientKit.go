@@ -6,6 +6,7 @@ import (
 	"github.com/xingcxb/goKit/core/strKit"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 	"time"
@@ -16,7 +17,7 @@ import (
  * @param urlString 网址
  * @param savePath 保存路径
  * @param fileName 文件名，如果不存在则自动获取
- * @param isCover 是否覆盖 true 覆盖 false 不覆盖
+ * @param isCover 是否覆盖 true 覆盖 false 不覆盖(当文件存在的时候返回该文件已存在)
  * @return string 文件路径,error
  */
 func HttpDownload(urlString, savePath, fileName string, isCover bool) (string, error) {
@@ -121,14 +122,14 @@ func HttpPostFull(urlString string, headers, paramMap map[string]string, body st
 // HttpBasic 发送http请求[基础]
 /**
  * @param urlString 网址
- * @param httpMethod http请求方法
+ * @param httpMethod http请求方法 http.MethodPost http.MethodGet
  * @param headers header信息
  * @param paramMap post表单数据
  * @param body body数据
  * @param timeout 超时时长，-1表示默认超时，单位毫秒
  * @return string 网页内容,error
  */
-func HttpBasic(urlString string, httpMethod string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
+func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
 	urlParam := strKit.MapParamsToUrlParams(paramMap)
 	if urlParam != "" {
 		urlString = strKit.Splicing(urlString, "?", urlParam)
@@ -142,6 +143,116 @@ func HttpBasic(urlString string, httpMethod string, headers, paramMap map[string
 		http.DefaultClient.Timeout = time.Duration(timeout) * time.Millisecond
 	}
 	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer res.Body.Close()
+	respByte, err := io.ReadAll(res.Body)
+	if err != nil {
+		return "", err
+	}
+	result := string(respByte)
+	return result, nil
+}
+
+// HttpProxyGet 发送get代理请求
+/**
+ * @param urlStr 网址
+ * @param proxyIpPort 代理ip和端口
+ * @return string 网页内容,error
+ */
+func HttpProxyGet(urlStr, proxyIpPort string) (string, error) {
+	return HttpProxyGetFull(urlStr, nil, nil, "", -1,
+		"http", "", "", proxyIpPort)
+}
+
+// HttpProxyGetFull 发送get代理请求[完整版]
+/**
+ * @param urlString 网址
+ * @param headers header信息
+ * @param paramMap 参数
+ * @param body body数据
+ * @param timeout 超时时长，-1表示默认超时，单位毫秒
+ * @param proxyHttpType 代理类型 http/https
+ * @param username 用户名 用户名和密码为空时不使用代理
+ * @param password 密码
+ * @param proxyIpPort 代理ip和端口
+ * @return string 网页内容,error
+ */
+func HttpProxyGetFull(urlString string, headers, paramMap map[string]string, body string,
+	timeout int, proxyHttpType, username, password, proxyIpPort string) (string, error) {
+	return HttpProxyBasic(urlString, http.MethodGet, headers, paramMap, body, timeout,
+		proxyHttpType, username, password, proxyIpPort)
+}
+
+// HttpProxyPost 发送post代理请求
+/**
+ * @param urlStr 网址
+ * @param paramMap 参数
+ * @param proxyIpPort 代理ip和端口
+ * @return string 网页内容,error
+ */
+func HttpProxyPost(urlStr string, paramMap map[string]string, proxyIpPort string) (string, error) {
+	return HttpProxyPostFull(urlStr, nil, paramMap, "", -1,
+		"http", "", "", proxyIpPort)
+}
+
+// HttpProxyPostFull 发送post代理请求[完整版]
+/**
+ * @param urlString 网址
+ * @param headers header信息
+ * @param paramMap 参数
+ * @param body body数据
+ * @param timeout 超时时长，-1表示默认超时，单位毫秒
+ * @param proxyHttpType 代理类型 http/https
+ * @param username 用户名 用户名和密码为空时不使用代理
+ * @param password 密码
+ * @param proxyIpPort 代理ip和端口
+ * @return string 网页内容,error
+ */
+func HttpProxyPostFull(urlString string, headers, paramMap map[string]string, body string,
+	timeout int, proxyHttpType, username, password, proxyIpPort string) (string, error) {
+	return HttpProxyBasic(urlString, http.MethodPost, headers, paramMap, body, timeout,
+		proxyHttpType, username, password, proxyIpPort)
+}
+
+// HttpProxyBasic 发送http代理请求[基础]
+/**
+ * 注意：proxyIpPort的格式并未校验需要自行校验，原因是有些代理ip可能为ipv6
+ * 感谢：感谢巨量IP(https://juliangip.com?goKit)提供测试ip
+ * @param urlStr 网址
+ * @param httpMethod http请求方法 http.MethodPost http.MethodGet
+ * @param headers header信息
+ * @param paramMap post表单数据
+ * @param body body数据
+ * @param timeout 超时时长，-1表示默认超时，单位毫秒
+ * @param proxyHttpType 代理类型 http/https
+ * @param username 用户名 用户名和密码为空时默认使用无账号密码的代理
+ * @param password 密码
+ * @param proxyIpPort 代理ip端口 格式：ip:port
+ * @return string 网页内容,error
+ */
+func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]string,
+	body string, timeout int, proxyHttpType, username, password, proxyIpPort string) (string, error) {
+	// 判断是否需要代理
+	if proxyIpPort == "" {
+		// 如果不需要代理，直接调用httpBasic
+		return HttpBasic(urlStr, httpMethod, headers, paramMap, body, timeout)
+	}
+	urlParam := strKit.MapParamsToUrlParams(paramMap)
+	if urlParam != "" {
+		urlStr = strKit.Splicing(urlStr, "?", urlParam)
+	}
+	bodyReader := strings.NewReader(body)
+	proxyStr := strKit.Splicing(proxyHttpType, "://", username, ":", password, "@", proxyIpPort)
+	proxy, err := url.Parse(proxyStr)
+	if err != nil {
+		return "", err
+	}
+	//  请求目标网页
+	client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxy)}}
+	req, _ := http.NewRequest(httpMethod, urlStr, bodyReader)
+	res, err := client.Do(req)
 	if err != nil {
 		return "", err
 	}
