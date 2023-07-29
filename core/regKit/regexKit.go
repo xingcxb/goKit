@@ -116,3 +116,22 @@ func Count(regex, content string) int {
 	}
 	return len(compile.FindAllString(content, -1))
 }
+
+// ReplaceAll 替换所有匹配的字符串
+/**
+ * @params regex 正则表达式
+ * @params replaceStr 替换的字符串
+ * @params content 待匹配的字符串
+ * @return 替换后的字符串
+ */
+func ReplaceAll(regex, replaceStr, content string) string {
+	if regex == "" || content == "" {
+		// 如果正则表达式或内容都为空，则返回0
+		return ""
+	}
+	compile, err := regexp.Compile(regex)
+	if err != nil {
+		return ""
+	}
+	return compile.ReplaceAllString(content, replaceStr)
+}
