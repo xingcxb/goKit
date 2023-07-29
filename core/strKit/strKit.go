@@ -3,6 +3,7 @@ package strKit
 import (
 	"fmt"
 	"github.com/xingcxb/goKit/core/arrayKit"
+	"github.com/xingcxb/goKit/core/regKit"
 	"math"
 	"strconv"
 	"strings"
@@ -103,7 +104,7 @@ func StrParamsToMapParams(str string) map[string]string {
 	return paramsMap
 }
 
-// ReplaceIndex 通过下标替换值
+// ReplaceIndex 通过下标指定区域替换值
 /**
  * @param start 开始下标
  * @param end 结束下标
@@ -159,7 +160,8 @@ func IsEnLetter(str string) bool {
 	if strLen > 2 {
 		return false
 	}
-	s, _ := strconv.Atoi(str)
+	sStr := StrToAscii(str, "")
+	s, _ := strconv.ParseInt(sStr, 10, 64)
 	return (s >= 97 && s <= 122) || (s >= 65 && s <= 90)
 }
 
@@ -237,13 +239,13 @@ func SliceToStr(strs []string) string {
  * @return 返回清除后的字符串
  */
 func CleanStrSymbol(str string) string {
-	return strings.ReplaceAll(str, "</?[^>]+>", "")
+	return regKit.ReplaceAll("</?[^>]+>", "", str)
 }
 
-// StrToAscii 字符串转ASCII码
+// StrToAscii 字符串转ASCII码，并用指定的分隔符分隔
 /**
  * @param str 字符串
- * @param separator 分隔符，如果为空则默认为逗号
+ * @param separator 返回值分隔符，如果为空则默认为逗号
  * @return 返回ASCII码
  */
 func StrToAscii(str, separator string) string {
