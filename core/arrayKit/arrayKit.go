@@ -40,15 +40,16 @@ func Contains(strs []string, char string) bool {
  * @param values 待排序的字符串数组
  * @return 排序后的字符串数组
  */
-func BubbleDescSort(values []string) []string {
-	for i := 0; i < len(values)-1; i++ {
-		for j := i + 1; j < len(values); j++ {
-			if strings.Count(values[i], ":") < strings.Count(values[j], ":") {
-				values[i], values[j] = values[j], values[i]
+func BubbleDescSort(strs []string) []string {
+	n := len(strs)
+	for i := 0; i < n-1; i++ {
+		for j := 0; j < n-i-1; j++ {
+			if strs[j] < strs[j+1] {
+				strs[j], strs[j+1] = strs[j+1], strs[j]
 			}
 		}
 	}
-	return values
+	return strs
 }
 
 // BubbleAscSort 冒泡排序 正序
@@ -56,15 +57,16 @@ func BubbleDescSort(values []string) []string {
  * @param values 待排序的字符串数组
  * @return 排序后的字符串数组
  */
-func BubbleAscSort(values []string) []string {
-	for i := 0; i < len(values)-1; i++ {
-		for j := i + 1; j < len(values); j++ {
-			if strings.Count(values[i], ":") > strings.Count(values[j], ":") {
-				values[i], values[j] = values[j], values[i]
+func BubbleAscSort(strs []string) []string {
+	n := len(strs)
+	for i := 0; i < n-1; i++ {
+		for j := 0; j < n-i-1; j++ {
+			if strs[j] > strs[j+1] {
+				strs[j], strs[j+1] = strs[j+1], strs[j]
 			}
 		}
 	}
-	return values
+	return strs
 }
 
 // JoinStringsInASCII 将map数据key以ASCII码从小到大排序后拼接
