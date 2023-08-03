@@ -1,4 +1,4 @@
-package ipKit
+package core
 
 import (
 	"fmt"
@@ -7,9 +7,12 @@ import (
 	"testing"
 )
 
-func TestIp(t *testing.T) {
-	fmt.Println(ipService.GetIpInfoCZ("171.42.102.199"))
-	fmt.Println(ipService.GetIpInfoCip("178.42.102.199"))
+func TestGetIpInfoCZ(t *testing.T) {
+	fmt.Println(ipService.GetIpInfoCip("127.0.0.1"))
+}
+
+func TestGetIpInfoCip(t *testing.T) {
+	fmt.Println(ipService.GetIpInfoCip("127.0.0.1"))
 }
 
 func TestLIp(t *testing.T) {

@@ -70,6 +70,8 @@ github.com/xuri/efp v0.0.0-20220603152613-6918739fd470 h1:6932x8ltq1w4utjmfMPVj0
 github.com/xuri/efp v0.0.0-20220603152613-6918739fd470/go.mod h1:ybY/Jr0T0GTCnYjKqmdwxyxn2BQf2RcQIIvex5QldPI=
 github.com/xuri/efp v0.0.0-20230422071738-01f4e37c47e9 h1:ge5g8vsTQclA5lXDi+PuiAFw5GMIlMHOB/5e1hsf96E=
 github.com/xuri/efp v0.0.0-20230422071738-01f4e37c47e9/go.mod h1:ybY/Jr0T0GTCnYjKqmdwxyxn2BQf2RcQIIvex5QldPI=
+github.com/xuri/efp v0.0.0-20230802181842-ad255f2331ca h1:uvPMDVyP7PXMMioYdyPH+0O+Ta/UO1WFfNYMO3Wz0eg=
+github.com/xuri/efp v0.0.0-20230802181842-ad255f2331ca/go.mod h1:ybY/Jr0T0GTCnYjKqmdwxyxn2BQf2RcQIIvex5QldPI=
 github.com/xuri/excelize/v2 v2.7.1 h1:gm8q0UCAyaTt3MEF5wWMjVdmthm2EHAWesGSKS9tdVI=
 github.com/xuri/excelize/v2 v2.7.1/go.mod h1:qc0+2j4TvAUrBw36ATtcTeC1VCM0fFdAXZOmcF4nTpY=
 github.com/xuri/nfp v0.0.0-20220409054826-5e722a1d9e22 h1:OAmKAfT06//esDdpi/DZ8Qsdt4+M5+ltca05dA5bG2M=
