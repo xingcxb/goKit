@@ -103,7 +103,7 @@ func RandomBool() bool {
 	return 0 == RandomLong(2)
 }
 
-// RandomStringWithoutStr 获得一个随机的字符串（只包含数字和字符） 并排除指定字符串
+// RandomStringWithoutStr 获得一个随机的字符串（只包含数字和字母） 并排除指定字符串
 /**
  * @param length – 字符串的长度
  * @param elemData – 要排除的字符串,如：去重容易混淆的字符串，oO0、lL1、q9Q、pP

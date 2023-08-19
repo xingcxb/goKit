@@ -14,8 +14,8 @@ type BootTimeInfo struct {
 	RunTime  string `json:"runTime"`  // 运行时间
 }
 
-// BootTime 开机时间
-func BootTime() BootTimeInfo {
+// GetBootTime 开机时间
+func GetBootTime() BootTimeInfo {
 	timestamp, _ := host.BootTime()
 	dateTimeStr := dateKit.SecondOfToStr(int64(timestamp))
 	useTimestampS, _ := host.Uptime()
@@ -25,8 +25,8 @@ func BootTime() BootTimeInfo {
 	}
 }
 
-// OsInfo 获取系统信息
-func OsInfo() (string, error) {
+// GetOsInfo 获取系统信息
+func GetOsInfo() (string, error) {
 	hostInfo, err := host.Info()
 	if err != nil {
 		return "", err
@@ -42,8 +42,8 @@ func OsInfo() (string, error) {
 	return string(_b), nil
 }
 
-// DiskSpaceInfo 获取硬盘容量信息
-func DiskSpaceInfo() (string, error) {
+// GetDiskSpaceInfo 获取硬盘容量信息
+func GetDiskSpaceInfo() (string, error) {
 	diskSpaceInfo, err := disk.IOCounters()
 	if err != nil {
 		return "", err
