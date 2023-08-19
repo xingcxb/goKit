@@ -12,23 +12,23 @@ func TestHttpDownload(t *testing.T) {
 }
 
 func TestHttpGet(t *testing.T) {
-	fmt.Println(httpKit.HttpGet("https://www.baidu.com"))
+	fmt.Println(httpKit.HttpGet("https://www.xingcxb.com"))
 }
 
 func TestHttpGetFull(t *testing.T) {
-	fmt.Println(httpKit.HttpGetFull("https://www.baidu.com", nil, nil, "", 300))
+	fmt.Println(httpKit.HttpGetFull("https://www.xingcxb.com", nil, nil, "", 300))
 }
 
 func TestHttpPost(t *testing.T) {
-	fmt.Println(httpKit.HttpPost("https://www.baidu.com", nil))
+	fmt.Println(httpKit.HttpPost("https://www.xingcxb.com", nil))
 }
 
 func TestHttpPostFull(t *testing.T) {
-	fmt.Println(httpKit.HttpPostFull("https://www.baidu.com", nil, nil, "", 300))
+	fmt.Println(httpKit.HttpPostFull("https://www.xingcxb.com", nil, nil, "", 300))
 }
 
 func TestHttpBasic(t *testing.T) {
-	fmt.Println(httpKit.HttpBasic("https://www.baidu.com", http.MethodGet, nil, nil, "", 300))
+	fmt.Println(httpKit.HttpBasic("https://www.xingcxb.com", http.MethodGet, nil, nil, "", 300))
 }
 
 func TestHttpProxyGet(t *testing.T) {
