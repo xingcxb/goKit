@@ -64,7 +64,7 @@ func CreateExcel(fileName, sheetName string, headers []string, contents [][]inte
 			if err != nil {
 				return "", err
 			}
-			f.SetCellValue(sheetName, coordinate, v)
+			_ = f.SetCellValue(sheetName, coordinate, v)
 		}
 	}
 
