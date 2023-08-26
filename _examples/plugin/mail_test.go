@@ -1,12 +1,13 @@
-package mailKit
+package plugin
 
 import (
 	"fmt"
+	"github.com/xingcxb/goKit/plugin/mailKit"
 	"testing"
 )
 
 func TestSend(t *testing.T) {
-	account := &MailAccount{
+	account := &mailKit.MailAccount{
 		FromAddress: "123456@juliangip.com",
 		Password:    "123456",
 		SmtpHost:    "smtpdm.aliyun.com",
