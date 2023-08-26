@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/tidwall/gjson"
+	"github.com/xingcxb/goKit/core/cryptoKit"
 	"github.com/xingcxb/goKit/core/httpKit"
 	"github.com/xingcxb/goKit/core/randomKit"
 	"strings"
@@ -277,7 +278,6 @@ func (d *DeepL) Translation(content, from, to string) (string, error) {
 		"id": idRandom,
 	}
 	dataBytes, err := json.Marshal(dataMap)
-	fmt.Println(string(dataBytes))
 	if err != nil {
 		return "", err
 	}
@@ -291,11 +291,12 @@ func (d *DeepL) Translation(content, from, to string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	print(response)
 	code := gjson.Get(response, "error.code").Int()
 	if code != 0 {
 		return "", fmt.Errorf("翻译失败，错误码：%d", code)
 	}
 	bestResult := gjson.Get(response, "result.texts").String()
+	// 解码unicode
+	bestResult, _ = cryptoKit.UnicodeDecode(bestResult)
 	return bestResult, nil
 }
