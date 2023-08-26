@@ -3,8 +3,8 @@ package numKit
 import "fmt"
 
 const (
-	UNIT_STRING_WAN = "万"
-	UNIT_STRING_YI  = "亿"
+	UnitStringWan = "万"
+	UnitStringYi  = "亿"
 )
 
 // FormatNumUnit 将数字格式化携带单位
@@ -19,7 +19,7 @@ func FormatNumUnit(num int) string {
 	}
 	if num < 100000000 {
 		//如果大于1万小于1亿
-		return fmt.Sprintf("%v%v", num/10000, UNIT_STRING_WAN)
+		return fmt.Sprintf("%v%v", num/10000, UnitStringWan)
 	}
-	return fmt.Sprintf("%v%v", num/100000000, UNIT_STRING_YI)
+	return fmt.Sprintf("%v%v", num/100000000, UnitStringYi)
 }
