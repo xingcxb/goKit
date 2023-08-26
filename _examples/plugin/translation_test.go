@@ -8,5 +8,5 @@ import (
 
 func TestDeepL(t *testing.T) {
 	l := &translationKit.DeepL{}
-	fmt.Println(l.Translation("Too many requests", "en", "zh"))
+	fmt.Println(l.Translation("hello goKit", "en", "zh"))
 }
