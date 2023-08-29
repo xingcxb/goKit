@@ -7,6 +7,6 @@ import (
 )
 
 func TestDeepL(t *testing.T) {
-	l := &translationKit.DeepL{}
+	l := &translationKit.DeepLFree{}
 	fmt.Println(l.Translation("hello goKit", "en", "zh"))
 }
