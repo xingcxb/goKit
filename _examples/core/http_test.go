@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"github.com/xingcxb/goKit/core/httpKit"
+	"github.com/xingcxb/goKit/core/httpKit/uaKit"
 	"net/http"
 	"testing"
 )
@@ -55,4 +56,8 @@ func TestHttpProxyBasic(t *testing.T) {
 	fmt.Println(httpKit.HttpProxyBasic("https://cip.cc", http.MethodGet,
 		nil, nil, "", 300, "http",
 		"", "", "255.255.255.255:52724"))
+}
+
+func TestUA(t *testing.T) {
+	fmt.Println(uaKit.ParseUA("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"))
 }

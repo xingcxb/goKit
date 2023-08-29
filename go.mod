@@ -5,10 +5,12 @@ go 1.20
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/dkorunic/iSMC v0.7.0
+	github.com/hashicorp/golang-lru v1.0.2
 	github.com/redis/go-redis/v9 v9.1.0
 	github.com/shirou/gopsutil/v3 v3.23.7
 	github.com/tidwall/gjson v1.16.0
 	github.com/xuri/excelize/v2 v2.7.1
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
