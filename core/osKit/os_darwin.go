@@ -112,8 +112,8 @@ const (
 	FanCountKey = "Fan Count" // 风扇个数
 )
 
-// GetMacOSFanSpeed 获取macOS风扇转速
-func GetMacOSFanSpeed() (string, error) {
+// GetFanSpeed 获取macOS风扇转速
+func GetFanSpeed() (string, error) {
 	osFans := smc.GetFans()
 	allFansInfo := AllFansInfo{}
 	// 获取风扇个数

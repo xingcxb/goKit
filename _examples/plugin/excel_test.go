@@ -1,7 +1,8 @@
-package excelKit
+package plugin
 
 import (
 	"fmt"
+	"github.com/xingcxb/goKit/plugin/excelKit"
 	"testing"
 )
 
@@ -19,7 +20,7 @@ func TestCreateExcel(t *testing.T) {
 		data = append(data, "男")
 		excelData = append(excelData, data)
 	}
-	filePath, err := CreateExcel("test.xlsx", "测试", excelHeaders, excelData)
+	filePath, err := excelKit.CreateExcel("test.xlsx", "测试", excelHeaders, excelData)
 	if err != nil {
 		fmt.Println(err)
 	}

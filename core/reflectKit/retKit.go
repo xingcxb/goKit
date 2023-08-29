@@ -10,8 +10,8 @@ type Ret struct {
 }
 
 const (
-	STATE_OK   = true
-	STATE_FAIL = false
+	StateOk   = true
+	StateFail = false
 )
 
 func (r *Ret) init() {
@@ -40,13 +40,13 @@ func (r *Ret) Delete(key string) *Ret {
 
 // Fail 设置返回的数据为失败状态
 func (r *Ret) Fail() *Ret {
-	r.state = STATE_FAIL
+	r.state = StateFail
 	return r
 }
 
 // Ok 设置返回的数据为成功状态
 func (r *Ret) Ok() *Ret {
-	r.state = STATE_OK
+	r.state = StateOk
 	return r
 }
 

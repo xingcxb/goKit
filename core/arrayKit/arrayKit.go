@@ -35,6 +35,26 @@ func Contains(strs []string, char string) bool {
 	return IndexOf(strs, char) > IndexNotFound
 }
 
+// BinarySearchIndexOf 二分查找是否存在元素
+func BinarySearchIndexOf(strs []string, char string) bool {
+	// 首先对切片排序
+	sort.Strings(strs)
+	// 然后进行二分查找
+	low := 0
+	high := len(strs) - 1
+	for low <= high {
+		mid := (low + high) / 2
+		if strs[mid] == char {
+			return true
+		} else if strs[mid] < char {
+			low = mid + 1
+		} else {
+			high = mid - 1
+		}
+	}
+	return false
+}
+
 // BubbleDescSort 冒泡排序 倒序
 /**
  * @param values 待排序的字符串数组

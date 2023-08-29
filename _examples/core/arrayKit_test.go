@@ -14,6 +14,10 @@ func TestArrayContains(t *testing.T) {
 	fmt.Println(arrayKit.Contains([]string{"1", "2", "3"}, "2"))
 }
 
+func TestBinarySearchIndexOf(t *testing.T) {
+	fmt.Println(arrayKit.BinarySearchIndexOf([]string{"1", "2", "3"}, "2"))
+}
+
 func TestBubbleDescSort(t *testing.T) {
 	fmt.Println(arrayKit.BubbleDescSort([]string{"3", "1", "2"}))
 }
