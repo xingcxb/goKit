@@ -12,6 +12,8 @@ import (
 	"time"
 )
 
+// DeepLFreeKit DeepL免费翻译
+
 const (
 	deepLUrl = "https://www2.deepl.com/jsonrpc"
 )
@@ -22,7 +24,7 @@ func checkLanguage(languageName string) bool {
 	return arrayKit.Contains(supportLanguage, languageName)
 }
 
-type DeepL struct {
+type DeepLFree struct {
 }
 
 // Translation DeepL翻译
@@ -31,7 +33,7 @@ type DeepL struct {
  * @param from 源语言
  * @param to 目标语言
  */
-func (d *DeepL) Translation(content, from, to string) (string, error) {
+func (d *DeepLFree) Translation(content, from, to string) (string, error) {
 	// 检查语言是否支持
 	if !checkLanguage(from) || !checkLanguage(to) {
 		return "", fmt.Errorf("暂不支持该语言翻译")
