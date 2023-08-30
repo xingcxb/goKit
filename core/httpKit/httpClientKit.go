@@ -268,6 +268,10 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 	if err != nil {
 		return headers, "", err
 	}
+	// 获取新的headers数据
+	for k, v := range res.Header {
+		headers[k] = v[0]
+	}
 	result := string(respByte)
 	return headers, result, nil
 }
