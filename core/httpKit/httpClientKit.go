@@ -161,7 +161,7 @@ func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string
  * @param proxyIpPort 代理ip和端口
  * @return string 网页内容,error
  */
-func HttpProxyGet(urlStr, proxyIpPort string) (string, error) {
+func HttpProxyGet(urlStr, proxyIpPort string) (map[string]string, string, error) {
 	return HttpProxyGetFull(urlStr, nil, nil, "", -1,
 		"http", "", "", proxyIpPort)
 }
@@ -180,7 +180,7 @@ func HttpProxyGet(urlStr, proxyIpPort string) (string, error) {
  * @return string 网页内容,error
  */
 func HttpProxyGetFull(urlString string, headers, paramMap map[string]string, body string,
-	timeout int, proxyHttpType, username, password, proxyIpPort string) (string, error) {
+	timeout int, proxyHttpType, username, password, proxyIpPort string) (map[string]string, string, error) {
 	return HttpProxyBasic(urlString, http.MethodGet, headers, paramMap, body, timeout,
 		proxyHttpType, username, password, proxyIpPort)
 }
@@ -192,7 +192,7 @@ func HttpProxyGetFull(urlString string, headers, paramMap map[string]string, bod
  * @param proxyIpPort 代理ip和端口
  * @return string 网页内容,error
  */
-func HttpProxyPost(urlStr string, paramMap map[string]string, proxyIpPort string) (string, error) {
+func HttpProxyPost(urlStr string, paramMap map[string]string, proxyIpPort string) (map[string]string, string, error) {
 	return HttpProxyPostFull(urlStr, nil, paramMap, "", -1,
 		"http", "", "", proxyIpPort)
 }
@@ -211,7 +211,7 @@ func HttpProxyPost(urlStr string, paramMap map[string]string, proxyIpPort string
  * @return string 网页内容,error
  */
 func HttpProxyPostFull(urlString string, headers, paramMap map[string]string, body string,
-	timeout int, proxyHttpType, username, password, proxyIpPort string) (string, error) {
+	timeout int, proxyHttpType, username, password, proxyIpPort string) (map[string]string, string, error) {
 	return HttpProxyBasic(urlString, http.MethodPost, headers, paramMap, body, timeout,
 		proxyHttpType, username, password, proxyIpPort)
 }
@@ -233,11 +233,12 @@ func HttpProxyPostFull(urlString string, headers, paramMap map[string]string, bo
  * @return string 网页内容,error
  */
 func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]string,
-	body string, timeout int, proxyHttpType, username, password, proxyIpPort string) (string, error) {
+	body string, timeout int, proxyHttpType, username, password, proxyIpPort string) (map[string]string, string, error) {
 	// 判断是否需要代理
 	if proxyIpPort == "" {
 		// 如果不需要代理，直接调用httpBasic
-		return HttpBasic(urlStr, httpMethod, headers, paramMap, body, timeout)
+		result, err := HttpBasic(urlStr, httpMethod, headers, paramMap, body, timeout)
+		return headers, result, err
 	}
 	urlParam := strKit.MapParamsToUrlParams(paramMap)
 	if urlParam != "" {
@@ -247,7 +248,7 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 	proxyStr := strKit.Splicing(proxyHttpType, "://", username, ":", password, "@", proxyIpPort)
 	proxy, err := url.Parse(proxyStr)
 	if err != nil {
-		return "", err
+		return headers, "", err
 	}
 	//  请求目标网页
 	client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxy)}}
@@ -260,13 +261,13 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 	}
 	res, err := client.Do(req)
 	if err != nil {
-		return "", err
+		return headers, "", err
 	}
 	defer res.Body.Close()
 	respByte, err := io.ReadAll(res.Body)
 	if err != nil {
-		return "", err
+		return headers, "", err
 	}
 	result := string(respByte)
-	return result, nil
+	return headers, result, nil
 }
