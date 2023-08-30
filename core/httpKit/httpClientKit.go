@@ -252,6 +252,12 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 	//  请求目标网页
 	client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxy)}}
 	req, _ := http.NewRequest(httpMethod, urlStr, bodyReader)
+	for k, v := range headers {
+		req.Header.Add(k, v)
+	}
+	if timeout != -1 {
+		http.DefaultClient.Timeout = time.Duration(timeout) * time.Millisecond
+	}
 	res, err := client.Do(req)
 	if err != nil {
 		return "", err
