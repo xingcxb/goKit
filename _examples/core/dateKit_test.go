@@ -169,7 +169,7 @@ func TestAddWeek(t *testing.T) {
 
 // 日期偏移月数
 func TestAddMonth(t *testing.T) {
-	fmt.Println(dateKit.OffsetMonth(dateKit.ParseDate("2023-05-31"), 4))
+	fmt.Println(dateKit.OffsetMonth(dateKit.ParseDate("2023-05-31"), 1))
 }
 
 // 日期偏移年数
