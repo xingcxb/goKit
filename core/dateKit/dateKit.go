@@ -383,7 +383,24 @@ func OffsetWeek(dateTime time.Time, offset int) (time.Time, error) {
  * @return 偏移后的日期
  */
 func OffsetMonth(dateTime time.Time, offset int) (time.Time, error) {
-	return OffSet(dateTime, TimeMonth, offset)
+	//return OffSet(dateTime, TimeMonth, offset)
+	year, month := dateTime.Year(), int(dateTime.Month())
+	month += offset
+	year += month / 12
+	month = month % 12
+	if month == 0 {
+		month = 12
+	}
+	maxDays := 32 - time.Date(year, time.Month(month), 32, 0, 0, 0, 0, time.UTC).Day()
+	day := min(dateTime.Day(), maxDays)
+	return time.Date(year, time.Month(month), day, 0, 0, 0, 0, dateTime.Location()), nil
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
 
 // OffsetYear 偏移年
