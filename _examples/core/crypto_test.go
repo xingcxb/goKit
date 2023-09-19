@@ -45,3 +45,48 @@ func TestUrlEncode(t *testing.T) {
 func TestUrlDecode(t *testing.T) {
 	fmt.Println(cryptoKit.UrlDecode("https%3A%2F%2Fwww.baidu.com%2Fs%3Fwd%3D%E4%BD%A0%E5%A5%BD"))
 }
+
+// aes cbc模式加密
+func TestAESCBCEncrypt(t *testing.T) {
+	v, err := cryptoKit.AESEncryptCBC([]byte("pibigstar"), []byte("1234567891234567"), []byte("1231231231231231"))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(cryptoKit.Base64Encode(string(v)))
+	fmt.Println(string(v))
+}
+
+// aes cbc模式解密
+func TestAESCBCDecrypt(t *testing.T) {
+	value, _ := cryptoKit.Base64Decode("MlW3thrpN09qa6gUzyDI+g==")
+	v, err := cryptoKit.AESDecryptCBC([]byte(value), []byte("1234567891234567"), []byte("1231231231231231"))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(v)
+	fmt.Println(string(v))
+}
+
+func TestAESEncryptCFB(t *testing.T) {
+	padding := 0
+	v, err := cryptoKit.AESEncryptCFB([]byte("pibigstar"), []byte("1234567891234567"), &padding, []byte("1231231231231231"))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(cryptoKit.Base64Encode(string(v)))
+	fmt.Println(string(v))
+}
+
+func TestAESDecryptCFB(t *testing.T) {
+	value, _ := cryptoKit.Base64Decode("qDJPT/XQZNJo5YRfitRUCg==")
+	v, err := cryptoKit.AESDecryptCFB([]byte(value), []byte("1234567891234567"), 16-len(value), []byte("1231231231231231"))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(v)
+	fmt.Println(string(v))
+}

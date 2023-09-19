@@ -2,7 +2,7 @@ package plugin
 
 import (
 	"fmt"
-	"github.com/xingcxb/goKit/plugin/excelKit"
+	"github.com/xingcxb/goKit/plugin/office/excelKit"
 	"testing"
 )
 
