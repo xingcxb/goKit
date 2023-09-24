@@ -8,7 +8,7 @@ require (
 	github.com/hashicorp/golang-lru v1.0.2
 	github.com/redis/go-redis/v9 v9.2.0
 	github.com/shirou/gopsutil/v3 v3.23.8
-	github.com/tidwall/gjson v1.16.0
+	github.com/tidwall/gjson v1.17.0
 	github.com/xuri/excelize/v2 v2.8.0
 	github.com/yeqown/go-qrcode/writer/standard v1.2.2
 	gopkg.in/yaml.v3 v3.0.1
