@@ -40,11 +40,11 @@ func (m *MailAccount) SendMail(toAddress string, subject string, body string) er
 	host, _, _ := net.SplitHostPort(servername)
 	// 连接邮箱服务器
 	auth := smtp.PlainAuth("", m.FromAddress, m.Password, host)
-	tlsconfig := &tls.Config{
+	tlsConfig := &tls.Config{
 		InsecureSkipVerify: true,
 		ServerName:         host,
 	}
-	conn, err := tls.Dial("tcp", servername, tlsconfig)
+	conn, err := tls.Dial("tcp", servername, tlsConfig)
 	if err != nil {
 		return err
 	}

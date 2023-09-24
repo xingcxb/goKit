@@ -53,7 +53,10 @@ func NewRedisClient(config *RedisConfig) error {
 }
 
 // Ping redis测试是否联通
-// @return 正常返回nil，错误返回错误信息
+/*
+ * @param ctx 上下文
+ * @return 正常返回nil，错误返回错误信息
+ */
 func Ping(ctx context.Context) error {
 	err := Rdb.Ping(ctx).Err()
 	if err != nil {
@@ -63,7 +66,10 @@ func Ping(ctx context.Context) error {
 }
 
 // ChangeDb 切换Redis数据库
-// @param dbId redis数据库id
+/*
+ * @param ctx 上下文
+ * @param dbId redis数据库id
+ */
 func ChangeDb(ctx context.Context, dbId int) error {
 	pipe := Rdb.Pipeline()
 	_ = pipe.Select(ctx, dbId)
@@ -75,7 +81,11 @@ func ChangeDb(ctx context.Context, dbId int) error {
 }
 
 // GetDbCount 获取单个库的数量
-// @return 返回该库下的数量
+/*
+ * @param ctx 上下文
+ * @param dbId redis数据库id
+ * @return 返回该库下的数量
+ */
 func GetDbCount(ctx context.Context, dbId int) int {
 	ChangeDb(ctx, dbId)
 	count, err := Rdb.DBSize(ctx).Result()
@@ -86,6 +96,10 @@ func GetDbCount(ctx context.Context, dbId int) int {
 }
 
 // GetBaseAllInfo  获取redis基础信息
+/*
+ * @param ctx 上下文
+ * @return 返回redis的基础信息
+ */
 func GetBaseAllInfo(ctx context.Context) map[string]string {
 	_info := Rdb.Info(ctx).String()
 	defer Rdb.Close()
@@ -102,6 +116,10 @@ func GetBaseAllInfo(ctx context.Context) map[string]string {
 }
 
 // GetDbKeys 获取指定库中的key
+/*
+ * @param ctx 上下文
+ * @param cursor 游标
+ */
 func GetDbKeys(ctx context.Context, cursor uint64) ([]string, error) {
 	keys := make([]string, 0, 1)
 	keys, cursor, err := Rdb.Scan(ctx, cursor, "*", 10000).Result()
@@ -112,6 +130,10 @@ func GetDbKeys(ctx context.Context, cursor uint64) ([]string, error) {
 }
 
 // GetTTL 获取redis数据剩余时间，返回剩余时间的秒数；如果是永久有效，返回-1
+/*
+ * @param ctx 上下文
+ * @param key 键
+ */
 func GetTTL(ctx context.Context, key string) string {
 	val, err := Rdb.TTL(ctx, key).Result()
 	if err != nil {
@@ -132,7 +154,8 @@ type VObj struct {
 }
 
 // GetKeyInfo 通过key获取该键下值的所有信息
-/**
+/*
+ * @param ctx 上下文
  * @param key 键
  * @return 返回值的所有信息,如果获取失败，返回错误信息
  */
@@ -156,7 +179,8 @@ func GetKeyInfo(ctx context.Context, key string) (string, error) {
 }
 
 // GetType 获取值类型，返回类型
-/**
+/*
+ * @param ctx 上下文
  * @param key 键
  * @return 返回值的类型
  */
@@ -172,7 +196,8 @@ func GetType(ctx context.Context, key string) string {
 }
 
 // GetList 获取redis list类型的数据，返回值和大小
-/**
+/*
+ * @param ctx 上下文
  * @param key 键
  * @return 返回值和大小
  */
