@@ -26,3 +26,7 @@ func TestCreateExcel(t *testing.T) {
 	}
 	fmt.Println(filePath)
 }
+
+func TestExcel2Vcf(t *testing.T) {
+	fmt.Println(excelKit.Excel2Cvf("/Users/symbol/Downloads/无标题.xlsx", "sheet1", "/Users/symbol/Downloads/通讯录3.vcf"))
+}
