@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestRT(t *testing.T) {
+func TestBasic(t *testing.T) {
 	// 配置redis的连接信息
 	_ = redisKit.NewRedisClient(&redisKit.RedisConfig{
 		Addr:     "192.168.10.58",
