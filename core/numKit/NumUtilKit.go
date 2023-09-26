@@ -23,3 +23,8 @@ func FormatNumUnit(num int) string {
 	}
 	return fmt.Sprintf("%v%v", num/100000000, UnitStringYi)
 }
+
+// Int2Str 将数字转换为字符串
+func Int2Str(num int) string {
+	return fmt.Sprintf("%v", num)
+}
