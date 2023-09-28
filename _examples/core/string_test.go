@@ -76,3 +76,7 @@ func TestStrToAscii(t *testing.T) {
 func TestAsciiToStr(t *testing.T) {
 	fmt.Println(strKit.AsciiToStr("97|98", "|"))
 }
+
+func TestCheckIdCardValid(t *testing.T) {
+	fmt.Println(strKit.CheckIdCardValid("500154199301135886", true))
+}

@@ -1,9 +1,11 @@
 package excelKit
 
 import (
+	"errors"
 	"github.com/xingcxb/goKit/core/fileKit"
 	"github.com/xingcxb/goKit/core/strKit"
 	"github.com/xuri/excelize/v2"
+	"os"
 )
 
 // CreateExcel 生成excel
@@ -75,4 +77,44 @@ func CreateExcel(fileName, sheetName string, headers []string, contents [][]inte
 		return "", err
 	}
 	return strKit.Splicing(filePath, "/", fileName), nil
+}
+
+// Excel2Cvf excel转cvf
+/*
+ * 注意，内容中的第一行被认定为表头，不读取，排序方式为:姓名、手机号、邮箱、qq
+ * @param excelFileName excel文件名
+ * @param sheetName sheet名
+ * @param cvfFileName cvf文件名
+ */
+func Excel2Cvf(excelFileName, sheetName, cvfFileName string) error {
+	if excelFileName == "" || sheetName == "" || cvfFileName == "" {
+		return errors.New("excelFileName or sheetName or cvfFileName is empty")
+	}
+	f, err := excelize.OpenFile(excelFileName)
+	if err != nil {
+		return err
+	}
+	defer func() error {
+		// 关闭电子表格
+		if err := f.Close(); err != nil {
+			return err
+		}
+		return nil
+	}()
+	// 获取工作表中的所有数据
+	rows, err := f.GetRows(sheetName)
+	if err != nil {
+		return err
+	}
+	vcf := ""
+	// 遍历工作表中的所有数据
+	for i, row := range rows {
+		if i == 0 {
+			continue
+		}
+		// 生成vcf文件
+		vcf = strKit.Splicing(vcf, "BEGIN:VCARD\nVERSION:3.0\nN:", row[0], "\nTEL;CELL:", row[1], "\nEMAIL:", row[2], "\nQQ:", row[3], "\nEND:VCARD\n")
+	}
+	// 写入 vcf 文件
+	return os.WriteFile(cvfFileName, []byte(vcf), 0644)
 }

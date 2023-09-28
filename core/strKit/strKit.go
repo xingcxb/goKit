@@ -52,6 +52,42 @@ func SubString(s string, start int, end int) string {
 	return s[start:end] // 使用切片操作获取子串
 }
 
+// Str2Int 字符串转int
+/*
+ * @param str 字符串
+ */
+func Str2Int(str, intType string) interface{} {
+	switch intType {
+	case "int8":
+		i, _ := strconv.ParseInt(str, 10, 8)
+		return int8(i)
+	case "int16":
+		i, _ := strconv.ParseInt(str, 10, 16)
+		return int16(i)
+	case "int32":
+		i, _ := strconv.ParseInt(str, 10, 32)
+		return int32(i)
+	case "int64":
+		i, _ := strconv.ParseInt(str, 10, 64)
+		return i
+	case "uint8":
+		i, _ := strconv.ParseUint(str, 10, 8)
+		return uint8(i)
+	case "uint16":
+		i, _ := strconv.ParseUint(str, 10, 16)
+		return uint16(i)
+	case "uint32":
+		i, _ := strconv.ParseUint(str, 10, 32)
+		return uint32(i)
+	case "uint64":
+		i, _ := strconv.ParseUint(str, 10, 64)
+		return i
+	default:
+		i, _ := strconv.Atoi(str)
+		return i
+	}
+}
+
 // RemoveAll 去除字符串中指定的多个字符，如有多个则全部去除
 /**
  * @param str 原始字符串

@@ -91,7 +91,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 	case reflect.String:
 		value.SetString(tagVal)
 		return nil
-
 	case reflect.Bool:
 		b, err := strconv.ParseBool(tagVal)
 		if err != nil {
@@ -99,7 +98,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetBool(b)
 		return nil
-
 	case reflect.Int:
 		i, err := strconv.ParseInt(tagVal, 10, 32)
 		if err != nil {
@@ -107,7 +105,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetInt(i)
 		return nil
-
 	case reflect.Int8:
 		i, err := strconv.ParseInt(tagVal, 10, 8)
 		if err != nil {
@@ -115,7 +112,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetInt(i)
 		return nil
-
 	case reflect.Int16:
 		i, err := strconv.ParseInt(tagVal, 10, 16)
 		if err != nil {
@@ -123,7 +119,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetInt(i)
 		return nil
-
 	// 注意: int32 也可能是 rune
 	case reflect.Int32:
 		i, err := parseInt32(tagVal)
@@ -132,7 +127,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetInt(int64(i))
 		return nil
-
 	case reflect.Int64:
 		i, err := strconv.ParseInt(tagVal, 10, 64)
 		if err != nil {
@@ -140,7 +134,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetInt(i)
 		return nil
-
 	case reflect.Uint:
 		i, err := strconv.ParseInt(tagVal, 10, 32)
 		if err != nil {
@@ -148,7 +141,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetUint(uint64(i))
 		return nil
-
 	case reflect.Uint8:
 		i, err := strconv.ParseInt(tagVal, 10, 8)
 		if err != nil {
@@ -156,7 +148,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetUint(uint64(i))
 		return nil
-
 	case reflect.Uint16:
 		i, err := strconv.ParseInt(tagVal, 10, 16)
 		if err != nil {
@@ -164,7 +155,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetUint(uint64(i))
 		return nil
-
 	case reflect.Uint32:
 		i, err := strconv.ParseInt(tagVal, 10, 32)
 		if err != nil {
@@ -172,7 +162,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetUint(uint64(i))
 		return nil
-
 	case reflect.Uint64:
 		i, err := strconv.ParseInt(tagVal, 10, 64)
 		if err != nil {
@@ -180,7 +169,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetUint(uint64(i))
 		return nil
-
 	case reflect.Float32:
 		f, err := strconv.ParseFloat(tagVal, 32)
 		if err != nil {
@@ -188,7 +176,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetFloat(f)
 		return nil
-
 	case reflect.Float64:
 		f, err := strconv.ParseFloat(tagVal, 64)
 		if err != nil {
@@ -196,32 +183,26 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 		}
 		value.SetFloat(f)
 		return nil
-
 	case reflect.Slice:
 		switch value.Type().Elem().Kind() {
 		// 把[]uint8作为[]byte的别名
 		case reflect.Uint8:
 			value.SetBytes([]byte(tagVal))
 			return nil
-
 		default:
 			return ErrorUnsupportedType{value.Type()}
 		}
-
 	case reflect.Struct:
 		if value.NumField() == 0 {
 			return nil
 		}
 		return parseFields(value) // 递归
-
 	case reflect.Ptr:
 		ref := value.Type().Elem()
-
 		switch ref.Kind() {
 		case reflect.String:
 			value.Set(reflect.ValueOf(&tagVal))
 			return nil
-
 		case reflect.Bool:
 			b, err := strconv.ParseBool(tagVal)
 			if err != nil {
@@ -229,7 +210,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			}
 			value.Set(reflect.ValueOf(&b))
 			return nil
-
 		case reflect.Int:
 			n, err := strconv.ParseInt(tagVal, 10, 32)
 			if err != nil {
@@ -238,7 +218,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			i := int(n)
 			value.Set(reflect.ValueOf(&i))
 			return nil
-
 		case reflect.Int8:
 			n, err := strconv.ParseInt(tagVal, 10, 8)
 			if err != nil {
@@ -247,7 +226,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			i := int8(n)
 			value.Set(reflect.ValueOf(&i))
 			return nil
-
 		case reflect.Int16:
 			n, err := strconv.ParseInt(tagVal, 10, 16)
 			if err != nil {
@@ -256,7 +234,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			i := int16(n)
 			value.Set(reflect.ValueOf(&i))
 			return nil
-
 		case reflect.Int32:
 			// NB: *int32 is an alias for a *rune
 			i, err := parseInt32(tagVal)
@@ -265,7 +242,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			}
 			value.Set(reflect.ValueOf(&i))
 			return nil
-
 		case reflect.Int64:
 			i, err := strconv.ParseInt(tagVal, 10, 64)
 			if err != nil {
@@ -273,7 +249,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			}
 			value.Set(reflect.ValueOf(&i))
 			return nil
-
 		case reflect.Uint:
 			n, err := strconv.ParseInt(tagVal, 10, 32)
 			if err != nil {
@@ -282,7 +257,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			u := uint(n)
 			value.Set(reflect.ValueOf(&u))
 			return nil
-
 		case reflect.Uint8:
 			n, err := strconv.ParseInt(tagVal, 10, 8)
 			if err != nil {
@@ -291,7 +265,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			u := uint8(n)
 			value.Set(reflect.ValueOf(&u))
 			return nil
-
 		case reflect.Uint16:
 			n, err := strconv.ParseInt(tagVal, 10, 16)
 			if err != nil {
@@ -300,7 +273,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			u := uint16(n)
 			value.Set(reflect.ValueOf(&u))
 			return nil
-
 		case reflect.Uint32:
 			n, err := strconv.ParseInt(tagVal, 10, 32)
 			if err != nil {
@@ -309,7 +281,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			u := uint32(n)
 			value.Set(reflect.ValueOf(&u))
 			return nil
-
 		case reflect.Uint64:
 			n, err := strconv.ParseInt(tagVal, 10, 64)
 			if err != nil {
@@ -318,7 +289,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			u := uint64(n)
 			value.Set(reflect.ValueOf(&u))
 			return nil
-
 		case reflect.Float32:
 			f, err := strconv.ParseFloat(tagVal, 32)
 			if err != nil {
@@ -327,7 +297,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			f32 := float32(f)
 			value.Set(reflect.ValueOf(&f32))
 			return nil
-
 		case reflect.Float64:
 			f, err := strconv.ParseFloat(tagVal, 64)
 			if err != nil {
@@ -335,7 +304,6 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 			}
 			value.Set(reflect.ValueOf(&f))
 			return nil
-
 		case reflect.Slice:
 			switch ref.Elem().Kind() {
 			// *[]uint作为*[]byte的别名
@@ -343,27 +311,22 @@ func parseField(value reflect.Value, field reflect.StructField) error {
 				b := []byte(tagVal)
 				value.Set(reflect.ValueOf(&b))
 				return nil
-
 			default:
 				return ErrorUnsupportedType{value.Type()}
 			}
-
 		case reflect.Struct:
 			if ref.NumField() == 0 {
 				return nil
 			}
-
 			// 如果是nil，就设为它的默认值，这样我们就可以设置
 			// 如果需要子节点的话
 			if value.IsNil() {
 				value.Set(reflect.New(ref))
 			}
 			return parseFields(value.Elem()) // recurse
-
 		default:
 			return ErrorUnsupportedType{value.Type()}
 		}
-
 	default:
 		return ErrorUnsupportedType{value.Type()}
 	}
