@@ -15,7 +15,7 @@ import (
 // HttpDownload 下载文件
 /**
  * @param urlString 网址
- * @param savePath 保存路径
+ * @param savePath 保存路径 末尾是否携带/都可以
  * @param fileName 文件名，如果不存在则自动获取
  * @param isCover 是否覆盖 true 覆盖 false 不覆盖(当文件存在的时候返回该文件已存在)
  * @return string 文件路径,error
@@ -36,19 +36,25 @@ func HttpDownload(urlString, savePath, fileName string, isCover bool) (string, e
 		path := strings.Split(urlString, "/")
 		fileName = path[len(path)-1]
 	}
-	filePath := strKit.Splicing(savePath, "/", fileName)
+	// 检查保存路径是否以/结尾
+	if !strings.HasSuffix(savePath, "/") {
+		savePath = strKit.Splicing(savePath, "/")
+	}
+
+	filePath := strKit.Splicing(savePath, fileName)
 	// 判断文件是否存在，默认不存在
 	checkFile := false
 	// 判断文件是否存在
 	if _, err := os.Stat(filePath); err == nil {
 		checkFile = true
 	}
-	if isCover {
+	if isCover && checkFile {
 		// 允许覆盖，删除文件
-		if os.Remove(filePath) != nil {
+		err = os.Remove(filePath)
+		if err != nil {
 			return "", err
 		}
-	} else {
+	} else if isCover {
 		// 不允许覆盖，返回错误
 		if checkFile {
 			return "", errors.New("文件已存在")

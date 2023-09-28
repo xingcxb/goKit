@@ -9,7 +9,7 @@ import (
 )
 
 func TestHttpDownload(t *testing.T) {
-	fmt.Println(httpKit.HttpDownload("https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg", "/Users/symbol/Downloads", "", false))
+	fmt.Println(httpKit.HttpDownload("https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg", "/Users/symbol/Downloads", "", true))
 }
 
 func TestHttpGet(t *testing.T) {
