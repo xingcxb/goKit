@@ -60,6 +60,23 @@ func CreateFile(filePath string) error {
 	return nil
 }
 
+// CreateLazyFile 一次性创建好文件和文件夹
+/*
+ * @param filePath 文件路径
+ */
+func CreateLazyFile(filePath string) error {
+	dirPath := filepath.Dir(filePath)
+	if err := os.MkdirAll(dirPath, os.ModePerm); err != nil {
+		return err
+	}
+	file, err := os.Create(filePath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	return nil
+}
+
 // SaveFile 保存信息到文件
 /**
  * @param filePath 文件夹路径
