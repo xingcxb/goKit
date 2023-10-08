@@ -2,15 +2,31 @@ package fileKit
 
 import (
 	"bufio"
+	"context"
 	"errors"
 	"github.com/xingcxb/goKit/core/strKit"
 	"log"
 	"os"
+	"os/user"
 	"path"
 	"path/filepath"
 	"runtime"
 	"strings"
 )
+
+// HomeDir 获取系统当前使用的用户的主目录
+/*
+ * eg: /Users/symbol
+ * @param ctx 上下文
+ * @return string,error
+ */
+func HomeDir(ctx context.Context) (string, error) {
+	user, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+	return user.HomeDir, nil
+}
 
 // Exists 文件或文件夹是否存在
 /**

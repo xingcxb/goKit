@@ -1,10 +1,15 @@
 package core
 
 import (
+	"context"
 	"fmt"
 	"github.com/xingcxb/goKit/core/fileKit"
 	"testing"
 )
+
+func TestHomeDir(t *testing.T) {
+	fmt.Println(fileKit.HomeDir(context.Background()))
+}
 
 func TestExists(t *testing.T) {
 	fmt.Println(fileKit.Exists("/Users/symbol/Desktop/1.txt"))
