@@ -195,3 +195,7 @@ func TestMs(t *testing.T) {
 func TestConstellation(t *testing.T) {
 	fmt.Println(dateKit.Constellation(time.Now()))
 }
+
+func TestFormatWeChatTimeStr(t *testing.T) {
+	fmt.Println(dateKit.FormatWeChatTimeStr("2023-10-31 14:26:00"))
+}
