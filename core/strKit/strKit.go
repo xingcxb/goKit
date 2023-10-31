@@ -38,6 +38,16 @@ func Splicing(str ...string) string {
 	return newStr.String()
 }
 
+// IsNum 判断字符串是否为数字
+/*
+ * @param s 字符串
+ * @return 返回是否为数字 true为数字；false为非数字
+ */
+func IsNum(s string) bool {
+	_, err := strconv.ParseFloat(s, 64)
+	return err == nil
+}
+
 // SubString 字符串截断
 /**
  * @param s 原始字符串

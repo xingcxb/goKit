@@ -142,6 +142,10 @@ func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string
 	}
 	bodyReader := strings.NewReader(body)
 	req, _ := http.NewRequest(httpMethod, urlString, bodyReader)
+	if headers == nil {
+		// 如果headers为空，初始化
+		headers = make(map[string]string, 0)
+	}
 	for k, v := range headers {
 		req.Header.Add(k, v)
 	}
@@ -275,6 +279,10 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 		return headers, "", err
 	}
 	// 获取新的headers数据
+	if headers == nil {
+		// 如果headers为空，初始化
+		headers = make(map[string]string, 0)
+	}
 	for k, v := range res.Header {
 		headers[k] = v[0]
 	}
