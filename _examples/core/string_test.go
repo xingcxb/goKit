@@ -11,6 +11,12 @@ func TestLength(t *testing.T) {
 	fmt.Println(strKit.Length("👩‍👩‍👦‍👦"))
 }
 
+func TestIsNum(t *testing.T) {
+	fmt.Println(strKit.IsNum("123"))
+	fmt.Println(strKit.IsNum("123.123"))
+	fmt.Println(strKit.IsNum("123.123.123"))
+}
+
 func TestSplicing(t *testing.T) {
 	fmt.Println(strKit.Splicing("aa", "bb", "cc"))
 }
