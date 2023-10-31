@@ -55,7 +55,7 @@ func TestHttpProxyPostFull(t *testing.T) {
 func TestHttpProxyBasic(t *testing.T) {
 	fmt.Println(httpKit.HttpProxyBasic("https://cip.cc", http.MethodGet,
 		nil, nil, "", 300, "http",
-		"", "", "255.255.255.255:52724"))
+		"", "", "255.255.255.255:29093"))
 }
 
 func TestUA(t *testing.T) {
