@@ -24,6 +24,8 @@ var (
 	DateLayoutYMDHMS = "2006-01-02 15:04:05"
 	// DateLayoutYMDHMSS 格式化时间的年月日时分秒毫秒模版
 	DateLayoutYMDHMSS = "2006-01-02 15:04:05.000"
+	// DateLayoutYMDTHMSZ 格式化时间的年月日时分秒毫秒模版
+	DateLayoutYMDTHMSZ = "2006-01-02T15:04:05Z"
 	// DateLayoutPureYMD 格式化时间的纯年月日模版
 	DateLayoutPureYMD = "20060102"
 	// DateLayoutPureYMDHMS 格式化时间的纯年月日时分秒模版
