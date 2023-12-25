@@ -12,8 +12,8 @@ require (
 
 replace (
 	github.com/xingcxb/goKit/core/arrayKit => ../arrayKit
+	github.com/xingcxb/goKit/core/cryptoKit => ./
 	github.com/xingcxb/goKit/core/numKit => ../numKit
 	github.com/xingcxb/goKit/core/regKit => ../regKit
 	github.com/xingcxb/goKit/core/strKit => ../strKit
-	github.com/xingcxb/goKit/core/cryptoKit => ./
 )

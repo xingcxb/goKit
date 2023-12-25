@@ -22,9 +22,9 @@ require (
 )
 
 replace (
-	github.com/xingcxb/goKit/core/ipKit => ./
 	github.com/xingcxb/goKit/core/arrayKit => ../arrayKit
 	github.com/xingcxb/goKit/core/httpKit => ../httpKit
+	github.com/xingcxb/goKit/core/ipKit => ./
 	github.com/xingcxb/goKit/core/numKit => ../numKit
 	github.com/xingcxb/goKit/core/randomKit => ../randomKit
 	github.com/xingcxb/goKit/core/regKit => ../regKit
