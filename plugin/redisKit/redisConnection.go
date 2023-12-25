@@ -20,7 +20,7 @@ type RedisConfig struct {
 	Password string //密码
 	Port     string `default:"6379"` //端口号
 	Db       int    `default:"0"`    //操作数据库
-	Timeout  int    `default:"1"`    // 超时时间单位s
+	Timeout  int    `default:"10"`   // 超时时间单位s
 	PoolSize int    `default:"10"`   // 连接池大小
 }
 

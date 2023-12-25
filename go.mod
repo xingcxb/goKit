@@ -1,6 +1,8 @@
 module github.com/xingcxb/goKit
 
-go 1.20
+go 1.21
+
+toolchain go1.21.1
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
@@ -34,6 +36,7 @@ require (
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
 	github.com/tklauser/numcpus v0.6.1 // indirect
+	github.com/xingcxb/goKit/core/strKit v0.0.0-20231111101058-bdee5e13e835 // indirect
 	github.com/xuri/efp v0.0.0-20230802181842-ad255f2331ca // indirect
 	github.com/xuri/nfp v0.0.0-20230919160717-d98342af3f05 // indirect
 	github.com/yeqown/reedsolomon v1.0.0 // indirect
