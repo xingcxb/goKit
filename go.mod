@@ -7,14 +7,15 @@ toolchain go1.21.1
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/dkorunic/iSMC v0.7.0
-	github.com/hashicorp/golang-lru v1.0.2
 	github.com/redis/go-redis/v9 v9.2.0
 	github.com/shirou/gopsutil/v3 v3.23.8
 	github.com/tidwall/gjson v1.17.0
+	github.com/xingcxb/goKit/core/arrayKit v0.0.0-20231225070946-93ee4af6654a
+	github.com/xingcxb/goKit/core/httpKit v0.0.0-20231225070946-93ee4af6654a
+	github.com/xingcxb/goKit/core/strKit v0.0.0-20231111101058-bdee5e13e835
 	github.com/xuri/excelize/v2 v2.8.0
 	github.com/yeqown/go-qrcode/v2 v2.2.2
 	github.com/yeqown/go-qrcode/writer/standard v1.2.2
-	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -36,7 +37,7 @@ require (
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
 	github.com/tklauser/numcpus v0.6.1 // indirect
-	github.com/xingcxb/goKit/core/strKit v0.0.0-20231111101058-bdee5e13e835 // indirect
+	github.com/xingcxb/goKit/core/regKit v0.0.0-20231225070946-93ee4af6654a // indirect
 	github.com/xuri/efp v0.0.0-20230802181842-ad255f2331ca // indirect
 	github.com/xuri/nfp v0.0.0-20230919160717-d98342af3f05 // indirect
 	github.com/yeqown/reedsolomon v1.0.0 // indirect
