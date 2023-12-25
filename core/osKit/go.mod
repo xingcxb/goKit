@@ -25,10 +25,10 @@ require (
 )
 
 replace (
-	github.com/xingcxb/goKit/core/osKit => ./
 	github.com/xingcxb/goKit/core/arrayKit => ../arrayKit
 	github.com/xingcxb/goKit/core/dateKit => ../dateKit
 	github.com/xingcxb/goKit/core/numKit => ../numKit
+	github.com/xingcxb/goKit/core/osKit => ./
 	github.com/xingcxb/goKit/core/regKit => ../regKit
 	github.com/xingcxb/goKit/core/strKit => ../strKit
 )
