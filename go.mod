@@ -7,13 +7,6 @@ toolchain go1.21.1
 require (
 	github.com/redis/go-redis/v9 v9.3.1
 	github.com/tidwall/gjson v1.17.0
-	github.com/xingcxb/goKit/core/arrayKit v0.0.0-20231225070946-93ee4af6654a
-	github.com/xingcxb/goKit/core/cryptoKit v0.0.0-00010101000000-000000000000
-	github.com/xingcxb/goKit/core/fileKit v0.0.0-00010101000000-000000000000
-	github.com/xingcxb/goKit/core/httpKit v0.0.0-00010101000000-000000000000
-	github.com/xingcxb/goKit/core/randomKit v0.0.0-00010101000000-000000000000
-	github.com/xingcxb/goKit/core/reflectKit v0.0.0-00010101000000-000000000000
-	github.com/xingcxb/goKit/core/strKit v0.0.0-20231225083528-2c30b772efbb
 	github.com/xuri/excelize/v2 v2.8.0
 	github.com/yeqown/go-qrcode/v2 v2.2.2
 	github.com/yeqown/go-qrcode/writer/standard v1.2.2
@@ -43,20 +36,3 @@ require (
 	golang.org/x/text v0.13.0 // indirect
 )
 
-replace (
-	github.com/xingcxb/goKit/core/arrayKit => ./core/arrayKit
-	github.com/xingcxb/goKit/core/cryptoKit => ./core/cryptoKit
-	github.com/xingcxb/goKit/core/dateKit => ./core/dateKit
-	github.com/xingcxb/goKit/core/fileKit => ./core/fileKit
-	github.com/xingcxb/goKit/core/httpKit => ./core/httpKit
-	github.com/xingcxb/goKit/core/ipKit => ./core/ipKit
-	github.com/xingcxb/goKit/core/numKit => ./core/numKit
-	github.com/xingcxb/goKit/core/osKit => ./core/osKit
-	github.com/xingcxb/goKit/core/otherKit => ./core/otherKit
-	github.com/xingcxb/goKit/core/pathKit => ./core/pathKit
-	github.com/xingcxb/goKit/core/randomKit => ./core/randomKit
-	github.com/xingcxb/goKit/core/reflectKit => ./core/reflectKit
-	github.com/xingcxb/goKit/core/regKit => ./core/regKit
-	github.com/xingcxb/goKit/core/runTimeKit => ./core/runTimeKit
-	github.com/xingcxb/goKit/core/strKit => ./core/strKit
-)
