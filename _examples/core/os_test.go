@@ -28,6 +28,10 @@ func TestDiskSpaceInfo(t *testing.T) {
 	fmt.Println(osKit.GetDiskSpaceInfo())
 }
 
+func TestGetDiskSerialNumber(t *testing.T) {
+	fmt.Println(osKit.GetDiskSerialNumber())
+}
+
 // ---macos---
 
 // 获取cpu信息

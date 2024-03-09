@@ -52,6 +52,19 @@ func GetDiskSpaceInfo() (string, error) {
 	return string(_b), err
 }
 
+func GetDiskSerialNumber() (string, error) {
+	fmt.Println(disk.SerialNumber("sda"))
+	//if err != nil {
+	//	return "", err
+	//}
+	//fmt.Println("---->")
+	//fmt.Println(diskInfo)
+	var serialNumber string
+
+	return serialNumber, nil
+
+}
+
 // GetLocalIp 获取本地ip
 func GetLocalIp() (string, error) {
 	addrs, err := net.InterfaceAddrs()
