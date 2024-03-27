@@ -38,3 +38,7 @@ func TestCompare(t *testing.T) {
 	fmt.Println(arrayKit.Compare([]string{"2", "1", "3"}, []string{"1", "2", "3"}))
 	fmt.Println(arrayKit.Compare([]string{"1", "2", "3"}, []string{"1", "2", "3"}))
 }
+
+func TestSliceDiff(t *testing.T) {
+	fmt.Println(arrayKit.SliceDiff([]string{"4", "1", "3"}, []string{"1", "2", "3"}))
+}
