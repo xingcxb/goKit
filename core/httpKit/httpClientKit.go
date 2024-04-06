@@ -256,6 +256,9 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 	}
 	bodyReader := strings.NewReader(body)
 	proxyStr := strKit.Splicing(proxyHttpType, "://", username, ":", password, "@", proxyIpPort)
+	//if username == "" || password == "" {
+	//	proxyStr = strKit.Splicing(proxyHttpType, "://", proxyIpPort)
+	//}
 	proxy, err := url.Parse(proxyStr)
 	if err != nil {
 		return headers, "", err

@@ -86,3 +86,10 @@ func TestAsciiToStr(t *testing.T) {
 func TestCheckIdCardValid(t *testing.T) {
 	fmt.Println(strKit.CheckIdCardValid("500154199301135886", true))
 }
+
+// 代码高亮测试
+func TestHighlightCode(t *testing.T) {
+	fmt.Println(strKit.HighlightCode(
+		"{\"code\":200,\"msg\":\"请求成功\",\"data\":{\"count\":5,\"filter_count\":0,\"surplus_quantity\":985,\"proxy_list\":[\"61.145.245.78:54873\",\"27.153.143.162:35525\",\"117.69.63.120:43100\",\"150.255.11.35:55078\",\"113.195.169.143:44370\"]}}",
+		"JSON"))
+}
