@@ -64,7 +64,7 @@
 
 - [Github issue](https://github.com/xingcxb/goKit/issues)
 
-### 🧬贡献代码的步骤
+### 🧬 贡献代码的步骤
 
 1. 在`Github`上`fork`项目到自己的`repo`
 2. 把`fork`过去的项目也就是你的项目`clone`到你的本地
@@ -98,3 +98,6 @@
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fxingcxb%2FgoKit.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fxingcxb%2FgoKit?ref=badge_large)
 
+## 🙏 感谢
+
+![](jb_beam.png)
