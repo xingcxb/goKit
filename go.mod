@@ -13,7 +13,7 @@ require (
 	github.com/shirou/gopsutil/v3 v3.24.3
 	github.com/tidwall/gjson v1.17.1
 	github.com/xuri/excelize/v2 v2.8.1
-	github.com/yeqown/go-qrcode/v2 v2.2.2
+	github.com/yeqown/go-qrcode/v2 v2.2.3
 	github.com/yeqown/go-qrcode/writer/standard v1.2.3
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -42,9 +42,9 @@ require (
 	github.com/xuri/nfp v0.0.0-20230919160717-d98342af3f05 // indirect
 	github.com/yeqown/reedsolomon v1.0.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
-	golang.org/x/crypto v0.19.0 // indirect
+	golang.org/x/crypto v0.22.0 // indirect
 	golang.org/x/image v0.14.0 // indirect
 	golang.org/x/net v0.21.0 // indirect
-	golang.org/x/sys v0.18.0 // indirect
+	golang.org/x/sys v0.19.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )
