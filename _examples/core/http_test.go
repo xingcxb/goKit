@@ -73,14 +73,18 @@ func TestGetIps(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		go func() {
 			fmt.Println("第", i, "次，时间为：", dateKit.Now())
-			v, err := httpKit.HttpGet("http://47.96.96.28/company/postpay/getips?num=4&pt=1&result_type=text&split=1&trade_no=6521155464525115&sign=18eb6d88a7adaf1931e26e5bf8634883")
+			v, err := httpKit.HttpGet("http://1.1.1.1")
 			fmt.Println(v, err)
 		}()
 		go func() {
 			fmt.Println("第", i, "次，时间为：", dateKit.Now())
-			v, err := httpKit.HttpGet("http://47.96.96.28/company/postpay/getips?num=4&pt=1&result_type=text&split=1&trade_no=6521155464525115&sign=18eb6d88a7adaf1931e26e5bf8634883")
+			v, err := httpKit.HttpGet("http://1.1.1.1")
 			fmt.Println(v, err)
 		}()
 	}
 	time.Sleep(time.Hour * 10)
+}
+
+func TestSocks5Client(t *testing.T) {
+	fmt.Println(httpKit.Socks5ProxyClient("https://cip.cc", "1.1.1.1:123456", "123456", "123456"))
 }
