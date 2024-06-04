@@ -1,4 +1,4 @@
-package arrayKit
+package mapKit
 
 import "github.com/xingcxb/goKit/core/randomKit"
 
