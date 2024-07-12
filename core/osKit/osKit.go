@@ -86,3 +86,22 @@ func GetLocalIp() (string, error) {
 	}
 	return "", nil
 }
+
+// GetMacAddress 获取mac地址
+func GetMacAddress() string {
+	interfaces, err := net.Interfaces()
+	if err != nil {
+		fmt.Printf("获取本机网卡失败：%s\n", err)
+		return ""
+	}
+
+	for _, iface := range interfaces {
+		if iface.Flags&net.FlagLoopback == 0 && iface.HardwareAddr != nil {
+			macAddr := iface.HardwareAddr.String()
+			if macAddr != "" {
+				return macAddr
+			}
+		}
+	}
+	return ""
+}

@@ -316,6 +316,35 @@ func IsSameMonth(date1, date2 time.Time) bool {
 	return false
 }
 
+// Compare 比较两个日期的时间
+/*
+ * @params beginDate 开始时间
+ * @params endDate 结束时间
+ * @return 比较结果，如果date1 < date2，返回数小于0，date1==date2返回0，date1 > date2 大于0
+ */
+func Compare(date1, date2 time.Time) int {
+	return int(date2.Sub(date1))
+}
+
+// IsBetweenBE 判断日期是否在这两个时间中间
+/*
+ * @params comTime  待比较时间
+ * @params beginTime 开始时间
+ * @params endTime 结束时间
+ * @return true：在时间之间，false：不在时间之间
+ */
+func IsBetweenBE(comTime, beginTime, endTime time.Time) bool {
+	if Compare(comTime, beginTime) > 0 {
+		// 如果比较时间小于开始时间，返回false
+		return false
+	}
+	if Compare(comTime, endTime) < 0 {
+		// 如果比较时间大于结束时间，返回false
+		return false
+	}
+	return true
+}
+
 // ================= 日期偏移 =================
 
 // OffsetMillisecond 偏移毫秒数

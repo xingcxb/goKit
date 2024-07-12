@@ -137,6 +137,13 @@ func TestIsSameMonth(t *testing.T) {
 	fmt.Println(dateKit.IsSameMonth(time.Now(), time.Now()))
 }
 
+func TestIsBetweenBE(t *testing.T) {
+	comTime := dateKit.ParseDateTime("2024-06-31 11:00:00")
+	beginTime := dateKit.ParseDateTime("2024-06-04 12:00:00")
+	endTime := dateKit.ParseDateTime("2024-06-30 23:59:59")
+	fmt.Println(dateKit.IsBetweenBE(comTime, beginTime, endTime))
+}
+
 // 日期偏移毫秒数
 func TestAddMillisecond(t *testing.T) {
 	fmt.Println(dateKit.OffsetMillisecond(time.Now(), 1000))
