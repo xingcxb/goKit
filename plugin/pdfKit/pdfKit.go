@@ -72,10 +72,14 @@ func Pdf2Jpg(file, path string) bool {
 /*
  * @param file pdf文件
  * @param outFile 输出文件
- * @param userPwd 用户密码(仅拥有查看的全县)
+ * @param userPwd 用户密码(仅拥有查看的权限)，若为空，则默认为userPwd
  * @param ownerPwd 所有者密码
  */
 func PdfEncrypt(inFile, outFile, userPwd, ownerPwd string) (bool, error) {
+	if ownerPwd == "" {
+		// 如果所有者密码为空，则默认为用户密码
+		ownerPwd = userPwd
+	}
 	// 设置加密配置
 	conf := model.NewAESConfiguration(userPwd, ownerPwd, 256)
 	conf.Permissions = model.PermissionsNone
