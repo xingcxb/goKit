@@ -6,12 +6,12 @@ toolchain go1.21.1
 
 require (
 	github.com/PuerkitoBio/goquery v1.9.2
-	github.com/alecthomas/chroma/v2 v2.13.0
-	github.com/dkorunic/iSMC v0.7.1
+	github.com/alecthomas/chroma/v2 v2.14.0
+	github.com/dkorunic/iSMC v0.7.2
 	github.com/hashicorp/golang-lru v1.0.2
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/pdfcpu/pdfcpu v0.8.0
-	github.com/redis/go-redis/v9 v9.5.1
+	github.com/redis/go-redis/v9 v9.6.0
 	github.com/shirou/gopsutil/v3 v3.24.3
 	github.com/tidwall/gjson v1.17.1
 	github.com/xuri/excelize/v2 v2.8.1
