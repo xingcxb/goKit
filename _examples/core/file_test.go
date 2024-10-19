@@ -35,3 +35,7 @@ func TestFileDirSize(t *testing.T) {
 func TestGetCurrentAbPath(t *testing.T) {
 	fmt.Println(fileKit.GetCurrentAbPath())
 }
+
+func TestUnzip(t *testing.T) {
+	fmt.Println(fileKit.Unzip("/Users/symbol/Downloads/qts_linux_amd64.zip", "/Users/symbol/Downloads"))
+}
