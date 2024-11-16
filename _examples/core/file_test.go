@@ -37,5 +37,6 @@ func TestGetCurrentAbPath(t *testing.T) {
 }
 
 func TestUnzip(t *testing.T) {
+	// 如果要解压到当前目录下可以使用 ./
 	fmt.Println(fileKit.Unzip("/Users/symbol/Downloads/qts_linux_amd64.zip", "/Users/symbol/Downloads"))
 }

@@ -37,7 +37,7 @@ func FindAll(regex, content string) []string {
 	if err != nil {
 		return []string{}
 	}
-	return compile.FindAllString(content, -1)
+	return compile.FindStringSubmatch(content)
 }
 
 // Index 返回第一个匹配的字符串的起始位置，如果没有匹配则返回-1(下标从0开始)
