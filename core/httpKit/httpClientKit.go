@@ -3,6 +3,7 @@ package httpKit
 import (
 	"bufio"
 	"errors"
+	"github.com/valyala/fasthttp"
 	"github.com/xingcxb/goKit/core/strKit"
 	"io"
 	"net/http"
@@ -81,12 +82,13 @@ func HttpDownload(urlString, savePath, fileName string, isCover bool) (string, e
 }
 
 // HttpGet 发送get请求
-/**
+/*
  * @param urlString 网址
  * @return string 网页内容,error
  */
 func HttpGet(urlString string) (string, error) {
-	return HttpGetFull(urlString, nil, nil, "", -1)
+	stream, err := HttpBasic(urlString, http.MethodGet, nil, nil, "", -1)
+	return string(stream), err
 }
 
 // HttpGetFull 发送get请求[完整版]
@@ -99,7 +101,8 @@ func HttpGet(urlString string) (string, error) {
  * @return string 网页内容,error
  */
 func HttpGetFull(urlString string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
-	return HttpBasic(urlString, http.MethodGet, headers, paramMap, body, timeout)
+	stream, err := HttpBasic(urlString, http.MethodGet, headers, paramMap, body, timeout)
+	return string(stream), err
 }
 
 // HttpPost 发送post基础请求
@@ -109,7 +112,8 @@ func HttpGetFull(urlString string, headers, paramMap map[string]string, body str
  * @return string 网页内容,error
  */
 func HttpPost(urlString string, params map[string]string) (string, error) {
-	return HttpBasic(urlString, http.MethodPost, nil, params, "", -1)
+	stream, err := HttpBasic(urlString, http.MethodPost, nil, params, "", -1)
+	return string(stream), err
 }
 
 // HttpPostFull 发送post请求[完整版]
@@ -122,7 +126,8 @@ func HttpPost(urlString string, params map[string]string) (string, error) {
  * @return string 网页内容,error
  */
 func HttpPostFull(urlString string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
-	return HttpBasic(urlString, http.MethodPost, headers, paramMap, body, timeout)
+	stream, err := HttpBasic(urlString, http.MethodPost, headers, paramMap, body, timeout)
+	return string(stream), err
 }
 
 // HttpBasic 发送http请求[基础]
@@ -135,34 +140,24 @@ func HttpPostFull(urlString string, headers, paramMap map[string]string, body st
  * @param timeout 超时时长，-1表示默认超时，单位毫秒
  * @return string 网页内容,error
  */
-func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
-	urlParam := strKit.MapParamsToUrlParams(paramMap)
-	if urlParam != "" {
-		urlString = strKit.Splicing(urlString, "?", urlParam)
+func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string, body string, timeout int) (stream []byte, err error) {
+	client := &fasthttp.Client{
+		MaxConnWaitTimeout: time.Duration(timeout) * time.Millisecond,
 	}
-	bodyReader := strings.NewReader(body)
-	req, _ := http.NewRequest(httpMethod, urlString, bodyReader)
-	if headers == nil {
-		// 如果headers为空，初始化
-		headers = make(map[string]string, 0)
-	}
+	req := &fasthttp.Request{}
+	queryStr := strKit.MapParamsToUrlParams(paramMap)
+	req.SetRequestURI(urlString)
+	req.URI().SetQueryString(queryStr)
 	for k, v := range headers {
-		req.Header.Add(k, v)
+		req.Header.Set(k, v)
 	}
-	if timeout != -1 {
-		http.DefaultClient.Timeout = time.Duration(timeout) * time.Millisecond
+	req.Header.SetMethod(httpMethod)
+	resp := &fasthttp.Response{}
+	// 发起请求
+	if err = client.Do(req, resp); err != nil {
+		return nil, err
 	}
-	res, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer res.Body.Close()
-	respByte, err := io.ReadAll(res.Body)
-	if err != nil {
-		return "", err
-	}
-	result := string(respByte)
-	return result, nil
+	return resp.Body(), nil
 }
 
 // HttpProxyGet 发送get代理请求
@@ -248,7 +243,7 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 	if proxyIpPort == "" {
 		// 如果不需要代理，直接调用httpBasic
 		result, err := HttpBasic(urlStr, httpMethod, headers, paramMap, body, timeout)
-		return headers, result, err
+		return headers, string(result), err
 	}
 	urlParam := strKit.MapParamsToUrlParams(paramMap)
 	if urlParam != "" {
