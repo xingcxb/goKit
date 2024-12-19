@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"github.com/xingcxb/goKit/core/cryptoKit"
+	"github.com/xingcxb/goKit/core/cryptoKit/urlKit"
 	"testing"
 )
 
@@ -39,11 +40,11 @@ func TestUnicodeDecode(t *testing.T) {
 }
 
 func TestUrlEncode(t *testing.T) {
-	fmt.Println(cryptoKit.UrlEncode("https://www.baidu.com/s?wd=你好"))
+	fmt.Println(urlKit.UrlEncode("https://www.baidu.com/s?wd=你好"))
 }
 
 func TestUrlDecode(t *testing.T) {
-	fmt.Println(cryptoKit.UrlDecode("https%3A%2F%2Fwww.baidu.com%2Fs%3Fwd%3D%E4%BD%A0%E5%A5%BD"))
+	fmt.Println(urlKit.UrlDecode("https%3A%2F%2Fwww.baidu.com%2Fs%3Fwd%3D%E4%BD%A0%E5%A5%BD"))
 }
 
 // aes cbc模式加密

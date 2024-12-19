@@ -20,9 +20,9 @@ func Compare(a, b []string) bool {
 
 // SliceDiff 切片差集
 /*
- * @param originalSlice 原始切片
+ * @param originalSlice 待比较的切片
  * @param compareSlice 比较切片
- * @return added, deleted 新增的数据, 删除的数据
+ * @return added, deleted 新增的数据[基于待比较切片而言], 删除的数据[基于待比较切片而言]
  */
 func SliceDiff(originalSlice, compareSlice []string) (added, deleted []string) {
 	coreMap := make(map[string]bool)
