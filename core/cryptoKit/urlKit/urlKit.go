@@ -1,4 +1,4 @@
-package cryptoKit
+package urlKit
 
 import (
 	"github.com/xingcxb/goKit/core/strKit"

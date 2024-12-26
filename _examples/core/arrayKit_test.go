@@ -40,5 +40,13 @@ func TestCompare(t *testing.T) {
 }
 
 func TestSliceDiff(t *testing.T) {
-	fmt.Println(arrayKit.SliceDiff([]string{"4", "1", "3"}, []string{"1", "2", "3"}))
+	a := []string{
+		"1.1.1.1",
+		"2.2.2.2"}
+	b := []string{
+		"1.1.1.1",
+		"2.2.2.2",
+		"203.209.242.97"}
+	add, del := arrayKit.SliceDiff(a, b)
+	fmt.Println(add, "\n", del)
 }

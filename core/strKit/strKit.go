@@ -3,6 +3,7 @@ package strKit
 import (
 	"fmt"
 	"github.com/xingcxb/goKit/core/arrayKit"
+	"github.com/xingcxb/goKit/core/cryptoKit"
 	"github.com/xingcxb/goKit/core/regKit"
 	"math"
 	"strconv"
@@ -327,4 +328,45 @@ func AsciiToStr(str, separator string) string {
 		newStr = Splicing(newStr, string(rune(i)), "")
 	}
 	return newStr
+}
+
+// AnalyzeProxyAuth 解析代理认证的数据
+/*
+ * @param rawUP string 原始的代理认证数据
+ * @return u 用户名；p 密码
+ */
+func AnalyzeProxyAuth(rawUP string) (u, p string) {
+	if rawUP == "" {
+		return
+	}
+	c, err := cryptoKit.Base64Decode(strings.TrimPrefix(rawUP, "Basic "))
+	if err != nil {
+		return
+	}
+	cs := string(c)
+	s := strings.IndexByte(cs, ':')
+	if s < 0 {
+		return
+	}
+
+	return cs[:s], cs[s+1:]
+}
+
+// AnalyzeHeader 转换请求头为map
+/*
+ * @param s 请求头
+ * @return map[string]string
+ */
+func AnalyzeHeader(s string) map[string]string {
+	headers := make(map[string]string)
+	headerArray := strings.Split(s, "\r\n")
+	for _, header := range headerArray {
+		splits := strings.Split(header, ":")
+		if len(splits) > 1 {
+			headers[splits[0]] = strings.TrimSpace(splits[1])
+		} else {
+			headers[splits[0]] = ""
+		}
+	}
+	return headers
 }

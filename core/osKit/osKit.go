@@ -6,6 +6,7 @@ import (
 	"github.com/shirou/gopsutil/v4/disk"
 	"github.com/shirou/gopsutil/v4/host"
 	"github.com/xingcxb/goKit/core/dateKit"
+	"github.com/xingcxb/goKit/core/runTimeKit"
 	"net"
 )
 
@@ -104,4 +105,13 @@ func GetMacAddress() string {
 		}
 	}
 	return ""
+}
+
+// SyncLocalTime 同步本地时间
+func SyncLocalTime() (bool, error) {
+	_, err := runTimeKit.ExecuteCmd(CmdOsSyncLocalTime)
+	if err != nil {
+		return false, err
+	}
+	return true, nil
 }
