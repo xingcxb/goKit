@@ -73,7 +73,7 @@ func TestAESCBCDecrypt(t *testing.T) {
 // aes cfb模式加密
 func TestAESEncryptCFB(t *testing.T) {
 	padding := 0
-	v, err := cryptoKit.AESEncryptCFB([]byte("pibigstar"), []byte("1234567891234567"), &padding, []byte("1231231231231231"))
+	v, err := cryptoKit.AESEncryptCFB([]byte("E6!@ik^*ufD9Ru"), []byte("1234567891234567"), &padding, []byte("1231231231231231"))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -84,7 +84,7 @@ func TestAESEncryptCFB(t *testing.T) {
 
 // aes cfb模式解密
 func TestAESDecryptCFB(t *testing.T) {
-	value, _ := cryptoKit.Base64Decode("qDJPT/XQZNJo5YRfitRUCg==")
+	value, _ := cryptoKit.Base64Decode("nW0MZvvITplvg8Bm2KE=")
 	v, err := cryptoKit.AESDecryptCFB([]byte(value), []byte("1234567891234567"), 16-len(value), []byte("1231231231231231"))
 	if err != nil {
 		fmt.Println(err)

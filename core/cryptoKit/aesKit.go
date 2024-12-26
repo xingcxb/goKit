@@ -115,14 +115,10 @@ func AESEncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]
 	if err != nil {
 		return nil, err
 	}
-	blockSize := block.BlockSize()
-	plainText, *padding = ZeroPadding(plainText, blockSize)
-	ivValue := ([]byte)(nil)
-	if len(iv) > 0 {
-		ivValue = iv[0]
-	} else {
-		return nil, errors.New("Iv must exist")
+	if len(iv) == 0 {
+		return nil, errors.New("IV must exist")
 	}
+	ivValue := iv[0]
 	stream := cipher.NewCFBEncrypter(block, ivValue)
 	cipherText := make([]byte, len(plainText))
 	stream.XORKeyStream(cipherText, plainText)
@@ -142,19 +138,13 @@ func AESDecryptCFB(cipherText []byte, key []byte, unPadding int, iv ...[]byte) (
 	if err != nil {
 		return nil, err
 	}
-	if len(cipherText) < aes.BlockSize {
-		return nil, errors.New("cipherText too short")
+	if len(iv) == 0 {
+		return nil, errors.New("IV must exist")
 	}
-	ivValue := ([]byte)(nil)
-	if len(iv) > 0 {
-		ivValue = iv[0]
-	} else {
-		return nil, errors.New("Iv must exist")
-	}
+	ivValue := iv[0]
 	stream := cipher.NewCFBDecrypter(block, ivValue)
 	plainText := make([]byte, len(cipherText))
 	stream.XORKeyStream(plainText, cipherText)
-	plainText = ZeroUnPadding(plainText, unPadding)
 	return plainText, nil
 }
 
