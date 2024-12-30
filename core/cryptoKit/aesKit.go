@@ -107,10 +107,9 @@ func PKCS5UnPadding(src []byte, blockSize int) ([]byte, error) {
  * 注意，密钥必须是16/24/32位长度。
  * @param plainText 明文
  * @param key 密钥
- * @param padding 填充
  * @param iv 向量
  */
-func AESEncryptCFB(plainText []byte, key []byte, padding *int, iv ...[]byte) ([]byte, error) {
+func AESEncryptCFB(plainText []byte, key []byte, iv ...[]byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
