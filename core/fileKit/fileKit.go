@@ -80,13 +80,16 @@ func CreateLazyFile(filePath string) error {
 // SaveFile 保存信息到文件
 /**
  * @param filePath 文件夹路径
- * @param fileName 文件名
+ * @param fileName 文件名，如果文件名不存在，那么默认文件夹路径是包涵文件名的
  * @param content 文件内容
  * @return error
  */
 func SaveFile(filePath, fileName, content string) error {
 	// 文件夹路径
-	folderPath := strKit.Splicing(filePath, "/", fileName)
+	folderPath := filePath
+	if fileName != "" {
+		folderPath = strKit.Splicing(filePath, "/", fileName)
+	}
 	// 判断文件是否存在
 	if !Exists(folderPath) {
 		err := CreateFile(folderPath)
