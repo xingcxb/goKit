@@ -135,3 +135,21 @@ func ReplaceAll(regex, replaceStr, content string) string {
 	}
 	return compile.ReplaceAllString(content, replaceStr)
 }
+
+// FindAllMatchStr 查找所有匹配的字符串
+/*
+ * @param regex {string} 正则表达式
+ * @param content {string} 内容
+ * @return []string 结果
+ */
+func FindAllMatchStr(regex, content string) []string {
+	if regex == "" || content == "" {
+		// 如果正则表达式或内容都为空，则返回空数组
+		return []string{}
+	}
+	compile, err := regexp.Compile(regex)
+	if err != nil {
+		return []string{}
+	}
+	return compile.FindStringSubmatch(content)
+}

@@ -18,6 +18,10 @@ func TestCount(t *testing.T) {
 	fmt.Println(regKit.Count(regKit.WordPattern, "www.baidu.com/abc.doc"))
 }
 
+func TestFindAllMatchStr(t *testing.T) {
+	fmt.Println(regKit.FindAllMatchStr(regKit.WordPattern, "www.baidu.com/abc.doc"))
+}
+
 func TestIsMatch(t *testing.T) {
 	fmt.Println(regKit.IsMatch(regKit.NumbersPattern, "1www.baidu.com/abc.doc"))
 }
