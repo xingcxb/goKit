@@ -23,7 +23,7 @@ func TestBubbleDescSort(t *testing.T) {
 }
 
 func TestBubbleAscSort(t *testing.T) {
-	fmt.Println(arrayKit.BubbleAscSort([]string{"3", "1", "2"}))
+	fmt.Println(arrayKit.BubbleAscSort([]string{"10", "2", "33", "4", "5"}))
 }
 
 func TestJoinStringsInASCII(t *testing.T) {
