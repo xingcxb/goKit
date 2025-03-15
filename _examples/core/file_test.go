@@ -19,6 +19,10 @@ func TestCreateFile(t *testing.T) {
 	fmt.Println(fileKit.CreateFile("/Users/symbol/Desktop/1.txt"))
 }
 
+func TestCreateLazyFile(t *testing.T) {
+	fmt.Println(fileKit.CreateLazyFile("/Users/symbol/Downloads/abc/1.txt"))
+}
+
 func TestSaveFile(t *testing.T) {
 	fmt.Println(fileKit.SaveFile("/Users/symbol/Desktop", "1.txt", "hello"))
 }
