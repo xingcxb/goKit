@@ -1,6 +1,10 @@
 package jsonKit
 
-import "github.com/tidwall/gjson"
+import (
+	"github.com/tidwall/gjson"
+	"github.com/tidwall/sjson"
+	"strings"
+)
 
 // FindContainingJSONByValue 通过json的值查找包含的json
 /*
@@ -9,28 +13,28 @@ import "github.com/tidwall/gjson"
  * @param childrenName 子节点名称
  */
 func FindContainingJSONByValue(jsonStr, findKey, findValue string, childrenName string) string {
+	founds := "[]"
 	jsonParse := gjson.Parse(jsonStr)
-	var found gjson.Result
+	found := false
 	jsonParse.ForEach(func(key, value gjson.Result) bool {
 		// 解析顶层的值看是否存在
-		if value.Get(findKey).String() == findValue {
-			found = value
-			return false
+		if strings.Contains(value.Get(findKey).String(), findValue) {
+			founds, _ = sjson.Set(founds, "-1", value.Value())
+			found = true
 		}
 		// 检查子节点中的值是否存在
 		if children := value.Get(childrenName); children.Exists() {
 			children.ForEach(func(_, child gjson.Result) bool {
-				if child.Get(findKey).String() == findValue {
-					found = child
-					return false // 找到后停止遍历
+				if strings.Contains(child.Get(findKey).String(), findValue) {
+					founds, _ = sjson.Set(founds, "-1", value.Value())
 				}
 				return true
 			})
 		}
 		return true
 	})
-	if found.Exists() {
-		return found.String()
+	if found {
+		return founds
 	} else {
 		return ""
 	}

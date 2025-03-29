@@ -15,6 +15,7 @@ require (
 	github.com/redis/go-redis/v9 v9.7.1
 	github.com/shirou/gopsutil/v4 v4.25.2
 	github.com/tidwall/gjson v1.18.0
+	github.com/tidwall/sjson v1.2.5
 	github.com/valyala/fasthttp v1.59.0
 	github.com/xuri/excelize/v2 v2.9.0
 	github.com/yeqown/go-qrcode/v2 v2.2.5
