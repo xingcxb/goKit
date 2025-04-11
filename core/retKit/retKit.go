@@ -1,7 +1,8 @@
-package reflectKit
+package retKit
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 type Ret struct {
@@ -58,6 +59,23 @@ func (r *Ret) IsOk() bool {
 // By 设置返回的数据为 key-value 对
 func (r *Ret) By(key string, value interface{}) *Ret {
 	return r.Set(key, value)
+}
+
+// As 转换为指定类型
+/*
+ * @param data interface{} 数据
+ */
+func As[T any](data interface{}) (T, error) {
+	var result T
+	dataBytes, err := json.Marshal(data)
+	if err != nil {
+		return result, fmt.Errorf("failed to marshal data: %w", err)
+	}
+	err = json.Unmarshal(dataBytes, &result)
+	if err != nil {
+		return result, fmt.Errorf("failed to unmarshal data into target type: %w", err)
+	}
+	return result, nil
 }
 
 // ToJSON 将 Ret 结构体转换为 JSON 格式的字符串

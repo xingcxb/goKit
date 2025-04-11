@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"github.com/xingcxb/goKit/core/reflectKit"
+	"github.com/xingcxb/goKit/core/retKit"
 	"testing"
 )
 
@@ -24,11 +25,13 @@ func TestStructDefault(t *testing.T) {
 }
 
 func TestRet(t *testing.T) {
-	ret := &reflectKit.Ret{}
+	ret := &retKit.Ret{}
 	ret.Ok().Set("code", 200).Set("message", "success")
 	fmt.Println(ret.IsOk(), ret.Get("message"))
 	ret.Delete("message")
 	fmt.Println(ret.ToJSON())
+	fmt.Println("----->")
+	fmt.Println(retKit.As[int](ret.Get("code")))
 }
 
 func TestStructToMapSS(t *testing.T) {

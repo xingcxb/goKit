@@ -72,8 +72,7 @@ func TestAESCBCDecrypt(t *testing.T) {
 
 // aes cfb模式加密
 func TestAESEncryptCFB(t *testing.T) {
-	padding := 0
-	v, err := cryptoKit.AESEncryptCFB([]byte("E6!@ik^*ufD9Ru"), []byte("1234567891234567"), &padding, []byte("1231231231231231"))
+	v, err := cryptoKit.AESEncryptCFB([]byte("E6!@ik^*ufD9Ru"), []byte("1234567891234567"), []byte("1231231231231231"))
 	if err != nil {
 		fmt.Println(err)
 		return

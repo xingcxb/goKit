@@ -7,12 +7,16 @@ import (
 
 // Merge 合并两个pdf文件，file1是文章的开始
 /*
- * @param file1 pdf文件1
- * @param file2 pdf文件2
+ * @param mergeFilePath 要合并pdf文件路径
+ * @param dividerPage 分隔页
+ * @param outFilePath 输出文件
  */
-func Merge(file1, file2 string) string {
-
-	return ""
+func Merge(mergeFilePath []string, dividerPage bool, outFilePath string) error {
+	err := api.MergeCreateFile(mergeFilePath, outFilePath, dividerPage, nil)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // Split 拆分pdf，将pdf中的页面拆分成多个pdf
@@ -52,11 +56,15 @@ func Office2Pdf(file, path string) bool {
 
 // Jpg2Pdf 将jpg转换为pdf
 /*
- * @param file jpg文件
- * @param path 保存路径
+ * @param file {[]string} jpg文件
+ * @param path {string} 保存路径
  */
-func Jpg2Pdf(file, path string) bool {
-	return false
+func Jpg2Pdf(filePath []string, outPath string) error {
+	err := api.ImportImagesFile(filePath, outPath, nil, nil)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // Pdf2Jpg 将pdf转换为jpg

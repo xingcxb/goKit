@@ -36,17 +36,17 @@ func TestHttpBasic(t *testing.T) {
 }
 
 func TestHttpProxyGet(t *testing.T) {
-	for i := 0; i < 100; i++ {
-		fmt.Println("第", i, "次，时间为：", dateKit.Now())
-		_, s, err := httpKit.HttpProxyGet("https://www.adidas.com.cn", "117.68.38.158:23816")
-		fmt.Println(strKit.SubString(s, 0, 100), err)
-	}
+	//for i := 0; i < 100; i++ {
+	//	fmt.Println("第", i, "次，时间为：", dateKit.Now())
+	_, s, err := httpKit.HttpProxyGet("https://xingcxb.com", "117.68.38.158:23816")
+	fmt.Println(strKit.SubString(s, 0, 100), err)
+	//}
 }
 
 func TestHttpProxyGetFull(t *testing.T) {
 	fmt.Println(httpKit.HttpProxyGetFull("https://cip.cc", nil, nil,
-		"", 300, "http", "u", "p",
-		"255.255.255.255:52724"))
+		"", 300, "socks5", "u", "p",
+		"222.222.222.222:2222"))
 }
 
 func TestHttpProxyPost(t *testing.T) {
