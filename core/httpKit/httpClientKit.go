@@ -3,11 +3,12 @@ package httpKit
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"github.com/valyala/fasthttp"
+	"github.com/valyala/fasthttp/fasthttpproxy"
 	"github.com/xingcxb/goKit/core/strKit"
 	"io"
 	"net/http"
-	"net/url"
 	"os"
 	"strings"
 	"time"
@@ -151,6 +152,7 @@ func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
+	req.SetBodyString(body)
 	req.Header.SetMethod(httpMethod)
 	resp := &fasthttp.Response{}
 	// 发起请求
@@ -209,7 +211,7 @@ func HttpProxyPost(urlStr string, paramMap map[string]string, proxyIpPort string
  * @param paramMap 参数
  * @param body body数据
  * @param timeout 超时时长，-1表示默认超时，单位毫秒
- * @param proxyHttpType 代理类型 http/https
+ * @param proxyHttpType 代理类型 http/socks5
  * @param username 用户名 用户名和密码为空时不使用代理
  * @param password 密码
  * @param proxyIpPort 代理ip和端口
@@ -231,7 +233,7 @@ func HttpProxyPostFull(urlString string, headers, paramMap map[string]string, bo
  * @param paramMap post表单数据
  * @param body body数据
  * @param timeout 超时时长，-1表示默认超时，单位毫秒
- * @param proxyHttpType 代理类型 http/https
+ * @param proxyHttpType 代理类型 http/socks5
  * @param username 用户名 用户名和密码为空时默认使用无账号密码的代理
  * @param password 密码
  * @param proxyIpPort 代理ip端口 格式：ip:port
@@ -245,45 +247,38 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 		result, err := HttpBasic(urlStr, httpMethod, headers, paramMap, body, timeout)
 		return headers, string(result), err
 	}
-	urlParam := strKit.MapParamsToUrlParams(paramMap)
-	if urlParam != "" {
-		urlStr = strKit.Splicing(urlStr, "?", urlParam)
+	// 构建认证参数
+	authStr := proxyIpPort
+	if username != "" && password != "" {
+		authStr = fmt.Sprintf("%s:%s@%s", username, password, proxyIpPort)
 	}
-	bodyReader := strings.NewReader(body)
-	proxyStr := strKit.Splicing(proxyHttpType, "://", username, ":", password, "@", proxyIpPort)
-	//if username == "" || password == "" {
-	//	proxyStr = strKit.Splicing(proxyHttpType, "://", proxyIpPort)
-	//}
-	proxy, err := url.Parse(proxyStr)
-	if err != nil {
-		return headers, "", err
+
+	client := &fasthttp.Client{
+		MaxConnWaitTimeout: time.Duration(timeout) * time.Millisecond,
 	}
-	//  请求目标网页
-	client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxy)}}
-	req, _ := http.NewRequest(httpMethod, urlStr, bodyReader)
+
+	switch proxyHttpType {
+	case "http":
+		client.Dial = fasthttpproxy.FasthttpHTTPDialerDualStack(authStr)
+	case "socks5":
+		client.Dial = fasthttpproxy.FasthttpSocksDialerDualStack(authStr)
+	default:
+		return headers, "", errors.New("不支持的代理类型")
+	}
+
+	req := &fasthttp.Request{}
+	queryStr := strKit.MapParamsToUrlParams(paramMap)
+	req.SetRequestURI(urlStr)
+	req.URI().SetQueryString(queryStr)
 	for k, v := range headers {
-		req.Header.Add(k, v)
+		req.Header.Set(k, v)
 	}
-	if timeout != -1 {
-		http.DefaultClient.Timeout = time.Duration(timeout) * time.Millisecond
-	}
-	res, err := client.Do(req)
-	if err != nil {
+	req.SetBodyString(body)
+	req.Header.SetMethod(httpMethod)
+	resp := &fasthttp.Response{}
+	// 发起请求
+	if err := client.Do(req, resp); err != nil {
 		return headers, "", err
 	}
-	defer res.Body.Close()
-	respByte, err := io.ReadAll(res.Body)
-	if err != nil {
-		return headers, "", err
-	}
-	// 获取新的headers数据
-	if headers == nil {
-		// 如果headers为空，初始化
-		headers = make(map[string]string, 0)
-	}
-	for k, v := range res.Header {
-		headers[k] = v[0]
-	}
-	result := string(respByte)
-	return headers, result, nil
+	return headers, string(resp.Body()), nil
 }
