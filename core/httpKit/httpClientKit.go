@@ -148,7 +148,9 @@ func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string
 	req := &fasthttp.Request{}
 	queryStr := strKit.MapParamsToUrlParams(paramMap)
 	req.SetRequestURI(urlString)
-	req.URI().SetQueryString(queryStr)
+	if queryStr != "" {
+		req.URI().SetQueryString(queryStr)
+	}
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
@@ -269,7 +271,9 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 	req := &fasthttp.Request{}
 	queryStr := strKit.MapParamsToUrlParams(paramMap)
 	req.SetRequestURI(urlStr)
-	req.URI().SetQueryString(queryStr)
+	if queryStr != "" {
+		req.URI().SetQueryString(queryStr)
+	}
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
