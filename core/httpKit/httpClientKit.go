@@ -2,6 +2,7 @@ package httpKit
 
 import (
 	"bufio"
+	"bytes"
 	"errors"
 	"fmt"
 	"github.com/valyala/fasthttp"
@@ -28,11 +29,16 @@ func HttpDownload(urlString, savePath, fileName string, isCover bool) (string, e
 	}
 	// 发起网络请求
 	// 必须要优先请求的原因是使用的开发人员可能没有指定文件名称，需要从url中获取
-	res, err := http.Get(urlString)
-	if err != nil {
+	client := &fasthttp.Client{
+		MaxConnWaitTimeout: time.Duration(-1) * time.Millisecond,
+	}
+	req := &fasthttp.Request{}
+	req.SetRequestURI(urlString)
+	resp := &fasthttp.Response{}
+	if err := client.Do(req, resp); err != nil {
 		return "", err
 	}
-	defer res.Body.Close()
+
 	if fileName == "" {
 		//定义文件名字
 		path := strings.Split(urlString, "/")
@@ -52,7 +58,7 @@ func HttpDownload(urlString, savePath, fileName string, isCover bool) (string, e
 	}
 	if isCover && checkFile {
 		// 允许覆盖，删除文件
-		err = os.Remove(filePath)
+		err := os.Remove(filePath)
 		if err != nil {
 			return "", err
 		}
@@ -71,7 +77,7 @@ func HttpDownload(urlString, savePath, fileName string, isCover bool) (string, e
 	defer out.Close()
 	//添加缓冲 bufio 是通过缓冲来提高效率。
 	wt := bufio.NewWriter(out)
-	_, err = io.Copy(out, res.Body)
+	_, err = io.Copy(out, bytes.NewReader(resp.Body()))
 	if err != nil {
 		return "", err
 	}
@@ -148,11 +154,15 @@ func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string
 	req := &fasthttp.Request{}
 	queryStr := strKit.MapParamsToUrlParams(paramMap)
 	req.SetRequestURI(urlString)
-	req.URI().SetQueryString(queryStr)
+	if queryStr != "" {
+		req.URI().SetQueryString(queryStr)
+	}
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
-	req.SetBodyString(body)
+	if body != "" {
+		req.SetBodyString(body)
+	}
 	req.Header.SetMethod(httpMethod)
 	resp := &fasthttp.Response{}
 	// 发起请求
@@ -170,7 +180,7 @@ func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string
  */
 func HttpProxyGet(urlStr, proxyIpPort string) (map[string]string, string, error) {
 	return HttpProxyGetFull(urlStr, nil, nil, "", -1,
-		"http", "", "", proxyIpPort)
+		http.MethodGet, "", "", proxyIpPort)
 }
 
 // HttpProxyGetFull 发送get代理请求[完整版]
@@ -201,7 +211,7 @@ func HttpProxyGetFull(urlString string, headers, paramMap map[string]string, bod
  */
 func HttpProxyPost(urlStr string, paramMap map[string]string, proxyIpPort string) (map[string]string, string, error) {
 	return HttpProxyPostFull(urlStr, nil, paramMap, "", -1,
-		"http", "", "", proxyIpPort)
+		http.MethodPost, "", "", proxyIpPort)
 }
 
 // HttpProxyPostFull 发送post代理请求[完整版]
@@ -269,11 +279,15 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 	req := &fasthttp.Request{}
 	queryStr := strKit.MapParamsToUrlParams(paramMap)
 	req.SetRequestURI(urlStr)
-	req.URI().SetQueryString(queryStr)
+	if queryStr != "" {
+		req.URI().SetQueryString(queryStr)
+	}
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
-	req.SetBodyString(body)
+	if body != "" {
+		req.SetBodyString(body)
+	}
 	req.Header.SetMethod(httpMethod)
 	resp := &fasthttp.Response{}
 	// 发起请求
