@@ -77,7 +77,7 @@ func (d *DeepLFree) Translation(content, from, to string) (string, error) {
 	} else {
 		data = strings.ReplaceAll(data, "\"method\":\"", "\"method\": \"")
 	}
-	response, err := httpKit.HttpPostFull(deepLUrl, headers, nil, data, -1)
+	response, err := httpKit.HttpPostFull(deepLUrl, headers, nil, []byte(data), -1)
 	if err != nil {
 		return "", err
 	}

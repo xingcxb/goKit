@@ -94,7 +94,7 @@ func HttpDownload(urlString, savePath, fileName string, isCover bool) (string, e
  * @return string 网页内容,error
  */
 func HttpGet(urlString string) (string, error) {
-	stream, err := HttpBasic(urlString, http.MethodGet, nil, nil, "", -1)
+	stream, err := HttpBasic(urlString, http.MethodGet, nil, nil, nil, -1)
 	return string(stream), err
 }
 
@@ -107,7 +107,7 @@ func HttpGet(urlString string) (string, error) {
  * @param timeout 超时时长，-1表示默认超时，单位毫秒
  * @return string 网页内容,error
  */
-func HttpGetFull(urlString string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
+func HttpGetFull(urlString string, headers, paramMap map[string]string, body []byte, timeout int) (string, error) {
 	stream, err := HttpBasic(urlString, http.MethodGet, headers, paramMap, body, timeout)
 	return string(stream), err
 }
@@ -119,7 +119,7 @@ func HttpGetFull(urlString string, headers, paramMap map[string]string, body str
  * @return string 网页内容,error
  */
 func HttpPost(urlString string, params map[string]string) (string, error) {
-	stream, err := HttpBasic(urlString, http.MethodPost, nil, params, "", -1)
+	stream, err := HttpBasic(urlString, http.MethodPost, nil, params, nil, -1)
 	return string(stream), err
 }
 
@@ -132,7 +132,7 @@ func HttpPost(urlString string, params map[string]string) (string, error) {
  * @param timeout 超时时长，-1表示默认超时，单位毫秒
  * @return string 网页内容,error
  */
-func HttpPostFull(urlString string, headers, paramMap map[string]string, body string, timeout int) (string, error) {
+func HttpPostFull(urlString string, headers, paramMap map[string]string, body []byte, timeout int) (string, error) {
 	stream, err := HttpBasic(urlString, http.MethodPost, headers, paramMap, body, timeout)
 	return string(stream), err
 }
@@ -147,7 +147,7 @@ func HttpPostFull(urlString string, headers, paramMap map[string]string, body st
  * @param timeout 超时时长，-1表示默认超时，单位毫秒
  * @return string 网页内容,error
  */
-func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string, body string, timeout int) (stream []byte, err error) {
+func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string, body []byte, timeout int) (stream []byte, err error) {
 	client := &fasthttp.Client{
 		MaxConnWaitTimeout: time.Duration(timeout) * time.Millisecond,
 	}
@@ -160,8 +160,8 @@ func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
-	if body != "" {
-		req.SetBodyString(body)
+	if len(body) > 0 {
+		req.SetBody(body)
 	}
 	req.Header.SetMethod(httpMethod)
 	resp := &fasthttp.Response{}
@@ -179,7 +179,7 @@ func HttpBasic(urlString, httpMethod string, headers, paramMap map[string]string
  * @return string 网页内容,error
  */
 func HttpProxyGet(urlStr, proxyIpPort string) (map[string]string, string, error) {
-	return HttpProxyGetFull(urlStr, nil, nil, "", -1,
+	return HttpProxyGetFull(urlStr, nil, nil, nil, -1,
 		http.MethodGet, "", "", proxyIpPort)
 }
 
@@ -196,7 +196,7 @@ func HttpProxyGet(urlStr, proxyIpPort string) (map[string]string, string, error)
  * @param proxyIpPort 代理ip和端口
  * @return string 网页内容,error
  */
-func HttpProxyGetFull(urlString string, headers, paramMap map[string]string, body string,
+func HttpProxyGetFull(urlString string, headers, paramMap map[string]string, body []byte,
 	timeout int, proxyHttpType, username, password, proxyIpPort string) (map[string]string, string, error) {
 	return HttpProxyBasic(urlString, http.MethodGet, headers, paramMap, body, timeout,
 		proxyHttpType, username, password, proxyIpPort)
@@ -210,7 +210,7 @@ func HttpProxyGetFull(urlString string, headers, paramMap map[string]string, bod
  * @return string 网页内容,error
  */
 func HttpProxyPost(urlStr string, paramMap map[string]string, proxyIpPort string) (map[string]string, string, error) {
-	return HttpProxyPostFull(urlStr, nil, paramMap, "", -1,
+	return HttpProxyPostFull(urlStr, nil, paramMap, nil, -1,
 		http.MethodPost, "", "", proxyIpPort)
 }
 
@@ -227,7 +227,7 @@ func HttpProxyPost(urlStr string, paramMap map[string]string, proxyIpPort string
  * @param proxyIpPort 代理ip和端口
  * @return string 网页内容,error
  */
-func HttpProxyPostFull(urlString string, headers, paramMap map[string]string, body string,
+func HttpProxyPostFull(urlString string, headers, paramMap map[string]string, body []byte,
 	timeout int, proxyHttpType, username, password, proxyIpPort string) (map[string]string, string, error) {
 	return HttpProxyBasic(urlString, http.MethodPost, headers, paramMap, body, timeout,
 		proxyHttpType, username, password, proxyIpPort)
@@ -250,11 +250,11 @@ func HttpProxyPostFull(urlString string, headers, paramMap map[string]string, bo
  * @return string 网页内容,error
  */
 func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]string,
-	body string, timeout int, proxyHttpType, username, password, proxyIpPort string) (map[string]string, string, error) {
+	body []byte, timeout int, proxyHttpType, username, password, proxyIpPort string) (map[string]string, string, error) {
 	// 判断是否需要代理
 	if proxyIpPort == "" {
 		// 如果不需要代理，直接调用httpBasic
-		result, err := HttpBasic(urlStr, httpMethod, headers, paramMap, body, timeout)
+		result, err := HttpBasic(urlStr, httpMethod, headers, paramMap, nil, timeout)
 		return headers, string(result), err
 	}
 	// 构建认证参数
@@ -285,8 +285,8 @@ func HttpProxyBasic(urlStr, httpMethod string, headers, paramMap map[string]stri
 	for k, v := range headers {
 		req.Header.Set(k, v)
 	}
-	if body != "" {
-		req.SetBodyString(body)
+	if len(body) > 0 {
+		req.SetBody(body)
 	}
 	req.Header.SetMethod(httpMethod)
 	resp := &fasthttp.Response{}

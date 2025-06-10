@@ -370,3 +370,24 @@ func AnalyzeHeader(s string) map[string]string {
 	}
 	return headers
 }
+
+// UnMetafiy 解析Metafiy数据(命令行原始数据解码使用)
+/*
+ * @param data {[]byte} Metafiy数据
+ */
+func UnMetafiy(data []byte) []byte {
+	var result []byte
+	i := 0
+	for i < len(data) {
+		if i+1 < len(data) && data[i] == 0x83 {
+			// metafied字符：0x83 + (原字节 ^ 0x20)
+			original := data[i+1] ^ 0x20
+			result = append(result, original)
+			i += 2
+		} else {
+			result = append(result, data[i])
+			i++
+		}
+	}
+	return result
+}
