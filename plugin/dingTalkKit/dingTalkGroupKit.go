@@ -27,14 +27,14 @@ func NewDingTalkBot(webHookUrl, secret string) *DingTalkBot {
  * @param atIdType 1:@手机, 2:@userId, 3:@所有人, other:不@
  * @param at 传入的手机号或者用户id
  */
-func (t *DingTalkBot) SendTextMessage(text string, atIdType int, at ...string) error {
+func (d *DingTalkBot) SendTextMessage(text string, atIdType int, at ...string) error {
 	msg := map[string]interface{}{
 		"msgtype": "text",
 		"text": map[string]string{
 			"content": text,
 		},
 	}
-	return t.core(atIdType, msg, at)
+	return d.core(atIdType, msg, at)
 }
 
 // SendLinkMessage 发送link消息
@@ -46,7 +46,7 @@ func (t *DingTalkBot) SendTextMessage(text string, atIdType int, at ...string) e
  * @param atIdType 1:@手机, 2:@userId, 3:@所有人, other:不@
  * @param at 传入的手机号或者用户id
  */
-func (t *DingTalkBot) SendLinkMessage(title, text, messageUrl, picUrl string, atIdType int, at ...string) error {
+func (d *DingTalkBot) SendLinkMessage(title, text, messageUrl, picUrl string, atIdType int, at ...string) error {
 	msg := map[string]interface{}{
 		"msgtype": "link",
 		"link": map[string]string{
@@ -56,7 +56,7 @@ func (t *DingTalkBot) SendLinkMessage(title, text, messageUrl, picUrl string, at
 			"picUrl":     picUrl,
 		},
 	}
-	return t.core(atIdType, msg, at)
+	return d.core(atIdType, msg, at)
 }
 
 // SendMarkdownMessage 发送markdown消息
@@ -66,7 +66,7 @@ func (t *DingTalkBot) SendLinkMessage(title, text, messageUrl, picUrl string, at
  * @param atIdType 1:@手机, 2:@userId, 3:@所有人, other:不@
  * @param at 传入的手机号或者用户id
  */
-func (t *DingTalkBot) SendMarkdownMessage(title, text string, atIdType int, at ...string) error {
+func (d *DingTalkBot) SendMarkdownMessage(title, text string, atIdType int, at ...string) error {
 	msg := map[string]interface{}{
 		"msgtype": "markdown",
 		"markdown": map[string]string{
@@ -74,7 +74,7 @@ func (t *DingTalkBot) SendMarkdownMessage(title, text string, atIdType int, at .
 			"text":  text,
 		},
 	}
-	return t.core(atIdType, msg, at)
+	return d.core(atIdType, msg, at)
 }
 
 // SendActionCardMessage 发送actionCard消息
@@ -85,7 +85,7 @@ func (t *DingTalkBot) SendMarkdownMessage(title, text string, atIdType int, at .
  * @param singleTitle 单标题
  * @param singleURL 单链接
  */
-func (t *DingTalkBot) SendActionCardMessage(title, text string, btnOrientation int, singleTitle, singleURL string) error {
+func (d *DingTalkBot) SendActionCardMessage(title, text string, btnOrientation int, singleTitle, singleURL string) error {
 	msg := map[string]interface{}{
 		"msgtype": "actionCard",
 		"actionCard": map[string]interface{}{
@@ -96,7 +96,7 @@ func (t *DingTalkBot) SendActionCardMessage(title, text string, btnOrientation i
 			"btnOrientation": btnOrientation,
 		},
 	}
-	return t.core(0, msg, []string{})
+	return d.core(0, msg, []string{})
 }
 
 // core 核心
@@ -105,7 +105,7 @@ func (t *DingTalkBot) SendActionCardMessage(title, text string, btnOrientation i
  * @param msg 消息体
  * @param at 传入的手机号或者用户id
  */
-func (t *DingTalkBot) core(atIdType int, msg map[string]interface{}, at []string) error {
+func (d *DingTalkBot) core(atIdType int, msg map[string]interface{}, at []string) error {
 	switch atIdType {
 	case 1:
 		// @手机号
@@ -131,7 +131,7 @@ func (t *DingTalkBot) core(atIdType int, msg map[string]interface{}, at []string
 	}
 	headers := make(map[string]string, 0)
 	headers["Content-Type"] = "application/json"
-	response, err := httpKit.HttpPostFull(t.getURL(), headers, nil, b, -1)
+	response, err := httpKit.HttpPostFull(d.getURL(), headers, nil, b, -1)
 	if err != nil {
 		return err
 	} else {
