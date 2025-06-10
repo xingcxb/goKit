@@ -131,11 +131,11 @@ func (t *DingTalkBot) core(atIdType int, msg map[string]interface{}, at []string
 	}
 	headers := make(map[string]string, 0)
 	headers["Content-Type"] = "application/json"
-	respon, err := httpKit.HttpPostFull(t.getURL(), headers, nil, b, -1)
+	response, err := httpKit.HttpPostFull(t.getURL(), headers, nil, b, -1)
 	if err != nil {
 		return err
 	} else {
-		fmt.Println(respon)
+		fmt.Println(response)
 		return nil
 	}
 }
