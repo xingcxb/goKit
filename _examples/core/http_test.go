@@ -20,7 +20,7 @@ func TestHttpGet(t *testing.T) {
 }
 
 func TestHttpGetFull(t *testing.T) {
-	fmt.Println(httpKit.HttpGetFull("https://www.xingcxb.com", nil, nil, "", 300))
+	fmt.Println(httpKit.HttpGetFull("https://www.xingcxb.com", nil, nil, nil, 300))
 }
 
 func TestHttpPost(t *testing.T) {
@@ -28,11 +28,11 @@ func TestHttpPost(t *testing.T) {
 }
 
 func TestHttpPostFull(t *testing.T) {
-	fmt.Println(httpKit.HttpPostFull("https://www.xingcxb.com", nil, nil, "", 300))
+	fmt.Println(httpKit.HttpPostFull("https://www.xingcxb.com", nil, nil, nil, 300))
 }
 
 func TestHttpBasic(t *testing.T) {
-	fmt.Println(httpKit.HttpBasic("https://www.xingcxb.com", http.MethodGet, nil, nil, "", 300))
+	fmt.Println(httpKit.HttpBasic("https://www.xingcxb.com", http.MethodGet, nil, nil, nil, 300))
 }
 
 func TestHttpProxyGet(t *testing.T) {
@@ -45,7 +45,7 @@ func TestHttpProxyGet(t *testing.T) {
 
 func TestHttpProxyGetFull(t *testing.T) {
 	fmt.Println(httpKit.HttpProxyGetFull("https://cip.cc", nil, nil,
-		"", 300, "socks5", "u", "p",
+		nil, 300, "socks5", "u", "p",
 		"222.222.222.222:2222"))
 }
 
@@ -56,12 +56,12 @@ func TestHttpProxyPost(t *testing.T) {
 
 func TestHttpProxyPostFull(t *testing.T) {
 	fmt.Println(httpKit.HttpProxyPostFull("https://cip.cc", nil, nil,
-		"", 300, "http", "u", "p", ""))
+		nil, 300, "http", "u", "p", ""))
 }
 
 func TestHttpProxyBasic(t *testing.T) {
 	fmt.Println(httpKit.HttpProxyBasic("https://cip.cc", http.MethodGet,
-		nil, nil, "", 300, "http",
+		nil, nil, nil, 300, "http",
 		"", "", "255.255.255.255:29093"))
 }
 

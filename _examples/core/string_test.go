@@ -1,8 +1,10 @@
 package core
 
 import (
+	"bufio"
 	"fmt"
 	"github.com/xingcxb/goKit/core/strKit"
+	"os"
 	"testing"
 )
 
@@ -92,4 +94,26 @@ func TestHighlightCode(t *testing.T) {
 	fmt.Println(strKit.HighlightCode(
 		"{\"code\":200,\"msg\":\"请求成功\",\"data\":{\"count\":5,\"filter_count\":0,\"surplus_quantity\":985,\"proxy_list\":[\"61.145.245.78:54873\",\"27.153.143.162:35525\",\"117.69.63.120:43100\",\"150.255.11.35:55078\",\"113.195.169.143:44370\"]}}",
 		"JSON"))
+}
+
+func TestUnMetafiy(t *testing.T) {
+	file, err := os.Open("/Users/symbol/.zsh_history")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer file.Close()
+
+	// 使用 bufio 逐行读取
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Bytes()
+		decoded := strKit.UnMetafiy(line)
+		lineStr := string(decoded)
+		fmt.Println(lineStr)
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Println("读取文件失败：", err)
+	}
 }
